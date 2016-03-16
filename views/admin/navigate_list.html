@@ -10,8 +10,6 @@
 <link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
 <script src="{ADMIN_THEME}js/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
-<script charset="utf-8" src="<?php echo $extension_path?>kindeditor/kindeditor-min.js"></script>
-<script charset="utf-8" src="<?php echo $extension_path?>kindeditor/lang/zh_CN.js"></script>
 <title>后台管理</title>
 </head>
 <body style="font-weight: normal;">
@@ -47,8 +45,8 @@
 	  <td align="left"><?php echo date("Y-m-d H:i:s", $t[addtime])?></td>
 	  <td align="left">
       <a href="<?php echo $t[url]?>" target="_blank">访问</a> |
-      <a href="<?php echo url('link/admin/edit/',array('id'=>$t[id]));?>">修改</a> |
-      <a href="javascript:;" onClick="if(confirm('确定删除吗？')){ window.location.href='{url('link/admin/del/',array('id'=>$t[id]))}'; }">删除</a>
+      <a href="<?php echo url('admin/navigate/edit/',array('id'=>$t[id]));?>">修改</a> |
+      <a href="javascript:;" onClick="if(confirm('确定删除吗？')){ window.location.href='{url('admin/navigate/del/',array('id'=>$t[id]))}'; }">删除</a>
       </td>
 	  <td>&nbsp;</td>
 	  </tr>

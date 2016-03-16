@@ -16,7 +16,22 @@
 <script src="<?php echo $extpath?>calendar/calendar.js" type="text/javascript"></script>
 <script src="<?php echo $extpath?>calendar/lang/en.js" type="text/javascript"></script>
 <script language="javascript">var sitepath = "<?php echo SITE_PATH;?>";</script>
+<script type="text/javascript">
+var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";
+var idea_admin_document = "{$setting['document']}";
+</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript">
+function ajaxdir() {
+  var dir = $('#dir_text').val();
+  if (dir == '') {
+      $.post(sitepath+'?c=api&a=pinyin&id='+Math.random(), { name:$('#dir').val() }, function(data){ $('#dir_text').val(data); });
+  }
+}
+</script>
 <script language="javascript" src="{ADMIN_THEME}js/core.js"></script>
+<script language="javascript" type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+
 <title>后台管理</title>
 </head>
 <body style="font-weight: normal;">
@@ -34,14 +49,23 @@
 	<tr>
         <th width="200">广告位名称：</th>
         <td><input type="text" class="input-text" style="width:200px;" value="<?php echo $data['adname']?>" name="data[adname]"></td>
-      </tr>
-     <tr>
+  </tr>
+  <tr>
         <th>广告尺寸：</th>
         <td>宽：<input type="text" class="input-text" value="<?php echo $data['width']?>" name="data[width]" style="width:40px;">px&nbsp;&nbsp;
         高：<input type="text" class="input-text" value="<?php echo $data['height']?>" name="data[height]" style="width:40px;">px
         </td>
-     </tr>
-     <tr>
+  </tr>
+  <tr>
+        <th>位置图示：</th>
+        <td>
+        <input type="text" class="input-text" size="50" value="{$data['position']}" name="data[position]" id="image" />
+        <input type="button" style="width:66px;cursor:pointer;" class="button" onClick="preview('image')" value="{lang('a-image')}" />
+        <input type="button" style="width:66px;cursor:pointer;" class="button" onClick="uploadImage('image')" value="{lang('a-upload')}" />
+        <div class="onShow">{lang('a-pic')}</div>
+        </td>
+  </tr>
+  <tr>
         <th>显示类型：</th>
         <td>
         <select name="data[showtype]">
@@ -55,12 +79,11 @@
 		?>
         </select>
         </td>
-     </tr>
+  </tr>
 	<tr>
         <th></th>
         <td><input type="submit" class="button" value="提交" name="submit"></td>
-      </tr>
-	<tr>
+  </tr>
 </table>
 </form>
 </div>

@@ -28,6 +28,7 @@
 	  <th width="50" align="right">选择&nbsp;<input name="deletec" id="deletec" type="checkbox" onClick="setC()">&nbsp;</th>
 		<th width="150" align="left">广告位名称</th>
 		<th width="68" align="left">宽x高</th>
+    <th width="68" align="left">位置图示</th>
 		<th width="88" align="left">显示类型</th>
 		<th align="left">管理操作</th>
 	</tr>
@@ -39,6 +40,7 @@
 	  <td align="right"><input name="data[]" type="checkbox" class="deletec" value="<?php echo $t['id'];?>">&nbsp;</td>
 	  <td align="left"><?php echo $t['adname'];?></td>
 	  <td align="left"><?php echo $t['width'];?>x<?php echo $t['height'];?></td>
+    <td align="left"><img src="" />广告图示</a></td>
 	  <td align="left"><?php echo $t['showtype'] ? '顺序显示' : '随机显示';?></td>
 	  <td align="left">
       <a href="{url('admin/adsense/alist/',array('aid'=>$t[id]))}">广告管理</a> |

@@ -77,7 +77,7 @@ class NavigateController extends Admin{
             $this->adminMsg('操作成功', url('admin/navigate'), 3, 1, 1);
         }
         $this->view->assign('data', $data);
-        $this->display('admin/navigate_add');
+        $this->view->display('admin/navigate_add');
     }
 
     public function delAction(){

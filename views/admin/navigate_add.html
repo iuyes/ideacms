@@ -10,8 +10,21 @@
 <link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
 <script src="{ADMIN_THEME}js/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
-<script charset="utf-8" src="<?php echo $extension_path?>kindeditor/kindeditor-min.js"></script>
-<script charset="utf-8" src="<?php echo $extension_path?>kindeditor/lang/zh_CN.js"></script>
+
+<script type="text/javascript">
+var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";
+var idea_admin_document = "{$setting['document']}";
+</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<script type="text/javascript">
+function ajaxdir() {
+  var dir = $('#dir_text').val();
+  if (dir == '') {
+      $.post(sitepath+'?c=api&a=pinyin&id='+Math.random(), { name:$('#dir').val() }, function(data){ $('#dir_text').val(data); });
+  }
+}
+</script>
 <title>后台管理</title>
 </head>
 <body style="font-weight: normal;">
@@ -29,7 +42,10 @@
     <tr>
         <th width="200">链接类型：</th>
         <td><input name="data[typeid]" type="radio" value="0" <?php echo $data[typeid]==0 ? "checked" : ''?> onClick="$('#logos').hide();"> 文字链接&nbsp;&nbsp;
-        <input name="data[typeid]" type="radio" value="1" <?php echo $data[typeid]==1 ? "checked" : ''?> onClick="$('#logos').show();"> 图片链接
+        <input name="data[typeid]" type="radio" value="1" <?php echo $data[typeid]==1 ? "checked" : ''?> onClick="$('#logos').show();"> 图片链接&nbsp;&nbsp;
+        <input name="data[typeid]" type="radio" value="2" <?php echo $data[typeid]==2 ? "checked" : ''?> onClick="$('#logos').hide();$('#descri').hide();"> 左导航&nbsp;&nbsp;
+        <input name="data[typeid]" type="radio" value="3" <?php echo $data[typeid]==3 ? "checked" : ''?> onClick="$('#logos').hide();$('#descri').hide();"> 右导航&nbsp;&nbsp;
+        <input name="data[typeid]" type="radio" value="4" <?php echo $data[typeid]==4 ? "checked" : ''?> onClick="$('#logos').hide();$('#descri').hide();"> 自定义链接&nbsp;&nbsp;
         </td>
       </tr>
      <tr>
@@ -44,15 +60,15 @@
       </tr>
     <tr style="<?php echo $data[typeid]==1 ? "display: table-row;" : 'display:none'?>" id="logos">
         <th>LOGO：</th>
-        <td><input type="text" class="input-text" style="width:300px;" value="<?php echo $data[logo]?>" name="data[logo]" id="logo">
-        <a href="javascript:;" onClick="preview('logo')">预览图片</a>
-        <div id="urlTip" class="onShow">接输入图片完整的URL地址</div>
-        </td>
-      </tr>
+        <td><input type="text" class="input-text" size="50" value="{$data['logo']}" name="data[logo]" id="image" />
+        <input type="button" style="width:66px;cursor:pointer;" class="button" onClick="preview('image')" value="{lang('a-image')}" />
+        <input type="button" style="width:66px;cursor:pointer;" class="button" onClick="uploadImage('image')" value="{lang('a-upload')}" />
+        <div class="onShow">{lang('a-pic')}</div></td>
+    </tr>
 	<tr>
         <th>简单描述：</th>
         <td><textarea name="data[introduce]" style="width:295px;height:80px;"><?php echo $data[introduce]?></textarea></td>
-      </tr>
+  </tr>
 	<tr>
         <th></th>
         <td><input type="submit" class="button" value="提交" name="submit"></td>

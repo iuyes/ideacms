@@ -399,6 +399,7 @@ CREATE TABLE `{pre}adsense` (
   `adname` varchar(20) NOT NULL,
   `width` smallint(5) NOT NULL,
   `height` smallint(5) NOT NULL,
+  `position` varchar(255) NOT NULL,
   `showtype` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;

@@ -63,7 +63,9 @@ return array (
             121 => array('name' => 'a-men-12', 'url' => url('admin/site/config'),	'option' => 'site-config'),
             122 => array('name' => 'a-men-73', 'url' => url('admin/site/index'),	'option' => 'site-index'),
             203 => array('name' => 'a-men-28', 'url' => url('admin/attachment/index'),   'option' => 'attachment-index'),
-                    ),
+            205 => array('name' => 'a-plu-navi-0', 'url' => url('admin/navigate/index'),  'option' => 'navigate-index'),
+            206 => array('name' => 'a-plu-adse-0', 'url' => url('admin/adsense/index'),  'option' => 'adsense-index'),
+             ),
 
 
 					'a-men-74' => array(

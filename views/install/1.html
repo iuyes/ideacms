@@ -5,7 +5,6 @@
 <title>{CMS_NAME}网站管理系统 V{CMS_VERSION} 安装向导</title>
 <link href="statics/public/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="statics/install/install.css" rel="stylesheet" type="text/css" />
-<script src="statics/install/fouce.js" type="text/javascript" charset="utf-8" async defer></script>
 </head>
 <body>
 <div class="width">
@@ -22,7 +21,7 @@
 					<p>     IdeaCMS企业版诞生于2014年，源程序由连普创想CMS团队开发，为打造一套以简单、实用、开源为目的的CMS建站系统，主要目标用户锁定在企业网站建设，在经历了多年的发展，目前的版本无论在功能，还是在易用性方面，都有了长足的发展和进步。</p>
 					<br />
 					<p><strong>三、用户群体</strong></p>
-					<p>首先需要说明的是：<span class="label label-danger">本系统IdeaCMS不适合数据量很大的用户</span>。     <br>IdeaCMS适合于产品展示型网站、公司企业官网、个人博客，默认无优化的情况下<span class="label label-success">数据库负载在十万左右</span>，已经完全满足普通企业和个人的需求。</p>
+					<p>本系统IdeaCMS不适合数据量很大的用户</span>。     <br>IdeaCMS适合于产品展示型网站、公司企业官网、个人博客，默认无优化的情况下<span class="label label-success">数据库负载在十万左右</span>，已经完全满足普通企业和个人的需求。</p>
 					<br />
 					<p><strong>四、研发需求</strong></p>
 					<p>      网络上已经有很多免费的网站建设CMS系统，为什么连普还要自己开发建站系统？主要是由于每个团队开发的CMS系统面向不同的用户。IdeaCMS开发指导思想：<br/>
@@ -35,9 +34,9 @@
 			</div>
         </div>
 		<div class="bnt">
-			<form action="{url('install/')}" method="post" id="dform" name="agree">
+			<form action="{url('install/')}" method="post" id="dform">
 			<input type="hidden" name="step" value="2"/>
-			<input type="submit" class="n" name="agreeb" value="下一步安装"/>
+			<input type="submit" class="n" value="下一步安装"/>
 			</form>
 		</div>
     </div>
