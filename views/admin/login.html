@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+    <META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+    <title>{$SITE_NAME}{lang('admin')}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <link href="{PUBLIC_THEME}css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}css/login.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{PUBLIC_THEME}js/jquery.min.js"></script>
+</head>
+<body>
+<div class="box">
+    <div class="login-box">
+        <div class="login-title text-center">
+        <h1><small>后台登录</small></h1></div>
+        <div class="login-content ">
+        <div class="form">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                        <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" id="user" class="form-control" name="username"/>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-xs-12  ">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input type="password" id="pwd" class="form-control" name="password" />
+                        </div>
+                    </div>
+                    </div>
+
+                    {if $SITE_ADMIN_CODE}
+                    <div class="form-group">
+                    <div class="col-xs-12  ">
+                        <div class="input-group">
+                        <input name="code" type="text" class="form-control form-code"  onclick="this.value=''" value="{lang('a-com-23')}"/>
+                        <span class="input-group-addon form-code-img"><span style="padding-right:10px;"><img id="code" src="{url('api/captcha/', array('width'=>90, 'height'=>32))}" align="absmiddle" title="{lang('a-com-24')}" onclick="this.src='{url('api/captcha/', array('width'=>90, 'height'=>32))}&'+Math.random();" style="cursor:pointer;"></span></span>
+                        </div>
+                    </div>
+                    </div>
+                    {/if}
+                    <div class="form-group form-actions">
+                    <div class="col-xs-4 col-xs-offset-4 ">
+                    <button type="submit" id="submit" name="submit" class="btn btn-sm btn-info">
+                    <span class="glyphicon glyphicon-off"></span> 登录</button>
+
+                    </div>
+                    </div>
+                </form>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

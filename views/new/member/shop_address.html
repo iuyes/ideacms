@@ -1,0 +1,98 @@
+{template member/header}
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<!--Wrapper-->
+<div id="wrapper">
+	<div class="top"></div>
+	<div class="center">
+	    <div class="center_left">
+	        <h3>购物管理</h3>
+			<div class="menu_left">
+			<ul>
+            {loop $navigation $n=>$t}
+                <li {if $n==$a} class="on"{/if}><a href="{$t['url']}">{$t['name']}</a></li>
+            {/loop}
+			</ul>
+			</div>
+        </div>
+		<div class="center_right">
+            <div class="title_right1"></div>
+			<div class="content_info">
+               <form action="" method="post">
+			   <input type="hidden" name="form" value="add">
+               <table width="100%" class="table_form">
+               <tbody>
+                <tr>
+                    <th width="100">收货人：</th>
+                    <td><input name="data[name]" type="text" size="10" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th>邮政编码：</th>
+                    <td><input name="data[zip]" type="text" size="10" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th>电话号码：</th>
+                    <td><input name="data[tel]" type="text" size="20" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th>详细地址：</th>
+                    <td><input name="data[address]" type="text" size="50" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th style="border:none">&nbsp;</th>
+                    <td style="border:none"><input type="submit" class="button" value="新  增" name="submit"></td>
+                </tr>
+                </tbody>
+               </table>
+               </form>
+			   <form action="" method="post">
+			   <input type="hidden" name="form" value="edit">
+			   <table class="datatable" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td width="30">删除</td>
+                            <td width="30">默认</td>
+                            <td width="80">收货人</td>
+                            <td width="80">邮编</td>
+                            <td width="100">电话</td>
+                            <td>地址</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     {loop $list $t}
+                      <tr>
+					    <td><input type="checkbox" name="delete[]" value="{$t['id']}"></td>
+                        <td><input type="radio" name="default" value="{$t['id']}" {if $t['default_value']}checked=""{/if}></td>
+                        <td><input name="data[{$t['id']}][name]" type="text" size="8" value="{$t['name']}" class="input-text" /></td>
+                        <td><input name="data[{$t['id']}][zip]" type="text" size="8" value="{$t['zip']}" class="input-text" /></td>
+                        <td><input name="data[{$t['id']}][tel]" type="text" size="12" value="{$t['tel']}" class="input-text" /></td>
+                        <td><input name="data[{$t['id']}][address]" type="text" size="40" value="{$t['address']}" class="input-text" /></td>
+                      </tr>
+                      {/loop}
+                    </tbody>
+                </table>
+				<div class="datatablepage">
+                <table width="100%" border="0">
+                  <tr>
+                    <td width="100"><input type="submit" class="button" value="更 新" name="submit"></td>
+                    <td align="right">{$pagelist}</td>
+                  </tr>
+                </table>
+                </div>
+                </form>
+		    </div>
+        </div>
+	</div>
+    <div class="bottom"></div>
+</div>
+<!--Wrapper End-->
+<script language="javascript">
+function setC() {
+	if($("#selectc").attr('checked')==true) {
+		$(".selectc").attr("checked",true);
+	} else {
+		$(".selectc").attr("checked",false);
+	}
+}
+</script>
+{template member/footer}

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        if ($(document).width() <= 900) {
+            $('#s_title').css('width', '200px');
+        }
+    });
+    function del(id) {
+        if (confirm('{lang('a-cat-11')}')) {
+            $('#load').show();
+            var url = "{url('admin/category/del/')}&catid="+id;
+            window.location.href=url;
+        }
+    }
+    function confirm_del() {
+        if (confirm('{lang('a-confirm')}')) {
+            $('#load').show();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function setC() {
+        if($("#deletec").attr('checked')) {
+            $(".deletec").attr("checked",true);
+        } else {
+            $(".deletec").attr("checked",false);
+        }
+    }
+</script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/category/')}" class="on"><em>{lang('a-cat-12')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'category-add')}<a href="{url('admin/category/add')}"><em>{lang('a-cat-13')}</em></a><span>|</span>{/if}
+		{if admin_auth($userinfo['roleid'], 'category-url')}<a href="{url('admin/category/url')}"><em>{lang('a-cat-14')}</em></a><span>|</span>{/if}
+		{if admin_auth($userinfo['roleid'], 'category-cache')}<a href="{url('admin/category/cache')}"><em>{lang('a-cache')}</em></a>{/if}
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post" name="myform">
+		<table width="100%">
+		<thead>
+		<tr>
+			<th width="20" align="left"><input name="deletec" id="deletec" type="checkbox" onClick="setC()" /></th>
+			<th width="40" align="center">{lang('a-order')}</th>
+			<th width="20" align="center">ID </th>
+			<th width="300" id="s_title" align="left">{lang('a-cat-15')}</th>
+			<th width="70"  align="left">{lang('a-cat-16')}</th>
+			<th width="70" align="left">{lang('a-cat-17')}</th>
+			<th width="30" align="center">{lang('a-cat-18')}</th>
+			<th width="30" align="center">{lang('da001')}</th>
+			<th width="50" align="center">{lang('a-cat-19')}</th>
+			<th align="left">{lang('a-option')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		{loop $list $t}
+        <?php $c = string2array($t['setting']);?>
+		<tr>
+			<td align="left"><input name="ids[]" type="checkbox" value="{$t['catid']}" class="deletec" /></td>
+			<td align="center"><input type="text" name="order_{$t['catid']}" class="input-text" style="width:25px; height:15px; text-align:center" value="{$t['listorder']}"></td>
+			<td align="center">{$t['catid']}</td>
+			<td align="left">{str_replace($t['catname'], ' <a href="' . url('admin/category/edit',array('catid'=>$t['catid'])) . '">' . $t['catname'] . '</a>', $t['prefix'])}</td>
+			<td align="left">
+			{if $t['typeid']==1}<font color="#666666">{lang('a-cat-20')}</font>{/if}
+			{if $t['typeid']==2}<font color="#0000FF">{lang('a-cat-21')}</font>{/if}
+			{if $t['typeid']==3}<font color="#FF0000">{lang('a-cat-22')}</font>{/if}
+			{if $t['typeid']==4}<font color="green">{lang('a-cat-200')}</font>{/if}
+			</td>
+			<td align="left">{if $t['modelid']}{$model[$t['modelid']]['modelname']}{/if}</td>
+			<td align="center">&nbsp;{if $t['ismenu']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="center">&nbsp;{if $c['url']['tohtml']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="center">{$cats[$t['catid']]['items']}</td>
+			<td align="left">
+			<a href="{if $t['typeid'] == 3}{$t['url']}{else}{$site_url}{$t['url']}{/if}" target="_blank">{lang('a-cat-23')}</a> |
+			{if admin_auth($userinfo['roleid'], 'category-add')}<a {if $t['typeid']!=3}href="{url('admin/category/add',array('catid'=>$t['catid']))}"{/if}href="javascript:;">{lang('a-add')}</a> | {/if}
+			{if admin_auth($userinfo['roleid'], 'category-edit')}<a href="{url('admin/category/edit',array('catid'=>$t['catid']))}">{lang('a-edit')}</a> | {/if}
+			{if admin_auth($userinfo['roleid'], 'category-del')}<a href="javascript:del({$t['catid']});">{lang('a-del')}</a>  |  {/if}
+			{if $t['typeid']==1 && !$t['child'] && !admin_post_auth($userinfo['roleid'], $cats[$t['catid']]['setting'])}&nbsp;<a href="{url('admin/content/add', array('catid'=>$t['catid'], 'modelid'=>$t['modelid']))}">{lang('a-post')}</a>{/if}
+			</td>
+		</tr>
+		{/loop}
+		<tr>
+			<td colspan="10" align="left">
+				<input {if !admin_auth($userinfo['roleid'], 'category-del')}disabled{/if} type="submit" class="button" value="{lang('a-del')}" name="delete" onclick="return confirm_del()" />&nbsp;
+				<input {if !admin_auth($userinfo['roleid'], 'category-edit')}disabled{/if} type="submit" class="button" value="{lang('a-order')}" name="submit" onClick="$('#load').show()" />&nbsp;<div class="onShow">{lang('a-cat-24')}</div>
+				<span id="load" style="display:none"><img src="{ADMIN_THEME}images/loading.gif"></span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</form>
+    </div>
+</div>
+</body>
+</html>

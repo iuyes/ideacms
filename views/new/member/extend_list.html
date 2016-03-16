@@ -1,0 +1,122 @@
+{template member/header}
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<!--Wrapper-->
+<div id="wrapper">
+	<div class="top"></div>
+	<div class="center">
+	    <div class="center_left">
+	        <h3>内容管理</h3>
+			<div class="menu_left">
+			<ul>
+            {loop $navigation $n=>$t}
+                <li {if $n===$modelid}class="on"{/if}><a href="{$t['url']}">{$t['name']}</a></li>
+            {/loop}
+			</ul>
+			</div>
+        </div>
+		<div class="center_right">
+            {if $showme}
+			<div class="content_info" style="padding-top:7px;">
+                <div class="p_mobile" style="padding:0">
+					<ul>
+						<li><a {if empty($typeid)}class="select"{/if} href="{url('member/content/extend/',array('typeid'=>0,'modelid'=>$modelid))}">我提交的</a></li>
+						<li><a {if $typeid}class="select"{/if} href="{url('member/content/extend/',array('typeid'=>1,'modelid'=>$modelid))}">向我提交的</a></li>
+					</ul>
+				</div>
+			{else}
+            <div class="title_right1"></div>
+			<div class="content_info">
+			{/if}
+				{if empty($typeid)}
+                <form action="" method="post">
+                <table class="datatable" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td width="22"><input name="selectc" id="selectc" type="checkbox" onClick="setC()" /></td>
+                            <td>&nbsp;</td>
+                            <td width="100">向他提交的</td>
+                            <td width="130">提交时间</td>
+                            <td width="80">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+					{loop $list $t}
+					<tr>
+						<td><input name="ids[]" type="checkbox" class="selectc" value="{$t['id']}" /></td>
+						<td>模板设计人员要根据实际情况把一些字段展示出来</td>
+						<td>{php $member=get_member_info($t['touserid']);}<a href="{url('member/content/extend', array('modelid'=>$modelid,'typeid'=>$typeid,'status'=>$status,'touserid'=>$t['touserid']))}">{$member['username']}</a></td>
+						<td>{if date('Y-m-d')==date('Y-m-d',$t['inputtime'])}
+						 <span style="color:#F00">{date("Y-m-d H:i:s", $t['inputtime'])}</span>
+						 {else}
+						 {date("Y-m-d H:i:s", $t['inputtime'])}
+						 {/if}</td>
+						<td><a href="{url('member/content/extendedit/', array('id'=>$t['id'], 'modelid'=>$modelid))}">修改</a>{if $t['status']!=1}({get_form_status($t['status'])}){/if}</td>
+					</tr>
+					{/loop}
+                    </tbody>
+                </table>
+                <div class="datatablepage">
+                <table width="100%" border="0">
+                  <tr>
+                    <td width="100"><input type="submit" class="button" value="删除" name="submit" /></td>
+                    <td align="right">{$pagelist}</td>
+                  </tr>
+                </table>
+                </div>
+               </form>
+			   {else}
+			   <form action="" method="post">
+                <table class="datatable" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td width="22"><input name="selectc" id="selectc" type="checkbox" onClick="setC()" /></td>
+                            <td>&nbsp;</td>
+                            <td width="100">提交人</td>
+                            <td width="130">提交时间</td>
+                            <td width="80">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+					{loop $list $t}
+					<tr>
+						<td><input name="ids[]" type="checkbox" class="selectc" value="{$t['id']}" /></td>
+						<td>模板设计人员要根据实际情况把一些字段展示出来</td>
+						<td><a href="{url('member/content/extend', array('modelid'=>$modelid,'typeid'=>$typeid,'status'=>$status,'userid'=>$t['userid']))}">{$t['username']}</a></td>
+						<td>{if date('Y-m-d')==date('Y-m-d',$t['inputtime'])}
+						 <span style="color:#F00">{date("Y-m-d H:i:s", $t['inputtime'])}</span>
+						 {else}
+						 {date("Y-m-d H:i:s", $t['inputtime'])}
+						 {/if}</td>
+						<td><a href="{url('member/content/extendedit/', array('id'=>$t['id'], 'modelid'=>$modelid))}">修改</a>{if $t['status']!=1}({get_form_status($t['status'])}){/if}</td>
+					</tr>
+					{/loop}
+                    </tbody>
+                </table>
+                <div class="datatablepage">
+                <table width="100%" border="0">
+                  <tr>
+                    <td width="100">{if $verify}<input type="submit" class="button" value="审核" name="submit" />{/if}</td>
+                    <td align="right">{$pagelist}</td>
+                  </tr>
+                </table>
+                </div>
+               </form>
+			   {/if}
+		    </div>
+        </div>
+	</div>
+    <div class="bottom"></div>
+</div>
+<!--Wrapper End-->
+<script language="javascript">
+function setC() {
+	if($("#selectc").attr('checked')) {
+		$(".selectc").attr("checked",true);
+	} else {
+		$(".selectc").attr("checked",false);
+	}
+}
+</script>
+{template member/footer}

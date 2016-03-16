@@ -1,0 +1,96 @@
+﻿
+body,h1,h2,h3,h4,h5,h6,p{
+	margin: 0;padding: 0;
+}
+div{
+	overflow: hidden;
+}
+.main{
+	padding:10px;width:98%;padding-right:0px;
+}
+h6{
+ 	font-size:14px; font-weight:bold;color: #444;margin-left: 10px;
+}
+.subbut{
+display:inherit-block; height:25px;padding-left:10px;padding-right:10px;border:1px solid #999; background:url("./btnbg.png") repeat-x; cursor:pointer;
+}
+.subbut:hover{
+border-color:#000;
+}
+.infoboxp{
+	width:99%;height:auto;border:1px solid #C7D8EA;overflow: hidden;margin:0 auto;margin-top:5px;
+}
+.infoboxp .infoboxp_top h6{
+ 	font-size:14px; font-weight:bold;color: #3A6EA5;margin-left: 10px;
+}
+.infoboxp .infoboxp_top{
+	width:100%;height:24px;background:url("./x_bg.png") -0px -43px repeat-x;line-height: 24px;border-bottom:1px solid #C7D8EA;
+}
+.digg {
+float:none;
+margin:3px;
+padding:3px;
+text-align:right;
+width:auto;
+}
+.digg a {
+border:1px solid #AAAADD;
+color:#000099;
+margin:2px;
+padding:2px 5px;
+text-decoration:none;
+}
+.digg a:hover {
+border:1px solid #000099;
+color:#000000;
+}
+.digg a:active {
+border:1px solid #000099;
+color:#000000;
+}
+.digg span.current {
+background-color:#000099;
+border:1px solid #000099;
+color:#FFFFFF;
+font-weight:bold;
+margin:2px;
+padding:2px 5px;
+}
+.digg span.disabled {
+border:1px solid #EEEEEE;
+color:#DDDDDD;
+margin:2px;
+padding:2px 5px;
+}
+.mainleft{
+width:45%; height:auto;float:left; padding:10px;	
+}
+.mainright{
+width:45%; height:auto;float:left; padding:10px;
+}
+.maininfo{
+width:100%; height:180px; clear:both; border:1px solid #dfdfdf; margin-bottom:5px; overflow:hidden;
+}
+.mainboxtop{
+width:100%; height:25px; background:url(./maintopbg.png) repeat-x;	 line-height:25px; border-bottom:1px solid #dfdfdf;
+}
+.mainboxtop h6{
+font-size:12px; font-weight:bold; margin-left:10px; color:#000;
+}
+.maincontent{
+width:100%; padding:10px; height:134px; background-color:#f7f7f7;
+}
+.maincontent p{
+margin-bottom:10px;
+}
+.maincontent img{border:none;}
+.sysinfobox{
+width:400px; height:325px; position:absolute; top:50%; left:50%; margin-top:-162px; margin-left:-200px; border:1px solid #999;
+}
+.sysinfoboxtop{
+width:400px; height:25px; line-height:25px; background:url(./maintopbg.png) repeat-x;
+}
+.sysinfocontent{
+width:400px; height:300px;
+}
+

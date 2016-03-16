@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<script type="text/javascript">
+var sitepath = '{SITE_PATH}{ENTRY_SCRIPT_NAME}';
+var idea_admin_document = "{$cats[$data['catid']]['setting']['document']}";
+</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{if $backurl}{$backurl}{else}{url('admin/content/', array('modelid'=>$modelid, 'catid'=>$catid))}{/if}" onclick="clz()"><em>{lang('a-con-42')}</em></a><span>|</span>
+		<a href="javascript:;" class="on"><em>{lang('a-con-24')}</em></a>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form method="post" action="" id="myform" name="myform">
+		<input name="backurl" type="hidden" value="{$backurl}" />
+		<table width="100%" class="table_form">
+		<tbody>
+		{if $verify}
+		<tr>
+			<th width="130">{lang('a-mod-137')}：</th>
+			<td><a href="{url('admin/content/editverify', array('id'=>$data['id']))}">{lang('a-mod-140')}</a></td>
+		</tr>
+		{/if}
+		<tr>
+			<th width="130"><font color="red">*</font>&nbsp;{lang('a-con-29')}：</th>
+			<td>
+			<select name="data[catid]" id="catid">
+			{$category}
+			</select>
+			</td>
+		</tr>
+		{if $model['content']['title']['show']}
+		<tr>
+			<th><font color="red">*</font>&nbsp;{$model['content']['title']['name']}：</th>
+			<td><input type="text" class="input-text" size="80" id="title" value="{$data['title']}" name="data[title]" onBlur="ajaxtitle()" required />
+			<div class="onShow" id="title_text"></div></td>
+		</tr>
+		{/if}
+		{if $model['content']['keywords']['show']}
+		<tr>
+			<th>{$model['content']['keywords']['name']}：</th>
+			<td><input type="text" class="input-text" size="50" id="keywords" value="{$data['keywords']}" name="data[keywords]" />
+			<div class="onShow">{lang('a-con-44')}</div></td>
+		</tr>
+		{/if}
+		{if $model['content']['thumb']['show']}
+		<tr>
+			<th>{$model['content']['thumb']['name']}：</th>
+			<td><input type="text" class="input-text" size="50" value="{$data['thumb']}" name="data[thumb]" id="thumb" />
+			<input type="button" style="width:66px;cursor:pointer;" class="button" onClick="preview('thumb')" value="{lang('a-mod-118')}" />
+			<input type="button" style="width:66px;cursor:pointer;" class="button" onClick="uploadImage('thumb', '{$SITE_THUMB_WIDTH}', '{$SITE_THUMB_HEIGHT}')" value="{lang('a-mod-119')}" />
+			<div class="onShow">{lang('a-pic')}</div></td>
+		</tr>
+		{/if}
+		{if $model['content']['description']['show']}
+		<tr>
+			<th>{$model['content']['description']['name']}：</th>
+			<td><textarea style="width:490px;height:66px;" id="description" name="data[description]" />{$data['description']}</textarea></td>
+		</tr>
+		{/if}
+		{$data_fields}
+		<tr>
+			<th>{lang('a-con-134')}：</th>
+			<td><input type="text" class="input-text" size="15" value="{$data['hits']}" name="data[hits]" /></td>
+		</tr>
+		{if $a!='editverify'}
+		<tr>
+			<th>{lang('a-con-129')}：</th>
+			<td>
+			<input type="radio" value="2" name="updatetime" checked onClick="$('#updatetime').hide()" /> {lang('a-con-132')}
+			&nbsp;
+			{if isset($data['id'])}
+			<input type="radio" value="1" name="updatetime" onClick="$('#updatetime').hide()" /> {lang('a-con-130')}
+			&nbsp;
+			{/if}
+			<input type="radio" value="3" name="updatetime" onClick="$('#updatetime').show()" /> {lang('a-con-133')}
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<span id="updatetime" style="display:none">{content_date('select_time')}</span>
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<th>{lang('a-con-46')}：</th>
+			<td>
+			{if $a=='editverify'}
+			<input type="radio" {if !isset($data['status']) || $data['status']==1}checked{/if} value="1" name="data[status]" onClick="$('#verify').hide()" /> {lang('a-con-20')}
+			&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==3}checked{/if} value="3" name="data[status]" onClick="$('#verify').hide()" /> {lang('a-con-21')}
+			&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==2}checked{/if} value="2" name="data[status]" onClick="$('#verify').show()" /> {lang('a-con-33')}
+			<span id="verify" {if $data['status']!=2} style="display:none"{/if}>&nbsp;&nbsp;{lang('a-con-47')}：<input type="text" class="input-text" size="50" value="{$data['verify']}" name="data[verify]"></span>
+			{else}
+			<input type="radio" {if !isset($data['status']) || $data['status']==1}checked{/if} value="1" name="data[status]" /> {lang('a-con-20')}
+			&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==0}checked{/if} value="0" name="data[status]" /> {lang('a-con-34')}
+			&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==3}checked{/if} value="3" name="data[status]" disabled="" /> {lang('a-con-21')}
+			&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==2}checked{/if} value="2" name="data[status]" disabled="" /> {lang('a-con-33')}
+			{/if}
+			</td>
+		</tr>
+		{if $a!='editverify'}
+		<tr>
+			<th>{lang('a-con-48')}：</th>
+			<td>
+			{php $pos = @explode(',', $data['position']);}
+			{loop $position $t}
+			{$t['name']}&nbsp;<input type="checkbox" value="{$t['posid']}" name="data[position][]" {if in_array($t['posid'], $pos)}checked{/if}>&nbsp;&nbsp;&nbsp;
+			{/loop}
+			</td>
+		</tr>
+		<tr>
+			<th>{lang('a-con-49')}：</th>
+			<td>
+			<table width="80%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+				<input type="hidden" style="50" value="{$relation_ids}" id="relation" name="data[relation]">
+				<ul id="relation_text" class="list-dot" style="width:90%;">
+				{relation $data['id'],10}  
+				{loop $return $r}
+				<li id="rel_{$r['id']}">·<span>{$r['title']}</span><a onClick="remove_relation('rel_{$r['id']}',{$r['id']})" class="close" href="javascript:;"></a></li>
+				{/loop}
+				</ul></td>
+				<td><input type="button" style="width:66px;cursor:pointer;" class="button" onClick="loadInfo(0)" value="{lang('a-add')}" /></td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<th>&nbsp;</th>
+			<td><input type="submit" class="button" value="{lang('a-submit')}" name="submit" onClick="$('#load').show()" />
+			<span id="load" style="display:none"><img src="{ADMIN_THEME}images/loading.gif"></span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</form>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    window.top.art.dialog({id:'clz'}).close();
+	var catid = $("#catid").val();
+	var cats = new Array();
+	{loop $cats $t}
+	{if $t['modelid']==$modelid}
+	cats[{$t['catid']}]="{$t['setting']['document']}";
+	{/if}
+	{/loop}
+	idea_admin_document = cats[catid];
+	$("#catid").change(function(){
+		var catid = $(this).val();
+		idea_admin_document = cats[catid];
+    });
+});
+function clz() {
+	window.top.art.dialog({ id:'clz',title:'Loading',fixed:true,lock:false,content: '<img src="{ADMIN_THEME}images/onLoad.gif">' });
+}
+function ajaxtitle() {
+	$('#title_text').html('');
+	get_kw();
+	$.post(sitepath+'?s=admin&c=content&a=ajaxtitle&id='+Math.random(), { title:$('#title').val(), id:{php echo $data[id] ? $data[id] : 0;} }, function(data){ 
+
+        if (data == '0' || data == 0) {
+			$("#title_text").addClass("onCorrect");
+			$("#title_text").removeClass("onError");
+			$("#title_text").html("&nbsp;");
+		} else {
+			$('#title_text').html(data);
+			$("#title_text").removeClass("onCorrect");
+			$("#title_text").addClass("onError");
+		}
+	});
+}
+function loadInfo() {
+	var url   = '{url("admin/content/ajaxloadinfo/")}&kw='+$("#keywords").val();
+	var winid = 'loadinfo';
+	window.top.art.dialog(
+	    {id:winid, okVal:idec_lang[6], cancelVal:idec_lang[7], iframe:url, title:'{lang('a-con-50')}', width:'660', height:'280', lock:true}, 
+		function(){
+		    var d     = window.top.art.dialog({id:winid}).data.iframe;
+			var ids   = d.document.getElementById('select').value;
+			var arrid = ids.split(',');
+			var c     = '';
+			for (var i in arrid) {
+				var id = arrid[i];
+				if (id) {
+					var title = d.document.getElementById('title_'+id).value;
+					c += '<li id="rel_'+id+'">·<span>'+title+'</span><a onclick="remove_relation(\'rel_'+id+'\', \''+id+'\')" class="close" href="javascript:;"></a></li>';
+				}
+			}
+			$("#relation_text").append(c);
+			var rids = $("#relation").val();
+	        $("#relation").val(rids+ids);
+		},
+		function(){
+			window.top.art.dialog({id:winid}).close();
+	    }
+	);
+	void(0);
+}
+//移除相关文章
+function remove_relation(sid, id) {
+	var relation_ids = $('#relation').val();
+	if(relation_ids !='' ) {
+		$('#'+sid).remove();
+		var r_arr = relation_ids.split(',');
+		var newrelation_ids = '';
+		$.each(r_arr, function(i, n){
+			if(n!=id) {
+				if(i==0) {
+					newrelation_ids = n;
+				} else {
+				    newrelation_ids = newrelation_ids+','+n;
+				}
+			}
+		});
+		$('#relation').val(newrelation_ids);
+	}
+}
+</script>
+</body>
+</html>

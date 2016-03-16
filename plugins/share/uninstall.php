@@ -1,0 +1,10 @@
+<?php
+if (!defined('IN_IDEACMS')) exit('');
+
+/*
+ * É¾³ýÊý¾Ý±í
+ */
+
+return array(
+    //"DROP TABLE IF EXISTS `{prefix}yuedu`;",
+);

@@ -1,0 +1,51 @@
+{template header}
+
+<div id="breadcrumb">
+    <!-- breadcrumb starts-->
+    <div class="container">
+        <div class="one-half">
+            <h4>{$cat[catname]}</h4>
+        </div>
+        <div class="one-half">
+            <nav id="breadcrumbs">
+                <!--breadcrumb nav starts-->
+                <ul>
+                    <li>您当前位置：</li>
+                    <li><a  href="{SITE_PATH}">首页</a> > {$form_name}</li>
+                </ul>
+            </nav>
+            <!--breadcrumb nav ends -->
+        </div>
+    </div>
+</div>
+
+
+<div id="content">
+<div class="container">
+    <div class="one">
+
+            <div class="blog-post">
+                <div class="permalink">
+                    <h4>表单内容信息</h4>
+                </div>
+                <ul class="post-meta">
+                    <li><i class="fa fa-time"></i> {date("Y-m-d H:i:s", $updatetime)} </li>
+                    <!-- Date -->
+                    <li><i class="fa fa-user"></i><a href="#">{$username}</a></li>
+                    <!-- Author -->
+                </ul>
+                <!-- End post-meta -->
+                <div class="post-intro">
+                    支持直接调用自定义字段<br>
+                    发布时间：{date('Y-m-d', $updatetime)}<br>
+                    发布人：{$username}
+                </div>
+
+            </div>
+
+
+    </div>
+</div>
+</div>
+
+{template footer}

@@ -1,0 +1,84 @@
+{template header}
+    <div class="navigation">
+    您当前位置：<a  href="{SITE_PATH}">首页</a> >> {catpos($catid, ' &gt;&gt;&nbsp;&nbsp;')}
+    </div>
+    <div class="blank10 clear"></div>
+    <!--主体begin-->
+    <div class="downlist">
+        <div class="floatl">
+            <div class="left01">
+                <div class="title">{$title}</div>
+                <div class="downbox1">
+                    <div class="floatl"> <img src="{thumb($thumb)}" height="130" width="160" /></div>
+                    <div class="floatr">
+                        <ul>
+                        <li><span>租　金：</span> {$zujin} 元/月({$zujinleixing})</li>
+                        <li><span>户　型：</span> {$shi}室{$ting}厅{$wei}卫{$mianji}平方</li>
+                        <li><span>类　型：</span> {$zhuangxiu}，第{$louceng}层，共{$zongceng}层 </li>
+                        <li><span>配　置：</span> {php echo implode(',', $peizhi);}</li>
+                        <li><span>区　域：</span> {linkagepos(1, $quyu, url('content/list', array('catid'=>$catid, 'area'=>'{linkageid}')))}<!--你可以在这里自定义url地址--></li>
+                        <li><span>小　区：</span> {$xiaoqu}</li>
+                        <li><span>地　址：</span> {$dizhi}</li>
+                        <li><span>电　话：</span> {$dianhua}</li>
+                        <li><span>更　新：</span> {date("Y-m-d H:i:s", $updatetime)}</li>
+                        <li><span>人　气：</span> <script type="text/javascript" src="{url('api/hits',array('id'=>$id,'hits'=>$hits))}"></script></li>
+                        </ul>
+                    </div>
+                </div>	
+                <div class="clear blank10"></div>  
+            </div>
+            <div class="clear blank10"></div>
+            <div class="left02">
+               <div class="title">地图信息</div>
+               <div class="downbox2">
+                 {baiduMap($modelid, 'ditu', $ditu, 600, 400)}
+               </div>
+            </div>
+            <div class="clear blank10"></div>
+            <div class="left02">
+               <div class="title">房屋图片</div>
+               <div class="downbox2">
+                {loop $tupian['file'] $k=>$t}
+                     <img src="{image($t)}" /> <br>
+                {/loop}
+               </div>
+            </div>
+            <div class="clear blank10"></div>
+            <div class="left02">
+               <div class="title">介绍信息</div>
+               <div class="downbox2">
+                  {$content}
+               </div>
+            </div>
+        </div>
+        <div class="right">
+            <!--right01 begin-->
+            <div class="right01">
+                <div class="title"><span>最新TOP10</span></div>
+                <div class="right01box">
+                <ul>
+                {list catid=$catid num=10 order=updatetime cache=36000}
+                <li><span class="N{$key+1}"></span><a href="{$t['url']}">{$t['title']}</a></li>
+                {/list}
+                </ul>
+                </div>
+            </div> 
+            <!--right01 end-->
+            <div class="blank10 clear"></div>
+            <!--right01 begin-->
+            <div class="right01">
+               <div class="title"><span>热点TOP10</span></div>
+               <div class="right01box">
+                <ul>
+                {list catid=$catid num=10 order=hits cache=36000}
+                <li><span class="N{$key+1}"></span><a href="{$t['url']}">{$t['title']}</a></li>
+                {/list}
+                </ul>
+               </div>
+            </div> 
+            <!--right01 end-->
+        </div>
+    </div>
+    <!--主体end-->
+    <div class="clear blank10"></div>
+{template footer}

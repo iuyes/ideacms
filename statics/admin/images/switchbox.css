@@ -1,0 +1,21 @@
+
+body,h1,h2,h3,h4,h5,h6,ul,li{
+	margin: 0;padding: 0px;
+}
+ul{
+	list-style: none;margin-left:15px;
+}
+.main_tag{
+	width:98%;padding:10px;padding-right:0px;font-size:12px;
+}
+.main_tag li{
+	float:left;display:block;width:70px;height:24px;line-height:24px;text-align:center;border:1px solid #DCE3ED;margin-right:10px;background-color:#EAEEF4;color:#444444;cursor:pointer;border-bottom:none;}
+.main_tag .tag_box{
+	width:98%;height:auto;border:1px solid #DCE3ED;background:#fff;
+}
+.main_tag ul .on{
+	height:24px;background-color:#FFF;font-weight: bold;
+}
+.main_tag .tag_box .hiddendiv{
+	display:none;
+}

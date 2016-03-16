@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/member/extend',array('status'=>1,'modelid'=>$modelid,'touserid'=>$touserid))}"><em>{lang('a-con-20')}({$count[1]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>0,'modelid'=>$modelid,'touserid'=>$touserid))}"><em>{lang('a-con-21')}({$count[0]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>2,'modelid'=>$modelid,'touserid'=>$touserid))}"><em>{lang('a-con-22')}({$count[2]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>3,'modelid'=>$modelid,'touserid'=>$touserid))}"><em>{lang('a-con-23')}({$count[3]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('type'=>'set','modelid'=>$modelid,'touserid'=>$touserid))}" class="on"><em>{lang('a-mod-171')}</em></a><span>|</span>
+		<a href="{url('member/extend',array('modelid'=>$modelid,'touserid'=>$touserid))}" target="_blank"><em>{lang('a-mod-186')}</em></a>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form method="post" action="" id="myform" name="myform">
+		<input type="hidden" value="{$typeid}" name="typeid" id="typeid" />
+		<div class="pad-10">
+		<div class="col-tab">
+			<ul class="tabBut cu-li">
+				<li onClick="SwapTab('setting','on','',4,1);" {if $typeid==1}class="on"{/if} id="tab_setting_1">{lang('a-cat-25')}</li>
+				<li onClick="SwapTab('setting','on','',4,2);" {if $typeid==2}class="on"{/if} id="tab_setting_2">{lang('a-mod-134')}</li>
+				<li onClick="SwapTab('setting','on','',4,3);" {if $typeid==3}class="on"{/if} id="tab_setting_3">{lang('a-con-72')}</li>
+				<li onClick="SwapTab('setting','on','',4,4);" {if $typeid==4}class="on"{/if} id="tab_setting_4">{lang('a-mod-189')}</li>
+			</ul>
+			<div class="contentList pad-10" id="div_setting_1" style="display: {if $typeid==1}block{else}none{/if};">
+			<table width="100%" class="table_form">
+			<tbody>
+				<tr>
+					<th width="200">{lang('a-con-74')}：</th>
+					<td>
+					<input type="radio" {if $model['setting']['member']['post']==1}checked{/if} value="1" name="setting[member][post]" /> {lang('a-close')}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" {if empty($model['setting']['member']['post'])}checked{/if} value="0" name="setting[member][post]" /> {lang('a-open')}
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-con-76')}：</th>
+					<td>
+					<input type="radio" {if empty($model['setting']['member']['code'])}checked{/if} value="0" name="setting[member][code]" /> {lang('a-close')}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" {if $model['setting']['member']['code']==1}checked{/if} value="1" name="setting[member][code]" /> {lang('a-open')}
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-con-77')}：</th>
+					<td>
+					<input type="radio" {if empty($model['setting']['member']['check'])}checked{/if} value="0" name="setting[member][check]" /> {lang('a-close')}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" {if $model['setting']['member']['check']==1}checked{/if} value="1" name="setting[member][check]" /> {lang('a-open')}
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-con-80')}：</th>
+					<td>
+					<input type="radio" {if empty($model['setting']['member']['showme'])}checked{/if} value="0" name="setting[member][showme]" /> {lang('a-close')}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" {if $model['setting']['member']['showme']==1}checked{/if} value="1" name="setting[member][showme]" /> {lang('a-open')}
+					<div class="onShow">{lang('a-mod-174')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-mod-175')}：</th>
+					<td>
+					<input type="radio" {if empty($model['setting']['member']['admin'])}checked{/if} value="0" name="setting[member][admin]" /> {lang('a-close')}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" {if $model['setting']['member']['admin']==1}checked{/if} value="1" name="setting[member][admin]" /> {lang('a-open')}
+					<div class="onShow">{lang('a-mod-176')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-mod-177')}：</th>
+					<td>
+					<input type="text" class="input-text" style="width:94px" value="{$model['setting']['member']['num']}" name="setting[member][num]" />
+					<div class="onShow">{lang('a-mod-178')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-con-85')}：</th>
+					<td>
+					<input type="text" class="input-text" style="width:94px" value="{$model['setting']['member']['ip']}" name="setting[member][ip]" />
+					<div class="onShow">{lang('a-con-86')}</div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			
+			<div class="contentList pad-10 hidden" id="div_setting_2" style="display: {if $typeid==2}block{else}none{/if};">
+			<table width="100%" class="table_form">
+			<tbody>
+				<tr>
+					<th width="200">{lang('a-con-92')}：</th>
+					<td>
+						<table>
+						{loop $model['fields']['data'] $t}
+						<tr>
+							<th>{$t['name']}: </th>
+							<td><input type="checkbox" value="{$t['field']}" name="setting[member][show][]" {if @in_array($t['field'], $model['setting']['member']['show'])}checked{/if} /> {lang('a-con-93')}</td>
+						</tr>
+						{/loop}
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-mod-179')}：</th>
+					<td>
+					<input name="setting[auth][adminpost]" type="radio" value="0"{if $model['setting']['auth']['adminpost']==0} checked{/if} onClick="$('#adminpost').hide()" />&nbsp;{lang('a-mod-180')}
+					&nbsp;&nbsp;&nbsp;
+					<input name="setting[auth][adminpost]" type="radio" value="1"{if $model['setting']['auth']['adminpost']==1} checked{/if} onClick="$('#adminpost').show()" />&nbsp;{lang('a-mod-181')}
+					</td>
+				</tr>
+				<tr id="adminpost" {if !$model['setting']['auth']['adminpost']}style="display:none"{/if}>
+					<th>{lang('a-cat-99')}：</th>
+					<td>
+						{loop $rolemodel $t}
+						<input name="setting[auth][rolepost][]" type="checkbox" value="{$t['roleid']}" {if $t['roleid']==1}disabled{/if} {if @in_array($t['roleid'], $model['setting']['auth']['rolepost'])}checked{/if} />
+						{$t['rolename']}&nbsp;
+						{/loop}
+						<div class="onShow">{lang('a-mod-182')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th width="200">{lang('a-cat-50')}：</th>
+					<td>
+					<input name="setting[auth][memberpost]" type="radio" value="0"{if $model['setting']['auth']['memberpost']==0} checked{/if} onClick="$('#memberpost').hide()" />&nbsp;{lang('a-cat-51')}
+					&nbsp;&nbsp;&nbsp;
+					<input name="setting[auth][memberpost]" type="radio" value="1"{if $model['setting']['auth']['memberpost']==1} checked{/if} onClick="$('#memberpost').show()" />&nbsp;{lang('a-cat-52')}
+					</td>
+				</tr>
+				<tbody id="memberpost" {if !$model['setting']['auth']['memberpost']}style="display:none"{/if}>
+				<tr>
+					<th>{lang('a-cat-53')}：</th>
+					<td>
+						{loop $membermodel $t}
+						<input name="setting[auth][modelpost][]" type="checkbox" value="{$t['modelid']}" {if @in_array($t['modelid'], $model['setting']['auth']['modelpost'])}checked{/if} />
+						{$t['modelname']}&nbsp;
+						{/loop}
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-cat-55')}：</th>
+					<td>
+						{loop $membergroup $t}
+						<input name="setting[auth][grouppost][]" type="checkbox" value="{$t['id']}" {if @in_array($t['id'], $model['setting']['auth']['grouppost'])}checked{/if} />
+						{$t['name']}&nbsp;
+						{/loop}
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+
+			<div class="contentList pad-10 hidden" id="div_setting_3" style="display: {if $typeid==3}block{else}none{/if};">
+			<table width="100%" class="table_form ">
+			<tbody>
+				<tr>
+					<td><textarea style="width:50%;height:165px" name="">{$list_code}</textarea></td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			
+			<div class="contentList pad-10 hidden" id="div_setting_4" style="display: {if $typeid==4}block{else}none{/if};">
+			<table width="100%" class="table_form ">
+			<tbody>
+				<tr>
+					<th width=200>{lang('a-mod-190')}：</th>
+					<td>
+					<input type="text" class="input-text" size=20 value="{$model['setting']['member']['callback']}" name="setting[member][callback]" />
+					<div class="onShow">{lang('a-mod-191')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th width=200>{lang('a-mod-192')}：</th>
+					<td><textarea style="width:50%;height:120px" name="">{$func_code}</textarea></td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			
+			<div class="bk15"></div>
+			<input type="submit" class="button" value="{lang('a-submit')}" name="submit" />
+		</div>
+		</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+	for(i=1;i<=cnt;i++){
+		if(i==cur){
+			$('#div_'+name+'_'+i).show();
+			$('#tab_'+name+'_'+i).attr('class',cls_show);
+			$('#typeid').val(cur);
+		}else{
+			$('#div_'+name+'_'+i).hide();
+			$('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>

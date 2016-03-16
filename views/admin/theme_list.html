@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="<?php echo url('admin/theme/index')?>" class="on"><em>{lang('a-men-47')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'theme-add')}<a href="<?php echo url('admin/theme/add', array('cpath'=>$cpath))?>"><em>{lang('a-add')}</em></a><span>|</span>{/if}
+		<a href="<?php echo url('admin/theme/cache')?>"><em>{lang('a-cache')}</em></a><span>|</span>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<table width="100%" cellspacing="0" id="imgPreview">
+		<tbody>
+		{if $istop}
+		<tr>
+			<td align="left"><a href="{$pdir}"><img src="{ADMIN_THEME}images/folder-closed.gif">{lang('a-att-5')}</a></td><td></td>
+		</tr>
+		{/if}
+		{loop $dlist $k=>$t}
+		<tr>
+		    <td align="left">
+			<input name="id" id="thumb_{$k}" type="hidden" value="{$dir}{$t['name']}">
+			<img src="{$t['ico']}"> &nbsp;<a href="{$t['url']}">{$t['name']}</a></td>
+			<td width="70%">
+			{if admin_auth($userinfo['roleid'], 'theme-del')}
+			&nbsp;<a href="javascript:;" onClick="if(confirm('{lang('a-confirm')}')){ window.location.href='{url('admin/theme/del',array('name'=>$t['dir']))}'; }" title="{lang('a-del')}">×</a>
+			{/if}
+			</td>
+		</tr>
+		{/loop}
+		{loop $flist $k=>$t}
+		<tr>
+			<td align="left">
+			<input name="id" id="thumb_{$k}" type="hidden" value="{$dir}{$t['name']}">
+			<img src="{$t[ico]}">
+			<a href="{url('admin/theme/edit', array('dir'=>$t['dir']))}">{$t['name']}</a></td>
+			<td width="70%">
+			{if admin_auth($userinfo['roleid'], 'theme-del')}
+			&nbsp;<a href="javascript:;" onClick="if(confirm('{lang('a-confirm')}')){ window.location.href='{url('admin/theme/del',array('name'=>$t['dir']))}'; }" title="{lang('a-del')}">×</a>
+			{/if}
+			</td>
+		</tr>
+		{/loop}
+		</tbody>
+		</table>
+	</div>
+	<div class="bk10"></div>
+</div>
+</body>
+</html>

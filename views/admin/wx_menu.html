@@ -1,0 +1,111 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            if ($(document).width() <= 900) {
+                $('#s_title').css('width', '200px');
+            }
+        });
+        function del(id) {
+            if (confirm('{lang('a-cat-11')}')) {
+                $('#load').show();
+                var url = "{url('admin/wx/delMenu/')}&id="+id;
+                window.location.href=url;
+            }
+        }
+        function confirm_del() {
+            if (confirm('{lang('a-confirm')}')) {
+                $('#load').show();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function setC() {
+            if($("#deletec").attr('checked')) {
+                $(".deletec").attr("checked",true);
+            } else {
+                $(".deletec").attr("checked",false);
+            }
+        }
+    </script>
+    <title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href="{url('admin/wx/menu')}" class="on"><em>菜单列表</em></a><span>|</span>
+        <a href="{url('admin/wx/syncMenu')}"><em>同步到微信</em></a><span>|</span>
+        <a href="{url('admin/wx/addMenu')}"><em>添加菜单</em></a>
+    </div>
+    <div class="table-list col-tab" >
+        <div class="contentList pad-10">
+            目前自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。<br>
+            一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替。<br>
+            请注意，创建自定义菜单后，由于微信客户端缓存，需要24小时微信客户端才会展现出来。<br>
+            建议测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果 <br>
+        </div>
+    </div>
+    <div class="bk10"></div>
+    <div class="table-list">
+        <form action="" method="post" name="myform">
+            <table width="100%">
+                <thead>
+                <tr>
+                    <th width="10" align="left"><input name="deletec" id="deletec" type="checkbox" onClick="setC()" /></th>
+                    <th width="20" align="left">{lang('a-order')}</th>
+                    <th width="150" align="left">菜单名称 </th>
+                    <th width="150" align="left" id="t_title">菜单类型</th>
+                    <th width="200" align="left">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $data $t}
+                <tr>
+                    <td align="left"><input name="ids[]" type="checkbox" value="{$t['id']}" class="deletec" /></td>
+                    <td align="left"><input type="text" name="order_{$t['id']}" class="input-text" style="width:25px; height:15px; text-align:center" value="{$t['displayorder']}"></td>
+                    <td>{$t['name']}</td>
+                    <td>{$t['type']}</td>
+                    <td align="left">
+                        {if admin_auth($userinfo['roleid'], 'wx-addmenu')}<a {if $t['typeid']!=3}href="{url('admin/wx/addMenu',array('pid'=>$t['id']))}"{/if}href="javascript:;">{lang('a-add')}</a> | {/if}
+                        {if admin_auth($userinfo['roleid'], 'wx-editmenu')}<a href="{url('admin/wx/editMenu',array('id'=>$t['id']))}">{lang('a-edit')}</a> | {/if}
+                        {if admin_auth($userinfo['roleid'], 'wx-delmenu')}<a href="javascript:del({$t['id']});">{lang('a-del')}</a> {/if}
+                    </td>
+                </tr>
+                    {loop $t['data'] $c}
+                    <tr>
+                        <td align="left"><input name="ids[]" type="checkbox" value="{$c['id']}" class="deletec" /></td>
+                        <td align="left"><input type="text" name="order_{$t['id']}" class="input-text" style="width:25px; height:15px; text-align:center" value="{$c['displayorder']}"></td>
+                        <td>&nbsp; ├&nbsp;&nbsp;{$c['name']}</td>
+                        <td>{$c['type']}</td>
+                        <td align="left">
+                            {if admin_auth($userinfo['roleid'], 'wx-editmenu')}<a href="{url('admin/wx/editMenu',array('id'=>$c['id']))}">{lang('a-edit')}</a> | {/if}
+                            {if admin_auth($userinfo['roleid'], 'wx-delmenu')}<a href="javascript:del({$c['id']});">{lang('a-del')}</a> {/if}
+                        </td>
+                    </tr>
+                    {/loop}
+                {/loop}
+                <tr>
+                    <td colspan="10" align="left">
+                        <input {if !admin_auth($userinfo['roleid'], 'wx-del_menu')}disabled{/if} type="submit" class="button" value="{lang('a-del')}" name="delete" onclick="return confirm_del()" />&nbsp;
+                        <input {if !admin_auth($userinfo['roleid'], 'wx-edit_menu')}disabled{/if} type="submit" class="button" value="{lang('a-order')}" name="submit" onClick="$('#load').show()" />&nbsp;<div class="onShow">{lang('a-cat-24')}</div>
+                        <span id="load" style="display:none"><img src="{ADMIN_THEME}images/loading.gif"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

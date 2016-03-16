@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">
+function del(id){
+	if(confirm('{lang('a-mod-29')}')){
+		var url = "{url('admin/model/delfield/',array('typeid'=>$typeid))}&fieldid="+id;
+		window.location.href=url;
+	}
+}
+</script>
+<title>admin</title>
+</head>
+<body>
+<form action="" method="post">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/model/index',     array('typeid'=>$typeid))}"><em>{lang('a-aut-14')}</em></a><span>|</span>
+		<a href="{url('admin/model/fields/',   array('typeid'=>$typeid, 'modelid'=>$modelid))}" class="on"><em>{lang('a-aut-18')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'model-addfield')}<a href="{url('admin/model/addfield/', array('typeid'=>$typeid, 'modelid'=>$modelid))}"><em>{lang('a-add')}</em></a><span>|</span>{/if}
+		{if admin_auth($userinfo['roleid'], 'model-cache')}<a href="{url('admin/model/cache', array('typeid'=>$typeid))}"><em>{lang('a-cache')}</em></a>{/if}
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+	    <form action="" method="post">
+		<table width="100%">
+		<thead>
+		<tr>
+			<th width="40" align="left">{lang('a-order')}</th>
+			<th width="120" align="left">{lang('a-name')}</th>
+			<th width="90" align="left">{lang('a-mod-30')}</th>
+			<th width="80" align="left">{lang('a-mod-31')}</th>
+			<th width="80" align="left">{lang('a-mod-32')}</th>
+			<th width="80" align="left">{lang('a-mod-33')}</th>
+			<th width="80" align="center">{lang('da002')}</th>
+			<th align="left">{lang('a-option')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		{if $typeid == 1}
+		<tr>
+			<td align="left"></td>
+			<td align="left">title</td>
+			<td align="left">{$content['title']['name']}</td>
+			<td align="left">System</td>
+			<td align="left"> </td>
+			<td align="left"> </td>
+            <td align="center">{if $content['keywords']['show']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="left">{if admin_auth($userinfo['roleid'], 'model-editfield')}<a href="{url('admin/model/ajaxedit/',array('modelid'=>$modelid,'name'=>'title'))}">{lang('a-edit')}</a>{/if}</td>
+		</tr>
+		<tr>
+			<td align="left"></td>
+			<td align="left">keywords</td>
+			<td align="left">{$content['keywords']['name']}</td>
+            <td align="left">System</td>
+			<td align="left"> </td>
+			<td align="left"> </td>
+            <td align="center">{if $content['keywords']['show']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="left">{if admin_auth($userinfo['roleid'], 'model-editfield')}<a href="{url('admin/model/ajaxedit/',array('modelid'=>$modelid,'name'=>'keywords'))}">{lang('a-edit')}</a>{/if}</td>
+		</tr>
+		<tr height="25">
+			<td align="left"></td>
+			<td align="left">thumb</td>
+			<td align="left">{$content['thumb']['name']}</td>
+            <td align="left">System</td>
+			<td align="left"> </td>
+			<td align="left"> </td>
+            <td align="center">{if $content['thumb']['show']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="left">{if admin_auth($userinfo['roleid'], 'model-editfield')}<a href="{url('admin/model/ajaxedit/',array('modelid'=>$modelid,'name'=>'thumb'))}">{lang('a-edit')}</a>{/if}</td>
+		</tr>
+		<tr>
+			<td align="left"></td>
+			<td align="left">description</td>
+			<td align="left">{$content['description']['name']}</td>
+            <td align="left">System</td>
+			<td align="left"> </td>
+			<td align="left"> </td>
+            <td align="center">{if $content['description']['show']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="left">{if admin_auth($userinfo['roleid'], 'model-editfield')}<a href="{url('admin/model/ajaxedit/',array('modelid'=>$modelid,'name'=>'description'))}">{lang('a-edit')}</a>{/if}</td>
+		</tr>
+		{/if}
+		{loop $list $t}
+		<tr style="{if $t['formtype']=='merge'}background-color:#FFC{else if $t['formtype']=='fields'}background-color:#EEF3F7{/if}">
+			<td align="left">
+			<input type="text" name="order_{$t['fieldid']}" class="input-text" style="width:25px;height:15px;" value="{$t['listorder']}"></td>
+			<td align="left">{$t['field']}</td>
+			<td align="left">{$t['name']}</td>
+			<td align="left">{if $t['formtype']=='merge'}{lang('a-mod-34')}{else}{$t['formtype']}{/if}</td>
+			<td align="left">{$t['type']}</td>
+			<td align="left">{$t['indexkey']}</td>
+			<td align="center">{if $t['isshow']}<span class="label label-success">√</span>{else}<span class="label label-important">×</span>{/if}</td>
+			<td align="left">
+			{if admin_auth($userinfo['roleid'], 'model-editfield')}<a href="{url('admin/model/editfield/',array('typeid'=>$typeid,'fieldid'=>$t['fieldid']))}">{lang('a-edit')}</a> | {/if}
+			{if admin_auth($userinfo['roleid'], 'model-disable')}<a href="{url('admin/model/disable/',array('typeid'=>$typeid,'fieldid'=>$t['fieldid']))}">{if $t['disabled']==1}<font color="#FF0000">{lang('a-qi')}</font>{else}{lang('a-jin')}{/if}</a> | {/if}
+			{if admin_auth($userinfo['roleid'], 'model-del')}{if $t['field'] == 'content'}<a href="javascript:;" style="color:#ACA899">{lang('a-del')}</a> {else}<a href="javascript:del({$t['fieldid']});">{lang('a-del')}</a> {/if}{/if}</td>
+		</tr>
+		{/loop}
+		<tr>
+			<td colspan="8" align="left"><input {if !admin_auth($userinfo['roleid'], 'model-editfield')}disabled{/if} class="button" type="submit" name="submit" value="{lang('a-order')}" /></td>
+		</tr>
+		</tbody>
+		</table>
+	    </form>
+	</div>
+</div>
+</body>
+</html>

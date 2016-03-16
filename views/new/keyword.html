@@ -1,0 +1,31 @@
+{template header}
+<div id="breadcrumb">
+	<!-- breadcrumb starts-->
+	<div class="container">
+		<div class="one-half">
+			<h4>关键词</h4>
+		</div>
+		<div class="one-half">
+			<nav id="breadcrumbs">
+				<!--breadcrumb nav starts-->
+				<ul>
+					<li>您当前位置：</li>
+					<li><a  href="{SITE_PATH}">首页</a> > 关键词</li>
+				</ul>
+			</nav>
+			<!--breadcrumb nav ends -->
+		</div>
+	</div>
+</div>
+
+<div id="content">
+<div class="container">
+	<div class="one" style="margin-bottom: 50px;">
+		{loop $keyword $t}
+		<span><a href="{tag_url($t['name'])}">{$t['name']}</a></span>
+		{/loop}
+	</div>
+</div>
+</div>
+
+{template footer}

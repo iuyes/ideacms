@@ -1,0 +1,29 @@
+{template header.html}
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+        <a href="{url('admin/sms/index')}"><em>{lang('da005')}</em></a><span>|</span>
+        <a href="{url('admin/sms/send')}"><em>{lang('da006')}</em></a><span>|</span>
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=976510651&site=%CC%EC%EE%A3&Menu=yes" target="_blank"><em>定制第三方接口集成服务</em></a>
+
+    </div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<table width="100%">
+		<thead>
+		<tr>
+			<th align="left" class="ioption">发送记录</th>
+		</tr>
+		</thead>
+		<tbody>
+		{loop $list $t}
+		<tr>
+			<td align="left" class="ioption">{$t}</td>
+		</tr>
+		{/loop}
+		</tbody>
+		</table>
+        <div id="pages">{$pagelist}</div>
+	</div>
+</div>
+</body>
+</html>

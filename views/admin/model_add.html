@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/model/index',  array('typeid'=>$typeid))}"><em>{lang('a-aut-14')}</em></a><span>|</span>
+		<a href="{url('admin/model/add', array('typeid'=>$typeid))}" class="on"><em>{lang('a-add')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'model-import')}<a href="{url('admin/model/import', array('typeid'=>$typeid))}"><em>{lang('a-import')}</em></a><span>|</span>{/if}
+		{if admin_auth($userinfo['roleid'], 'model-cache')}<a href="{url('admin/model/cache', array('typeid'=>$typeid))}"><em>{lang('a-cache')}</em></a>{/if}
+	</div>
+	<div class="table-list">
+		<form action="" method="post">
+		<input name="modelid" type="hidden" value="{$data['modelid']}" />
+		<div class="pad-10">
+			<div class="col-tab">
+				<ul class="tabBut cu-li">
+					<li onClick="SwapTab('setting','on','',2,1);" class="on" id="tab_setting_1">{lang('a-cat-25')}</li>
+					{if $typeid != 2 && $typeid != 4}<li onClick="SwapTab('setting','on','',2,2);" id="tab_setting_2" class="">{lang('a-mod-134')}</li>{/if}
+				</ul>
+				
+				<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+				<table width="100%" class="table_form">
+				<tr>
+					<th width="200">{lang('a-mod-18')}： </th>
+					<td>{$typename[$typeid]}</td>
+				</tr>
+				<tr>
+					<th><font color="red">*</font> {lang('a-name')}： </th>
+					<td><input class="input-text" type="text" name="modelname" value="{$data['modelname']}" size="30" required /></td>
+				</tr>
+				<tr>
+					<th><font color="red">*</font> {lang('a-mod-19')}： </th>
+					<td><input class="input-text" type="text" name="tablename" value="{$data['tablename']}" size="30" {if $data['modelid']}disabled{/if} required /><div class="onShow">{lang('a-mod-20')}</div></td>
+				</tr>
+				{if $typeid != 2 && $typeid != 4}
+					{if $typeid == 1}
+						<tr>
+							<th>{lang('a-mod-21')}：</th>
+							<td>
+							{loop $formmodel $t}
+							<input type="checkbox" value="{$t['modelid']}" name="join[]" {if in_array($t['modelid'], $join)}checked=""{else} {if in_array($t['modelid'], $joindata)}disabled=""{/if}{/if} /> {$t['modelname']}&nbsp;&nbsp;
+							{/loop}
+							<div class="onShow">{lang('a-mod-22')}</div>
+							</td>
+						</tr>
+						<tr>
+							<th><font color="red">*</font> {lang('a-mod-23')}： </th>
+							<td><input class="input-text" type="text" name="categorytpl" value="{$data['categorytpl']}" size="30" /><div class="onShow">{lang('a-mod-28')}：category.html</div></td>
+						</tr>
+					{else if $typeid == 3}
+						<tr>
+							<th><font color="red">*</font> {lang('a-mod-24')}： </th>
+							<td><input class="input-text" type="text" name="categorytpl" value="{$data['categorytpl']}" size="30" /><div class="onShow">{lang('a-mod-28')}：post.html</div></td>
+						</tr>
+					{/if}
+				<tr>
+					<th><font color="red">*</font> {lang('a-mod-25')}： </th>
+					<td><input class="input-text" type="text" name="listtpl" value="{$data['listtpl']}" size="30" /><div class="onShow">{lang('a-mod-28')}：list.html</div></td>
+				</tr>
+				<tr>
+					<th><font color="red">*</font> {lang('a-mod-26')}： </th>
+					<td><input class="input-text" type="text" name="showtpl" value="{$data['showtpl']}" size="30" /><div class="onShow">{lang('a-mod-28')}：show.html</div>
+					</td>
+				</tr>
+				{/if}
+				{if $typeid == 4}
+				<tr>
+					<th><font color="red">*</font> {lang('a-mod-172')}： </th>
+					<td><input class="input-text" type="text" name="categorytpl" value="{$data['categorytpl']}" size="30" required /><div class="onShow">{lang('a-mod-173')}</div></td>
+				</tr>
+				{/if}
+				</table>
+				</div>
+				
+				{if $typeid != 2}
+				<div class="contentList pad-10 hidden" id="div_setting_2" style="display: none;">
+				<table width="100%" class="table_form">
+				<tr>
+					<th width="200">{lang('a-cat-97')}：</th>
+					<td>
+					<input name="setting[auth][adminpost]" type="radio" value="0"{if $setting['auth']['adminpost']==0} checked{/if} onClick="$('#adminpost').hide()" />&nbsp;{lang('a-cat-51')}
+					&nbsp;&nbsp;&nbsp;
+					<input name="setting[auth][adminpost]" type="radio" value="1"{if $setting['auth']['adminpost']==1} checked{/if} onClick="$('#adminpost').show()" />&nbsp;{lang('a-cat-52')}
+					</td>
+				</tr>
+				<tr id="adminpost" {if !$setting['auth']['adminpost']}style="display:none"{/if}>
+					<th>{lang('a-cat-99')}：</th>
+					<td>
+						{loop $rolemodel $t}
+						<input name="setting[auth][rolepost][]" type="checkbox" value="{$t['roleid']}" {if $t['roleid']==1}disabled{/if} {if @in_array($t['roleid'], $setting['auth']['rolepost'])}checked{/if} />
+						{$t['rolename']}&nbsp;
+						{/loop}
+						<div class="onShow">{lang('a-mod-135')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th width="200">{lang('a-cat-50')}：</th>
+					<td>
+					<input name="setting[auth][memberpost]" type="radio" value="0"{if $setting['auth']['memberpost']==0} checked{/if} onClick="$('#memberpost').hide()" />&nbsp;{lang('a-cat-51')}
+					&nbsp;&nbsp;&nbsp;
+					<input name="setting[auth][memberpost]" type="radio" value="1"{if $setting['auth']['memberpost']==1} checked{/if} onClick="$('#memberpost').show()" />&nbsp;{lang('a-cat-52')}
+					</td>
+				</tr>
+				<tbody id="memberpost" {if !$setting['auth']['memberpost']}style="display:none"{/if}>
+				<tr>
+					<th>{lang('a-cat-53')}：</th>
+					<td>
+						{loop $membermodel $t}
+						<input name="setting[auth][modelpost][]" type="checkbox" value="{$t['modelid']}" {if @in_array($t['modelid'], $setting['auth']['modelpost'])}checked{/if} />
+						{$t['modelname']}&nbsp;
+						{/loop}
+						<div class="onShow">{lang('a-mod-135')}</div>
+					</td>
+				</tr>
+				<tr>
+					<th>{lang('a-cat-55')}：</th>
+					<td>
+						{loop $membergroup $t}
+						<input name="setting[auth][grouppost][]" type="checkbox" value="{$t['id']}" {if @in_array($t['id'], $setting['auth']['grouppost'])}checked{/if} />
+						{$t['name']}&nbsp;
+						{/loop}
+						<div class="onShow">{lang('a-mod-135')}</div>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>
+				{/if}
+				<div class="bk15"></div>
+				<input type="submit" class="button" value="{lang('a-submit')}" name="submit" />
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+	for(i=1;i<=cnt;i++){
+		if(i==cur){
+			$('#div_'+name+'_'+i).show();
+			$('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			$('#div_'+name+'_'+i).hide();
+			$('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>

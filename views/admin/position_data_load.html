@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<form action="" method="post">
+		{lang('a-con-26')}：<input type="text" class="input-text" size="25" name="title">
+		<select name='catid'>
+		<option value='0'> --- </option>
+		{$category}
+		</select>
+		 {lang('a-con-45')} <input name="thumb" type="checkbox" value="1">
+		<input type="submit" class="button" value="{lang('a-search')}" name="submit">
+	</form>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<table width="100%">
+		<thead>
+		<tr>
+			<th width="60" align="center">{lang('a-select')}</th>
+			<th align="left">{lang('a-con-26')}</th>
+			<th width="80" align="left">{lang('a-con-29')}</th>
+			<th width="130" align="left">{lang('a-con-31')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<input name="select" id="select" type="hidden" value="">
+		{loop $list $t}
+		<input name="title_{$t['id']}" id="title_{$t['id']}" type="hidden" value="{$t['title']}">
+		<input name="url_{$t['id']}" id="url_{$t['id']}" type="hidden" value="{$t['url']}">
+		<input name="thumb_{$t['id']}" id="thumb_{$t['id']}" type="hidden" value="{$t['thumb']}">
+		<input name="catid_{$t['id']}" id="catid_{$t['id']}" type="hidden" value="{$t['catid']}">
+		<input name="desc_{$t['id']}" id="desc_{$t['id']}" type="hidden" value="{$t['description']}">
+		<tr height="25">
+			<td align="center"><input name="select_" id="select_{$t['id']}" type="radio" value="{$t['id']}" onClick="setv(this)"></td>
+			<td align="left"><div style="overflow:hidden; height:22px; width:290px;">{if $t['thumb']}<font color="#FF0000">[{lang('a-pos-7')}]</font>{/if}{$t['title']}</div></td>
+			<td align="left">{$cats[$t['catid']]['catname']}</td>
+			<td align="left">{date(TIME_FORMAT, $t['updatetime'])}</td>
+		</tr>
+		{/loop}
+		</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+function setv(obj) {
+	var id = $(obj).val();
+	$("#select").val(id);
+}
+</script>
+</body>
+</html>

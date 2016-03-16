@@ -1,0 +1,46 @@
+{template header}
+<div id="breadcrumb">
+	<!-- breadcrumb starts-->
+	<div class="container">
+		<div class="one-half">
+			<h4>{$catname}</h4>
+		</div>
+		<div class="one-half">
+			<nav id="breadcrumbs">
+				<!--breadcrumb nav starts-->
+				<ul>
+					<li>您当前位置：</li>
+					<li><a  href="{SITE_PATH}">首页</a> > {catpos($catid, ' &gt;&nbsp;&nbsp;')}</li>
+				</ul>
+			</nav>
+			<!--breadcrumb nav ends -->
+		</div>
+	</div>
+</div>
+
+<div id="content">
+<div class="container">
+	<div class="one">
+
+		{list table=$table page=$page cid=$cid pagesize=$pagesize urlrule=$urlrule order=updatetime}
+		<div class="blog-post">
+			<div class="permalink">
+				<h4>
+					<a href="{form_show_url($modelid, $t)}">信息（根据自己设计的字段来决定）{$t['id']}</a></h4>
+			</div>
+			<ul class="post-meta">
+				<li><i class="fa fa-time"></i> {date("Y-m-d", $t['updatetime'])} </li>
+			</ul>
+			<!-- End post-meta -->
+			<div class="post-intro">
+
+				<p>信息（根据自己设计的字段来决定）{$t['id']}</a>
+			</div>
+		</div>
+		{/list}
+		{$pagelist}
+	</div>
+</div>
+</div>
+
+{template footer}

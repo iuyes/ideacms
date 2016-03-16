@@ -1,0 +1,59 @@
+{template header}
+	<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+	<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+	<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+    <script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+	<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+
+
+<div id="breadcrumb">
+	<!-- breadcrumb starts-->
+	<div class="container">
+		<div class="one-half">
+			<h4>{$form_name}</h4>
+		</div>
+		<div class="one-half">
+			<nav id="breadcrumbs">
+				<!--breadcrumb nav starts-->
+				<ul>
+					<li>您当前位置：</li>
+					<li><a  href="{SITE_PATH}">首页</a> > {if $joindata && $joindata['typeid'] == 1}<!--表示关联的内容模型-->
+						{catpos($cdata['catid'], ' &gt;&nbsp;&nbsp;')} &gt;&nbsp;&nbsp;<a href="{$cdata['url']}">{$cdata['title']}</a> &gt;&nbsp;&nbsp;
+						{/if}{$form_name} </li>
+				</ul>
+			</nav>
+			<!--breadcrumb nav ends -->
+		</div>
+	</div>
+</div>
+
+
+<div id="content">
+<div class="container">
+	<div class="one">
+		<!--begin-->
+		<div class="piclist">
+			<div class="item-list">
+				<form action="{url('form/post',array('modelid'=>$modelid, 'cid'=>$cid))}" method="post">
+				<table width="100%" class="table_form ">
+				{$fields}
+				{if $code}
+				<tr>
+					<th>验证码：</th>
+					<td><input name="code" type="text" class="input-text" size=10 /><img src="{url('api/captcha', array('width'=>80,'height'=>25))}" align="absmiddle"></td>
+				</tr>
+				{/if}
+				<tr>
+					<th width="100" style="border:none">&nbsp;</th>
+					<td style="border:none"><input type="submit" class="button" value="提 交" name="submit"></td>
+				</tr>
+				</table>
+				</form>
+			</div>
+		</div>
+		<!--end-->
+	</div>
+</div>
+</div>
+{template footer}

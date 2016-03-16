@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{EXT_PATH}edit_area/edit_area_full.js"></script>
+<script type="text/javascript" src="{LANG_PATH}edit_area.js"></script>
+<script type="text/javascript">
+	setTimeout('$("#myok").hide()', 3000);
+editAreaLoader.init({
+	id: 'file_content'
+	,start_highlight: true
+	,allow_toggle: true
+	,word_wrap: true
+	,language: '{SYS_LANGUAGE}'
+	,syntax: '{$syntax}'	//语法
+});
+function show_edit(id) {
+	if (id == 2) {
+		$('#file_edit').hide();
+	} else {
+		$('#file_edit').show();
+	}
+}
+</script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+		<a href="<?php echo url('admin/theme/index')?>"><em>{lang('a-men-47')}</em></a><span>|</span>
+		<a href="<?php echo url('admin/theme/add', array('cpath'=>$cpath))?>" class="on"><em>{lang('a-add')}</em></a><span>|</span>
+		<a href="<?php echo url('admin/theme/cache')?>"><em>{lang('a-cache')}</em></a>
+    </div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		{if !$iswrite}
+		<div class="explain-col" style="color:red">
+		    <b>{lang('a-con-125', array('1'=>VIEW_DIR . basename(SITE_THEME)))}</b>
+		</div>
+		{/if}
+		<div class="bk10"></div>
+		<form method="post" action="" id="myform" name="myform">
+		<table width="100%" class="table_form" style="margin-bottom:10px;">
+		<tr>
+			<td align="left">
+			{if $a=='add'}
+			<select name="filetype" onChange="show_edit(this.value)">
+			<option value="1">{lang('a-con-126')}</option>
+			<option value="2">{lang('a-mod-160')}</option>
+			</select>
+			{else}
+			{lang('a-con-126')}：
+			{/if}
+			{if $action=='add'}{$path} <input type="text" class="input-text" size="20" value="" name="file">
+			<div class="onShow">{lang('a-con-127')}</div>{else}{$name}{/if}</td>
+		</tr>
+		<tr id="file_edit">
+			<td align="left"> 
+			<textarea id="file_content" style="height: 300px; width: 100%;" name="file_content">{htmlspecialchars($file)}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td align="left"><input type="submit" class="button" value="{lang('a-submit')}" name="submit">
+
+				{if $is_post}
+				<b style="color: green" id="myok">&nbsp;&nbsp;保存成功</b>
+				{/if}
+			</td>
+		</tr>
+		</table>
+		</form>
+	</div>
+</div>
+</body>
+</html>

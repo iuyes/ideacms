@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+<script type="text/javascript">
+function ajaxletter() {
+	var letter = $('#letter').val();
+	if (letter == '') {
+	    $.post(sitepath+'?c=api&a=pinyin&id='+Math.random(), { name:$('#name').val() }, function(data){ $('#letter').val(data); });
+	}
+}
+</script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/tag')}"><em>{lang('a-men-32')}</em></a><span>|</span>
+		<a href="{url('admin/tag/add')}" class="on"><em>{lang('a-add')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'tag-cache')}<a href="{url('admin/tag/cache')}"><em>{lang('a-cache')}</em></a><span>|</span>{/if}
+		{if admin_auth($userinfo['roleid'], 'tag-import')}<a href="{url('admin/tag/import')}"><em>{lang('a-import')}</em></a>{/if}
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post">
+		<input name="id" type="hidden" value="{$data['id']}">
+		<table width="100%" class="table_form">
+		<tr>
+			<th width="200">{lang('a-name')}： </th>
+			<td><input class="input-text" type="text" name="data[name]" value="{$data['name']}" size="30" id="name" onBlur="ajaxletter()" required /></td>
+		</tr>
+            <tr>
+			<th width="200">{lang('a-tag-ex-1')}： </th>
+			<td><select name="data[catid]" id="">
+                {loop $category $cat}
+                <option value="{$cat['catid']}" {if $cat['catid'] == $data['catid']}
+                    selected
+                {/if}>{$cat['catname']}</option>
+                {/loop}
+            </select></td>
+		</tr>
+		<tr>
+			<th>{lang('a-tag-8')}： </th>
+			<td><input class="input-text" type="text" name="data[letter]" value="{$data['letter']}" id="letter" size="30"/></td>
+		</tr>
+		<tr>
+			<th>{lang('a-tag-9')}： </th>
+			<td><input class="input-text" type="text" name="data[listorder]" value="{$data['listorder']}" size="10"/>
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td><input class="button" type="submit" name="submit" value="{lang('a-submit')}" /></td>
+		</tr>
+		</table>
+		</form>
+	</div>
+</div>
+</body>
+</html>

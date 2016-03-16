@@ -1,0 +1,7 @@
+{if $memberinfo}
+标题：{$title}<br>
+价格：{$yuedu_price}<br>
+<a href="{url('yuedu/member/buy', array('id'=>$id, 'modelid'=>$modelid, 'title'=>$title))}">我要购买</a>
+{else}
+对不起请登录才能查看
+{/if}

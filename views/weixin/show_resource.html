@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+    <link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+    <link href="{WECHAT_THEME}css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+    <title>{$title}</title>
+</head>
+
+<body>
+    <div class="main_box center_box bd_radius white_bg box_shadow_1" style="margin: 20px auto 20px auto">
+        <h1 class="text_box">{$data['title']}</h1>
+
+        <div class="text_box" >
+            <img src="{$data['thumb']}" alt="" class="center_box ">
+        </div>
+
+        <div class="text_box text_body" style="font-size: 18px">{$data['content']}</div>
+        <div class="text_box">
+            {if $data['url']}
+               <strong>外部链接：</strong> <a href="{$data['url']}" target="_blank">{$data['title']}</a>
+            {/if}
+        </div>
+    </div>
+</body>
+</html>

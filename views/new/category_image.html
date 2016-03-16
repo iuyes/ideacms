@@ -1,0 +1,53 @@
+{template header}
+
+<div id="breadcrumb">
+	<!-- breadcrumb starts-->
+	<div class="container">
+		<div class="one-half">
+			<h4>{$catname}</h4>
+		</div>
+		<div class="one-half">
+			<nav id="breadcrumbs">
+				<!--breadcrumb nav starts-->
+				<ul>
+					<li>您当前位置：</li>
+					<li><a  href="{SITE_PATH}">首页</a> > {catpos($catid, ' &gt;&nbsp;&nbsp;')}</li>
+				</ul>
+			</nav>
+			<!--breadcrumb nav ends -->
+		</div>
+	</div>
+</div>
+<div id="content" style="margin-bottom: 20px;">
+
+	<!--栏目循环 begin-->
+	{loop $cats $c}
+	{if $c['parentid']==$catid && $c['typeid']==1}
+	<div class="container">
+		<div calss="row" style="margin-bottom: 20px">
+			<a href="{$c['url']}" class="button color-alt small round">{$c['catname']}</a>
+		</div>
+		<ul id="portfolio-container" class="three-columns">
+			{list catid=$c[catid] order=updatetime num=6}
+			<li class="isotope-item">
+				<div class="item-wrapp">
+					<div class="portfolio-item">
+						<a href="{$t['url']}" class="item-permalink"><i class="fa fa-link"></i></a>
+						<a href="{thumb($t['thumb'])}" data-rel="prettyPhoto" class="item-preview"><i class="fa fa-zoom-in"></i></a>
+						<img src="{thumb($t['thumb'], 290, 190)}" style="width: 283px;height: 190px;" alt="{$t[title]}"/>
+					</div>
+					<div class="portfolio-item-title">
+						<a href="{$t['url']}">{$t['title']}</a>
+					</div>
+				</div>
+			</li>
+
+			{/list}
+		</ul>
+	</div>
+	{/if}
+	{/loop}
+	<!--栏目循环 end-->
+</div>
+
+{template footer}

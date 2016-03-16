@@ -1,0 +1,72 @@
+{php $meta_title="淘宝客";$title="淘宝客";}
+{if $cid}
+	{php $cdata = get_taobao_cats($cid);if ($cdata['is_parent'] == 'false') $cdata = get_taobao_cats($cdata['parent_cid']);$meta_title=$cdata['name'];$title=$cdata['name'];}
+{/if}
+{template header}
+{if empty($cid)}
+<body id="index">
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".childs").click(function(){
+		$(this).toggleClass("show-cate");
+	});
+});
+</script>
+<header>
+	<div class="left-box"><a class="goback" href="{SITE_PATH}"><label>首页</label></a></div>
+	<h1>淘宝客</h1>
+ </header>
+<article id="category">
+{php $list = get_taobao_cats(0);}
+{loop $list $c}
+    <section class="category-box {if $c['is_parent'] == true}childs{/if}">
+		<div class="category-btn link">
+        	{if $c['is_parent'] == true}
+            <h1>{$c['name']}</h1>
+        	<label class="arrow"><span class="bg"></span></label>
+            {else}
+            <h1><a href="{url('taobaoke/index/list', array('cid'=>$c['cid']))}">{$c['name']}</a></h1>
+        	<label><span class="bg"></span></label>
+            {/if}
+    	</div>
+        {if $c['is_parent'] == true}
+        <ul>
+		{php $cdata = get_taobao_cats($c['cid']);$clist=$cdata['list'];}
+        {loop $clist $t}
+            <li><a href="{url('taobaoke/index/list', array('cid'=>$t['cid']))}">{$t['name']}</a></li>
+        {/loop}
+        </ul>
+        {/if}
+	</section>
+{/loop}
+</article>
+{else}
+<body id="index">
+<header class="index">
+    <h1 id="logo"><a href="{SITE_PATH}">{$SITE_NAME}</a></h1>
+	<h1>淘宝客</h1>
+</header>
+<div class="current-category">您当前的位置：{$title}</div>
+<div id="deals">
+{php $data=get_taobao_list($cid, 'commissionNum_desc', $pagesize=10, $page);} 
+{loop $data $t}
+    <section>
+		<a href="{$t['click_url']}" target="_blank">
+			<img width="122" height="74" src="{$t['pic_url']}_120x120.jpg" />
+			<detail>
+				<ul>
+					<li class="brand">{$t['title']}</li>
+					<li class="title indent">{strcut($t['description'],44)}</li>
+					<li class="price"><strong>{$t['item_location']}</strong><span>价格：￥{$t['price']}</span></li>
+				</ul>
+			</detail>
+		</a>
+	</section>
+{/loop}
+</div>
+<div id="deals-page" class="">
+    <div id="nav-more"><span class="nav-button"><a href="{url('taobaoke/index/list', array('cid'=>$cid, 'page'=>$page+1))}">下一页</a></span></div>
+    <div id="nav-top"><span class="nav-button"><label onClick="javascript:scroll(0,0)">回到顶部</label></span></div>
+</div>
+{/if}
+{template footer}

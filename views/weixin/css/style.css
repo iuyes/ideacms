@@ -1,0 +1,29 @@
+.main_box{
+    width: 70%;
+}
+.center_text{
+    text-align: center;
+}
+.center_box{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.text_box{
+    padding: 5px 5px 10px 5px;
+}
+.text_body p{
+    text-indent: 2em;
+    padding: 5px 0 10px 0;
+}
+.bd_radius
+{
+    border-radius: 5px;
+}
+.white_bg{
+    background: #ffffff;
+}
+.box_shadow_1{
+    box-shadow: 0 2px 3px #b5b5b5;
+}

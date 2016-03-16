@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">var sitepath = '{SITE_PATH}{ENTRY_SCRIPT_NAME}';</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<title>admin</title>
+</head>
+<body>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style>
+<form action="" method="post" id="myform">
+<div class="pad-10">
+<div class="col-tab">
+	<ul class="tabBut cu-li">
+	{if $show}
+		<li class="on">{lang('a-plu-52')}</li>
+	{else}
+	<li class="on">{lang('a-plu-53')}</li>
+		<li>{lang('a-plu-52')}</li>
+	{/if}
+	</ul>
+	<div id="tab-content">
+		{if !$show}
+		<div class="contentList pad-10 ">
+			<table width="98%" class="table_form">
+			<tbody>
+				{$fields}
+			</tbody>
+			</table>
+			<div class="bk15"></div>
+			<input name="submit" type="submit" value="{lang('a-submit')}" class="button">
+		</div>
+		{/if}
+		<div class="contentList pad-10{if !$show} hidden{/if}">
+		<h3>{$data['name']}</h3>
+		{$data['description']}
+		</div>
+	</div>
+</div>
+</div>
+</form>
+</body>
+<script type="text/javascript">
+function SwapTab(name,title,content,Sub,cur){
+	$(name+' '+title).click(function(){
+		$(this).addClass(cur).siblings().removeClass(cur);
+		$(content+" > "+Sub).eq($(name+' '+title).index(this)).show().siblings().hide();
+	});
+}
+new SwapTab(".tabBut","li","#tab-content",".contentList","on");//排行TAB	
+</script>
+</html>

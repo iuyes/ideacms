@@ -1,0 +1,87 @@
+body{
+ margin: 0;
+ padding: 0;
+ font-size: 12px;
+}
+.login_box{
+ width:602px;
+ height:409px;
+ position: absolute;
+ top:50%;
+ margin-top: -204px;
+ left:50%;
+ margin-left: -301px;
+ background: url("./login_bg.jpg");
+}
+.login_iptbox{
+ width:550px;
+ height:52px;
+ margin-top: 284px;
+ line-height: 52px;
+ color:#FFF;
+ text-align: center;
+}
+.login_iptbox .ipt{
+ width:110px;
+ margin-right: 10px;
+}
+.login_iptbox .ipt_code{
+ width:46px;
+ margin-right: 10px;
+}
+.login_iptbox .ipt_btn{
+ position:absolute;
+ top:297px;
+ width:52px;
+ height:24px;
+ background: url("./login_dl_btn.jpg") no-repeat;
+ border: none;
+}
+#code_img{
+ position:relative;
+ background:url(./login_ts140x89.gif) no-repeat;
+ width:140px;
+ height:89px;
+ left:430px;
+ top:-133px;
+ text-align:center;
+ display:none;
+ color:#000;
+ }
+ .admintop{
+  background-color: #3A6EA5;
+  height:81px;
+ }
+ .logodiv{
+  width:136px;
+  height:81px;
+  float: left;
+ }
+ .logo_a{
+  display:block;
+  width:136px;
+  height:81px;
+  background: url("./logo.gif");
+ }
+ .adminshell{
+  width:600px;
+  height:81px;
+  margin-left: 10px;
+  float:left;
+ }
+ .admininfo{
+  width:600px;
+  height:40px;
+  line-height:40px;
+ }
+ .adminmenu ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+ }
+ .adminmenu li{
+  float: left;
+ }
+ #drcms_news a:hover {
+     text-decoration:none; 
+ }

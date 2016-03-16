@@ -1,0 +1,37 @@
+{template member/header}
+<div id="wrapper">
+	<div class="top"></div>
+	<form method="post" action="" name="myform" id="myform">
+	<div class="center1 password_management">
+        {if $step == 1}
+        <div class="title_r">找回密码</div>
+        <div class="token_process">
+            <ul>
+            <li>会员账号：<input type="text" class="input_text" name="username" id="username" /></li>
+            <li>会员验证：<input type="text" class="input_text" name="code" style="width:100px" />
+            <img id="code" src="{url("api/captcha/", array("width"=>100, "height"=>30))}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{url("api/captcha/", array("width"=>0, "height"=>30))}&'+Math.random();" style="cursor:pointer; margin-top:-3px;">
+            </li>
+            <li><input type="submit" value="找回密码" class="btn" name="submit"/></li>
+            </ul>
+        </div>
+        {else if $step == 2}
+        <div class="title_r">重置密码</div>
+        <div class="token_process">
+            <ul>
+            <li>会员账号：{$name}</li>
+            <li>会员密码：<input type="password" class="input_text" name="password"/></li>
+            <li>确认密码：<input type="password" class="input_text" name="password2"/></li>
+            <li><input type="submit" value="重置密码" class="btn" name="submit"/></li>
+            </ul>
+        </div>
+        {else}
+        <div class="title_r">完成找回</div>
+        <div class="token_process">
+            恭喜您，您的密码已重置，请<a href="{url('member/login')}">登录！</a>
+        </div>
+        {/if}
+    </div>
+	</form>
+    <div id="index_bottom"></div>
+</div>
+{template member/footer}

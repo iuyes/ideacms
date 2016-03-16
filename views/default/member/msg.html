@@ -1,0 +1,25 @@
+{php $meta_title='提示信息';}
+{template member/header}
+<!--Wrapper-->
+<div id="wrapper">
+	<div class="top"></div>
+	<div class="center1" style="height: 200px;min-height: 200px">
+		<div class="title_r"><b>提示信息</b></div>
+		<div class="pm_index" style="text-align:center;padding:50px 0 50px 0;">
+                <h3 class="message-title" {if $result} style=" color:#000"{else} style=" color: #F00"{/if}>{$msg}</h3>
+                {if $url}
+                <p class="message-intro">
+                     <a href="{$url}">如果您的浏览器没有自动跳转，请点击这里</a>
+                     <meta http-equiv="refresh" content="{$time}; url={$url}">
+                </p>
+                {/if}
+                <p class="message-action">
+                    <a class="back" href="javascript:history.go(-1)">后退到上一页</a> |
+                    <a class="forward" href="{SITE_PATH}">前往首页</a>
+                </p>
+		</div>
+	</div>
+    <div class="bottom"></div>
+</div>
+<!--Wrapper End-->
+{template member/footer}

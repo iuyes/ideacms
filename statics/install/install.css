@@ -1,0 +1,306 @@
+/*===========  IdeaCms Install Css  ============
+By : http://www.niceeo.com
+===============================================*/
+body,html,div,ul,li,p,span,form {
+  margin: 0;
+  padding: 0;
+  font-size:14px;
+  font-family: Arial,"Î¢ÈíÑÅºÚ",sans-serif;
+  vertical-align: baseline;
+}
+
+input,button,select,textarea {
+  outline: none
+}
+
+body {
+  background: #09c;
+  color: #444;
+}
+
+a {
+  text-decoration: none;
+  color: #09c;
+  font-weight: bold;
+}
+
+.red {
+  color: #f00!important;
+  font-size: 13px;
+}
+
+ul,li {
+  list-style: none;
+}
+
+img {
+  border: 0;
+}
+
+.m10 {
+  margin: 10px;
+}
+
+.width {
+  margin: 50px auto;
+  width: 800px;
+  overflow: hidden;
+  background: #fcfcfc;
+  border: 5px #F4F4F4 solid;
+  padding-bottom: 15px;
+}
+
+.logo {
+  border-bottom: 1px #dedede solid;
+  margin-bottom: 20px;
+}
+
+.bnt {
+  margin: 10px auto;
+  text-align: center;
+  width: 780px;
+  float: left
+}
+
+.bnt .n {
+  border: 0;
+  background: #09F;
+  padding: 5px 8px;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.bnt .c {
+  border: 0;
+  background: #F30;
+  padding: 5px 8px;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.logo span {
+  float: right;
+  margin-top: 30px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  color: #777;
+
+  background: #f1f1f1;
+  border: 1px #eee solid;
+  text-align: center;
+}
+
+p {
+  line-height: 25px;
+  font-size: 14px;
+  color: #777;
+}
+
+.table {
+  border: 1px #eee solid;
+  float: left;
+  margin-top: 15px;
+  _height: 300px;
+  min-height: 300px;
+  width: 778px;
+}
+
+.table .left {
+  float: left;
+  width: 220px;
+  border-right: 1px #eee solid;
+}
+
+.table .left li {
+  *margin-left: -15px;
+  height: 33px;
+  line-height: 33px;
+  padding-left: 10px;
+  border-bottom: 1px #eee solid;
+  font-size: 14px;
+  color: #999;
+}
+
+.table .left li span {
+  float: right;
+  padding-right: 10px;
+}
+
+.table .right {
+  float: left;
+  width: 540px;
+  overflow: hidden;
+  padding-top: 15px;
+  padding-left: 10px;
+}
+
+.left p {
+  font-size: 13px;
+  line-height: 25px;
+  color: #666;
+}
+
+.right p {
+  border-bottom: 1px #ddd dotted;
+  line-height: 35px;
+  text-align: left;
+  padding-left: 120px;
+}
+
+.right p a {
+  color: #060;
+  text-decoration: none;
+}
+
+.right p a:hover {
+  color: #C0C;
+  text-decoration: underline;
+}
+
+.f12 {
+  font-size: 12px;
+}
+
+.About {
+  width: 200px;
+  height: 60px;
+}
+
+.About a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #444;
+}
+
+.About a:hover {
+  font-size: 14px;
+  text-decoration: underline;
+  color: #C30;
+}
+
+.About .ico_1 {
+  background: url(ico_a.gif) no-repeat left;
+  width: 80px;
+  text-align: center;
+  float: left;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding-left: 20px;
+}
+
+.About .ico_2 {
+  background: url(ico_b.gif) no-repeat left;
+  width: 80px;
+  text-align: center;
+  float: left;
+  margin-top: 20px;
+}
+
+.set {
+  border: 1px #eee solid;
+  float: left;
+  margin-top: 15px;
+  height: 285px;
+  padding-top: 15px;
+  width: 778px;
+}
+
+.set .left {
+  width: 120px;
+  float: left;
+}
+
+.set .left li {
+  ;height: 29px;
+  line-height: 29px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #555;
+}
+
+.set .right {
+  width: 557px;
+  float: left;
+}
+
+.set .right li {
+  margin-bottom: 9px;
+}
+
+.set .right li span {
+  font-size: 12px;
+  color: #999;
+  padding-left: 10px;
+  line-height: 25px;
+}
+
+.set .right .n {
+  border: 0;
+  padding: 5px;
+  background: #090;
+  color: #FFF;
+}
+
+.set li span {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.on {
+  border: 1px #ddd solid;
+  height: 26px;
+  *height: 22px;
+  *padding-top: 3px;
+  width: 180px;
+  padding-left: 5px;
+  color: #999;
+}
+
+.in {
+  border: 1px #0CF solid;
+  height: 26px;
+  *height: 22px;
+  *padding-top: 3px;
+  width: 180px;
+  padding-left: 5px;
+}
+
+.yes {
+  background: url(yes.png) no-repeat;
+  width: 16px;
+  margin-top: 7px;
+  display: block;
+  height: 16px;
+}
+
+#msgbox {
+  border: 1px #ddd solid;
+  width: 737px;
+  height: 260px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.nr {
+  color: #FFFFFF;
+  float: left;
+  font-size: 12px;
+  height: auto !important;
+  line-height: 24px;
+  min-height: 280px;
+  overflow-y: auto;
+  width: 758px;
+  padding: 10px;
+}
+
+.nr-n {
+  height: 280px;
+}
+
+.vck {
+  color: #FFFFFF;
+}

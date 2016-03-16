@@ -1,0 +1,73 @@
+{template header}
+<div id="breadcrumb">
+    <!-- breadcrumb starts-->
+    <div class="container">
+        <div class="one-half">
+            <h4>搜索</h4>
+        </div>
+        <div class="one-half">
+            <nav id="breadcrumbs">
+                <!--breadcrumb nav starts-->
+                <ul>
+                    <li>您当前位置：</li>
+                    <li><a  href="{SITE_PATH}">首页</a> > 搜索</li>
+                </ul>
+            </nav>
+            <!--breadcrumb nav ends -->
+        </div>
+    </div>
+</div>
+
+<div id="content">
+<div class="container">
+    <div class="one">
+        <div class="select-list">
+            <p>
+                <?php
+				$_param=$param;
+				unset($_param['modelid']);
+				if (isset($_param['id']) && $_param['id']) {
+				    unset($_param['id'], $param['id']);
+					$_param['kw']=$param['kw']=$kw;
+				}
+				unset($_param['page'], $param['page']);
+				?>
+                <a href="{url('content/search', array('kw'=>urldecode($kw)))}" class="button {if empty($modelid)}color-alt {else}simple-grey{/if} small round">全部</a>
+                {loop $model $t}
+                <a href="{url('content/search', array('kw'=>urldecode($kw), 'modelid'=>$t['modelid']))}" class="button {if $modelid==$t['modelid']}color-alt {else}simple-grey{/if} small round">{$t['modelname']}</a>
+            {/loop}
+            </p>
+        </div>
+        {if $searchdata}
+        {loop $searchdata $t}
+        <div class="blog-post">
+            <div class="permalink">
+                <h4><a href="{$t['url']}">{$t['title']}</a></h4>
+            </div>
+            <ul class="post-meta">
+                <li><i class="fa fa-time"></i> {date("Y-m-d", $t['updatetime'])} </li>
+                <!-- Date -->
+                <li><i class="fa fa-user"></i><a href="#">{$t[username]}</a></li>
+                <!-- Author -->
+                <li><i class="fa fa-tags"></i><a href="{$cats[$t[catid]][url]}">{$cats[$t[catid]][catname]}</a></li>
+                <!-- Category -->
+            </ul>
+            <!-- End post-meta -->
+            <div class="post-intro">
+                <p>{$t[description]}</p>
+            </div>
+        </div>
+        {/loop}
+        {$searchpage}
+        {else}
+        <div class="notification error">
+            <p>
+                <i class="fa fa-warning-sign"></i> 没有搜索到相关内容...
+            </p>
+        </div>
+        {/if}
+    </div>
+</div>
+</div>
+
+{template footer}

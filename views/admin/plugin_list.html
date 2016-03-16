@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href="{url('admin/plugin')}" class="on"><em>{lang('da015')}</em></a><span>|</span>
+        <a href="{url('admin/plugin/cache')}"><em>{lang('a-cache')}</em></a><span>|</span>
+        <a href="tencent://message/?uin=976510651" target="_blank"><em>{lang('da016')}</em></a>
+    </div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<table width="100%" cellspacing="0">
+		<thead>
+		<tr>
+			<th width="6%">ID</th>
+			<th width="14%" align="left">{lang('a-plu-39')}</th>
+			<th width="8%" align="left">{lang('a-plu-40')}</th>
+			<th width="7%" align="left">{lang('a-plu-41')}</th>
+			<th width="7%" align="left">{lang('a-plu-42')}</th>
+			<th width="9%" align="left">{lang('a-plu-43')}</th>
+			<th width="29%" align="left">{lang('a-option')}</th>
+			<th width="20%" align="left">&nbsp;</th>
+		</tr>
+		</thead>
+		<tbody>
+		{loop $list $t}
+		{php $url = $t['typeid'] ? url($t['dir'].'/admin/index/') : url('admin/plugin/set', array('pluginid'=>$t['pluginid']));}
+		<tr>
+			<td align="center">{$t['pluginid']}</td>
+			<td ><a href="{$url}">{$t['name']}</a></td>
+			<td align="left">{$t['author']}</td>
+			<td align="left">{$t['version']}</td>
+			<td align="left">{$t['dir']}</td>
+			<td align="left">{if $t['typeid']==1}{lang('a-plu-44')}{/if}{if $t['typeid']==2}{lang('a-plu-45')}{/if}{if $t['typeid']==0}{lang('a-plu-46')}{/if}</td>
+			<td align="left">
+			{if $t['pluginid']}
+			{if admin_auth($userinfo['roleid'], 'plugin-set')}<a href="{url('admin/plugin/set',array('pluginid'=>$t['pluginid']))}">{lang('a-plu-49')}</a>&nbsp;{/if}
+			{if admin_auth($userinfo['roleid'], 'plugin-disable')}<a href="{url('admin/plugin/disable',array('pluginid'=>$t['pluginid']))}">{if $t['disable']}<font color="#FF0000">{lang('a-open')}</font>{else}{lang('a-close')}{/if}</a>&nbsp;{/if}
+			{if admin_auth($userinfo['roleid'], 'plugin-del')}<a href="{url('admin/plugin/del',array('pluginid'=>$t['pluginid']))}">{lang('a-plu-1')}</a>&nbsp;{/if}
+			{if $t['typeid']==2 || $t['typeid']==0}<a href="javascript:;" onClick="getViewData({$t['pluginid']});">{lang('a-plu-47')}</a>&nbsp;{/if}
+			{else}
+			{if admin_auth($userinfo['roleid'], 'plugin-add')}<a href="{url('admin/plugin/add',array('dir'=>$t['dir']))}"><font color="#FF0000">{lang('a-plu-48')}</font></a>&nbsp;{/if}
+			{/if}
+			<!-- {if admin_auth($userinfo['roleid'], 'plugin-unlink')}<a href="{url('admin/plugin/unlink',array('dir'=>$t['dir']))}">{lang('a-del')}</a>{/if} -->
+			</td>
+			<td width="35%" align="left"></td>
+		</tr>
+		{/loop}
+		</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+function testP(id) {
+    $('#test_'+id).html("Checking...");
+    $.post('{url('admin/plugin/ajaxtestp')}&randid='+Math.random(), { id: id }, function(data){
+        $('#test_'+id).html(data);
+	});
+}
+function updateP(id) {
+    $('#test_'+id).html("Checking...");
+    $.post('{url('admin/plugin/ajaxupdate')}&randid='+Math.random(), { id: id }, function(data){
+        $('#test_'+id).html(data);
+	});
+}
+function getViewData(pluginid) {
+	var url = '{url("admin/plugin/ajaxview/",array("pluginid"=>""))}'+pluginid;
+	window.top.art.dialog(
+	    {id:"ajaxview", okVal:idec_lang[6], cancelVal:idec_lang[7], iframe:url, title:'{lang('a-plu-37')}', width:'260', height:'90', lock:true,
+		button: [
+            {
+				name: '{lang('a-copy')}',
+				callback: function () {
+					 var d = window.top.art.dialog({id:"ajaxview"}).data.iframe;
+			         var c = d.document.getElementById('p_'+pluginid).value;
+					 copyToClipboard(c);
+					 return false;
+				},
+				focus: true
+            }, {
+                name: '{lang('a-close')}'
+            }
+        ]
+
+		}
+	);
+}
+
+function copyToClipboard(meintext) {
+    if (window.clipboardData){
+        window.clipboardData.setData("Text", meintext);
+    } else if (window.netscape){
+        try {
+            netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+        } catch (e) {
+            alert("{lang('a-att-18')}");
+		}
+        var clip = Components.classes['@mozilla.org/widget/clipboard;1'].
+        createInstance(Components.interfaces.nsIClipboard);
+        if (!clip) return;
+        var trans = Components.classes['@mozilla.org/widget/transferable;1'].
+        createInstance(Components.interfaces.nsITransferable);
+        if (!trans) return;
+        trans.addDataFlavor('text/unicode');
+        var len = new Object();
+        var str = Components.classes["@mozilla.org/supports-string;1"].
+        createInstance(Components.interfaces.nsISupportsString);
+        var copytext=meintext;
+        str.data=copytext;
+        trans.setTransferData("text/unicode",str,copytext.length*2);
+        var clipid=Components.interfaces.nsIClipboard;
+        if (!clip) return false;
+        clip.setData(trans,null,clipid.kGlobalClipboard);
+    }
+    alert("{lang('a-att-19')}");
+    return false;
+}
+</script>
+</body>
+</html>

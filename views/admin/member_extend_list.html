@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/member/extend',array('status'=>1,'modelid'=>$modelid,'touserid'=>$touserid))}" {if $status==1}class="on"{/if}><em>{lang('a-con-20')}({$count[1]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>0,'modelid'=>$modelid,'touserid'=>$touserid))}" {if $status==0}class="on"{/if}><em>{lang('a-con-21')}({$count[0]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>2,'modelid'=>$modelid,'touserid'=>$touserid))}" {if $status==2}class="on"{/if}><em>{lang('a-con-22')}({$count[2]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('status'=>3,'modelid'=>$modelid,'touserid'=>$touserid))}" {if $status==3}class="on"{/if}><em>{lang('a-con-23')}({$count[3]})</em></a><span>|</span>
+		<a href="{url('admin/member/extend',array('type'=>'set','modelid'=>$modelid,'touserid'=>$touserid))}"><em>{lang('a-mod-171')}</em></a><span>|</span>
+		<a href="{url('member/extend',array('modelid'=>$modelid,'touserid'=>$touserid))}" target="_blank"><em>{lang('a-mod-186')}</em></a>
+	</div>
+	<div class="bk10"></div>
+	<div class="explain-col">
+		<form action="" method="post">
+		<input name="form" type="hidden" value="search">
+		{lang('a-mod-169')}：
+		<input type="text" class="input-text" size="5" name="touserid" value="{$touserid}" />
+		{lang('a-mod-170')}：
+		<input type="text" class="input-text" size="5" name="userid" />
+		{lang('a-con-63')}：
+		<select id="stype" name="stype">
+			<option value="0"> ---- </option>
+			{loop $model['fields']['data'] $t}
+			<option value="{$t['field']}">{$t['name']}</option>
+			{/loop}
+		</select>
+		&nbsp;&nbsp;
+		<input type="text" class="input-text" size="25" name="kw" />
+		<input type="submit" class="button" value="{lang('a-search')}" name="submit" />
+		</form>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post" name="myform">
+		<input id="form" name="form" type="hidden" value="search" />
+		<table width="100%">
+		<thead>
+		<tr>
+			<th style="width:20px;" align="left"><input name="deletec" id="deletec" type="checkbox" onClick="setC()" /></th>
+			<th style="width:40px;" align="left">ID </th>
+			{loop $model['setting']['member']['show'] $f}
+			<th align="left">{$model['fields']['data'][$f]['name']}</th>
+			{/loop}
+			<th style="width:90px;" align="left">{lang('a-mod-169')}</th>
+			<th style="width:90px;" align="left">{lang('a-con-30')}</th>
+			<th style="width:120px;" align="left">{lang('a-con-31')}</th>
+			<th style="width:40px;" align="left">{lang('a-option')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		{loop $list $t}
+		<tr height="25">
+			<td align="left"><input name="ids[]" value="{$t['id']}" type="checkbox" class="deletec" /></td>
+			<td align="left">{$t['id']}</td>
+			{loop $model['setting']['member']['show'] $f}
+			<td align="left">{$t[$f]}</td>
+			{/loop}
+			<td align="left">
+			{php $to=get_member_info($t['touserid']);}
+			<a href="{url('admin/member/extend',array('userid'=>$t['userid'],'modelid'=>$modelid,'status'=>$status, 'touserid'=>$t['touserid']))}">{$to['username']}</a></td>
+			<td align="left">{if $t['username']}<a href="{url('admin/member/extend',array('modelid'=>$modelid,'status'=>$status, 'touserid'=>$touserid))}">{$t['username']}</a>{else}{$t['ip']}{/if}</td>
+			<td align="left"><span style="{if date('Y-m-d', $t['updatetime']) == date('Y-m-d')}color:#F00{/if}">{date(TIME_FORMAT, $t['updatetime'])}</span></td>
+			<td align="left">
+			<a href="{url('admin/member/extend',array('id'=>$t['id'],'modelid'=>$modelid, 'type'=>'edit'))}">{lang('a-edit')}</a>
+			</td>
+		</tr>
+		{/loop}
+		<tr height="25">
+			<td colspan="11" align="left">
+			<input type="submit" class="button" value="{lang('a-del')}" name="submit" onClick="$('#form').val('del');return confirm_del()">&nbsp;
+			<input type="submit" class="button" value="{lang('a-con-36')}" name="submit" onClick="$('#form').val('status_1')">&nbsp;
+			<input type="submit" class="button" value="{lang('a-con-37')}" name="submit" onClick="$('#form').val('status_0')">&nbsp;
+			<input type="submit" class="button" value="{lang('a-con-39')}" name="submit" onClick="$('#form').val('status_3')">&nbsp;
+			</td>
+		</tr>    
+		</tbody>
+		</table>
+		{$pagelist}
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+    window.top.art.dialog({id:'clz'}).close();
+});
+function confirm_del() {
+    if (confirm('{lang('a-confirm')}')) { 
+		return true; 
+	} else {
+	    return false;
+	}
+}
+function setC() {
+	if($("#deletec").attr('checked')) {
+		$(".deletec").attr("checked",true);
+	} else {
+		$(".deletec").attr("checked",false);
+	}
+}
+</script>
+</body>
+</html>

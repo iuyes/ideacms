@@ -1,0 +1,28 @@
+
+
+<section id="copyrights">
+    <section class="container">
+
+        <div id="copyright">{html_entity_decode($SITE_BOTTOM_INFO)}</div>
+        <div class="one-half">
+            <p>
+                Powered by {CMS_NAME} v{CMS_VERSION} .<a rel="nofollow" href="http://www.miibeian.gov.cn/" target="_blank">{$SITE_ICP}</a>
+            </p>
+        </div>
+        <div class="one-half">
+            <ul class="copyright_links">
+                {loop $cats $t}
+                {if $t['parentid']==0 && $t['ismenu']}
+                <li><a href="{$t['url']}">{$t['catname']}</a></li>
+                {/if}
+                {/loop}
+            </ul>
+        </div>
+    </section>
+</section>
+</div>
+<!-- main wrapp starts-->
+</div>
+<!-- main container ends-->
+</body>
+</html>

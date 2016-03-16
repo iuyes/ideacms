@@ -1,0 +1,67 @@
+{template header}
+    <div class="navigation">
+    您当前位置：<a  href="{SITE_PATH}">首页</a> >> {catpos($catid, ' >>  ')}
+    </div>
+	<div class="blank10 clear"></div>
+    <div class="picmain">
+	    <div class="left">
+		    <div class="floatl">
+				<script type='text/javascript' src='{WEB_THEME}js/KinSlideshow.js'></script>
+				<script type="text/javascript">
+				$(function(){
+					$("#KinSlideshow").KinSlideshow({
+						moveStyle:"down", //切换参数left,right,down,up
+						intervalTime:3, //切换时间
+						mouseEvent:"mouseover",
+						titleBar:{titleBar_height:30,titleBar_bgColor:"#656565",titleBar_alpha:0.5}, //标题背景
+						titleFont:{TitleFont_size:12,TitleFont_color:"#FFFFFF",TitleFont_weight:"normal"}, //标题字体
+						btn:{btn_bgColor:"#FFFFFF",btn_bgHoverColor:"#FF7A00",btn_fontColor:"#000000",btn_fontHoverColor:"#FFFFFF",btn_borderColor:"#cccccc",btn_borderHoverColor:"#666666",btn_borderWidth:1} //按钮设置
+					});
+				})
+				</script>
+				<div id="KinSlideshow" style="visibility:hidden;overflow:hidden;width:358px;height:290px;">
+					{list action=position id=3}
+					<a href="{$t['url']}" title="{$t['title']}"><img src="{thumb($t['thumb'])}" alt="{$t['title']}" width="358" height="290" /></a>
+					{/list}
+				</div>
+			</div>
+	        <div class="floatr">
+				<ul>
+				{list action=position id=3}
+					<li><a href="{$t['url']}"><img src="{thumb($t['thumb'], 120, 90)}" width="120" height="90"></a><br /><a href="{$t['url']}">{$t['title']}</a></li>
+				{/list}	
+				</ul>
+	        </div>
+		</div>
+		<div class="right">
+		    <div class="title">最新TOP10</div>
+			<div class="right01box">
+			<ul>
+			{list catid=$catid order=updatetime num=7 cache=36000}
+			<li><span class="N{$key+1}"><!--这里的$key是list循环控制变量，list教程有详细介绍--></span><a href="{$t['url']}">{$t['title']}</a></li>
+			{/list}
+			</ul>
+		    </div>
+        </div>
+	</div>
+    <div class="blank10 clear"></div>
+    <div class="picmain2">
+    {loop $cats $c}
+    {if $c['parentid']==$catid && $c['typeid']==1}
+        <div class="col">
+            <div class="t"><span><a href="{$c['url']}">更多>></a></span>{$c['catname']}</div>
+            <ul> 
+            {list catid=$c[catid] order=updatetime num=6}
+            <li>
+            <a href="{$t['url']}"><img src="{thumb($t['thumb'])}"></a>
+            <br />
+            <a href="{$t['url']}">{$t['title']}</a>
+            </li>
+            {/list}
+            </ul>
+        </div>
+    {/if}
+    {/loop}
+    </div>
+    <div class="clear blank10"></div>
+{template footer}

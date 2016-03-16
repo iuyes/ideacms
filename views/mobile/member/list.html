@@ -1,0 +1,34 @@
+{template header}
+<body id="orders">
+<header class=" ">
+    <div class="left-box"><a class="goback" href="javascript:history.back()"><label>返回</label></a></div>
+    <h1>{$model['modelname']}管理</h1>
+</header>
+<div class="body">
+    <div id="orders-list">
+    	{loop $list $t}
+        <div class="order-box">
+            <a href="{$t['url']}">
+                <img src="{thumb($t['thumb'])}" width="122px" height="74px" />
+                <h3>{$t['title']}</h3>
+                <ul>
+                <li>{date('Y-m-d H:i:s', $t['updatetime'])} {if $t['status']==0}<font color="#FF0000">[待审]</font>{else if $t['status']==2}<font color="#0000FF">[拒绝]</font>{/if}</li>
+                </ul>
+            </a>
+        </div>
+        {/loop}
+        <?php
+        if (preg_match("/<a href=\"([^\"|^<]+)\">下一页<\/a>/Ui",$pagelist, $m)) {
+            $next_url = '<a href="' . $m[1] . '">下一页</a>';
+        } else {
+            $next_url = "";
+        }
+        ?>
+        {if $next_url}
+        <div id="deals-page" class="">
+        <div id="nav-more"><span class="nav-button">{$next_url}</span></div>
+    	</div>
+        {/if}
+    </div>
+</div>
+{template footer}

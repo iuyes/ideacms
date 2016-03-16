@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<script type="text/javascript">
+function ajaxemail() {
+	$('#email_text').html('');
+	$.post('{url('admin/member/ajaxemail')}&rid='+Math.random(), { email:$('#email').val(), id:{$id} }, function(data){ 
+        $('#email_text').html(data); 
+	});
+}
+</script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/member/index')}" {if $status==0}class="on"{/if}><em>{lang('a-mem-26')}({$count[0]})</em></a><span>|</span>
+		<a href="{url('admin/member/index', array('status'=>1))}" {if $status==1}class="on"{/if}><em>{lang('a-con-20')}({$count[1]})</em></a><span>|</span>
+		<a href="{url('admin/member/index', array('status'=>2))}" {if $status==2}class="on"{/if}><em>{lang('a-con-21')}({$count[2]})</em></a><span>|</span>
+		<a href="{url('admin/member/reg')}"><em>{lang('a-mem-27')}</em></a><span>|</span>
+        <a href="{url('admin/member/edit', array('id'=>$id))}" class="on"><em>{lang('a-mem-34')}</em></a>
+    </div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form method="post" action="" id="myform" name="myform">
+		<table width="100%" class="table_form ">
+		<tbody>
+		<tr>
+			<th width="200">{lang('a-user')}：</th>
+			<td>{$data['username']}&nbsp;&nbsp;{if $model}({$model['modelname']}){/if}</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mem-30')}：</th>
+			<td><select name="data[groupid]">
+			{loop $group $t}
+			<option value="{$t['id']}" {if $data['groupid']==$t['id']}selected{/if}>{$t['name']}</option>
+			{/loop}
+			</select><div class="onShow">{lang('a-mem-36')}</div></td>
+		</tr>
+		<tr>
+			<th>{lang('a-mem-37')}：</th>
+			<td><input type="text" class="input-text" size="30" value="" name="password">
+			<div class="onShow">{lang('a-mem-38')}</div></td>
+		</tr>
+		<tr>
+			<th>{lang('a-mem-39')}：</th>
+			<td><input type="text" class="input-text" size="30" id="email" value="{$data['email']}" name="data[email]"onBlur="ajaxemail()">
+			<div class="onShow" id="email_text"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mem-40')}：</th>
+			<td><input type="text" class="input-text" size="30" value="{$data['nickname']}" name="data[nickname]"></td>
+		  </tr>
+		<tr>
+			<th>{lang('a-mem-41')}：</th>
+			<td><input type="text" class="input-text" size="30" value="{$data['credits']}" name="data[credits]">
+			<div class="onShow">{lang('a-mem-42')}</div></td>
+		  </tr>
+		<tr>
+			<th>{lang('a-mem-43')}：</th>
+			<td>{formatFileSize(count_member_size($data['id']))}</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mem-32')}：</th>
+			<td>{date(TIME_FORMAT, $data['regdate'])}</td>
+		  </tr>
+		<tr>
+			<th>{lang('a-mem-33')}：</th>
+			<td><a href="http://www.baidu.com/baidu?wd={$data['regip']}" target=_blank>{$data['regip']}</a></td>
+		</tr>
+		<tr>
+			<th>{lang('a-mod-162')}：</th>
+			<td>{date(TIME_FORMAT, $data['logintime'])}</td>
+		  </tr>
+		<tr>
+			<th>{lang('a-mod-163')}：</th>
+			<td><a href="http://www.baidu.com/baidu?wd={$data['loginip']}" target=_blank>{$data['loginip']}</a></td>
+		</tr>
+		{if $oauth}
+		<tr>
+			<th>{lang('a-men-44')}：</th>
+			<td>
+				<table>
+				<thead>
+					<tr>
+						<td width="150">{lang('a-mem-45')}</td>
+						<td width="140">{lang('a-mem-46')}</td>
+						<td width="140">{lang('a-mem-47')}</td>
+						<td width="60">{lang('a-mem-48')}</td>
+					</tr>
+				</thead>
+				<tbody>
+				 {loop $oauth $t}
+				  <tr>
+					<td>{$t['nickname']}</td>
+					<td>{date(TIME_FORMAT, $t['addtime'])}</td>
+					<td>{if $t['logintimes']}{date(TIME_FORMAT, $t['logintimes'])}{/if}</td>
+					<td>{$t['oauth_name']}</td>
+				  </tr>
+				  {/loop}
+				</tbody>
+				</table>
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<th>{lang('a-mem-44')}：</th>
+			<td>
+			<input type="radio" {if !isset($data['status']) || $data['status']==1}checked{/if} value="1" name="data[status]"> {lang('a-con-20')}
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" {if isset($data['status']) && $data['status']==0}checked{/if} value="0" name="data[status]"> {lang('a-con-21')}
+			</td>
+		</tr>
+		{if $model}
+		{$data_fields}
+		{/if}
+		<tr>
+			<th>&nbsp;</th>
+			<td><input type="submit" class="button" value="{lang('a-submit')}" name="submit"></td>
+		</tr>
+		</tbody>
+		</table>
+		</form>
+	</div>
+</div>
+</body>
+</html>

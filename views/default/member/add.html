@@ -1,0 +1,91 @@
+{template member/header}
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+<script type="text/javascript" src="{LANG_PATH}lang.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/core.js"></script>
+<script type="text/javascript">
+function ajaxtitle() {
+	$('#title_text').html("");
+	get_kw();
+	$.post(sitepath+'?s=member&c=content&a=ajaxtitle&id='+Math.random(), { title:$('#title').val(), id:{php echo $data[id] ? $data[id] : 0;} }, function(data){ 
+        $('#title_text').html(data); 
+	});
+}
+</script>
+<!--Wrapper-->
+<div id="wrapper">
+	<div class="top"></div>
+	<div class="center">
+	    <div class="center_left">
+	        <h3>内容管理</h3>
+			<div class="menu_left">
+			<ul>
+            {loop $navigation $n=>$t}
+                <li {if $n && $modelid==$n}class="on"{/if}><a href="{$t['url']}">{$t['name']}</a></li>
+            {/loop}
+			</ul>
+			</div>
+        </div>
+		<div class="center_right">
+            <div class="title_right1"></div>
+			<div class="content_info">
+                <form action="" method="post">
+                {if $data}<input type="hidden" value="{$data[catid]}" name="data[catid]">{/if}
+                <table width="100%" class="table_form" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <th width="80"><font color="red">*</font>&nbsp;栏目：</th>
+                    <td><select name="data[catid]">{$category}</select></td>
+                </tr>
+                {if $data['status']==2}
+                <tr>
+                    <th>退回理由：</th>
+                    <td>{$data['verify']} </td>
+                </tr>
+                {/if}
+                {if $model['content']['title']['show']}
+				<tr>
+					<th><font color="red">*</font>&nbsp;{$model['content']['title']['name']}：</th>
+					<td><input type="text" class="input-text" size="50" id="title" value="{$data['title']}" name="data[title]" onBlur="ajaxtitle()" required />
+					<div class="onShow" id="title_text"></div></td>
+				</tr>
+				{/if}
+				{if $model['content']['keywords']['show']}
+				<tr>
+					<th>{$model['content']['keywords']['name']}：</th>
+					<td><input type="text" class="input-text" size="50" id="keywords" value="{$data['keywords']}" name="data[keywords]">
+					<div class="onShow">{lang('a-con-44')}</div></td>
+				</tr>
+				{/if}
+				{if $model['content']['thumb']['show']}
+				<tr>
+					<th>{$model['content']['thumb']['name']}：</th>
+					<td><input type="text" class="input-text" size="50" value="{$data['thumb']}" name="data[thumb]" id="thumb">
+					<input type="button" style="width:66px;cursor:pointer;" class="button" onClick="preview('thumb')" value="{lang('a-mod-118')}">
+					<input type="button" style="width:66px;cursor:pointer;" class="button" onClick="uploadImage('thumb', 1)" value="{lang('a-mod-119')}">
+					<div id="urlTip" class="onShow">{lang('a-pic')}</div></td>
+				</tr>
+				{/if}
+				{if $model['content']['description']['show']}
+				<tr>
+					<th>{$model['content']['description']['name']}：</th>
+					<td><textarea style="width:490px;height:66px;" id="description" name="data[description]">{$data['description']}</textarea></td>
+				</tr>
+				{/if}
+                {$data_fields}
+                <tr>
+                    <th style="border:none">&nbsp;</th>
+                    <td style="border:none"><input type="submit" class="button" value="提 交" name="submit"></td>
+                </tr>
+                </tbody>
+                </table>
+                </form>
+		    </div>
+        </div>
+	</div>
+    <div class="bottom"></div>
+</div>
+<!--Wrapper End-->
+{template member/footer}

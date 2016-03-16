@@ -1,0 +1,80 @@
+{template header}
+    <div class="navigation">
+    您当前位置：<a  href="{SITE_PATH}">首页</a> >> {$form_name}
+    </div>
+    <div class="blank10 clear"></div>
+    <div class="mainpdbox">
+        <div class="left">
+            <!--articlecontent begin-->
+			<div class="articlecontent">
+			    <h3>表单内容信息</h3>
+				<div class="info" style=" color: #999">
+                    时间：{date("Y-m-d H:i:s", $updatetime)}
+                    <span>作者：{$username}</span>
+			    </div>
+				<hr size=1 color="#e8e8e8" width="620" style="padding-bottom:5px;" />
+				<div class="newscontent">
+				    <div id="MyContent">
+					支持直接调用自定义字段<br>
+					发布时间：{date('Y-m-d', $updatetime)}<br>
+					发布人：{$username} 
+					</div>
+					<div class="clear blank10"></div>
+					<div class="sharebox">
+                        <!-- Baidu Button BEGIN -->
+                        <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                            <a class="bds_qzone">QQ空间</a>
+                            <a class="bds_tqq">腾讯微博</a>
+                            <a class="bds_tqf">腾讯朋友</a>
+                            <a class="bds_tsina">新浪微博</a>
+                            <a class="bds_tsohu">搜狐微博</a>
+                            <a class="bds_baidu">百度搜藏</a>
+                            <a class="bds_hi">百度空间</a>
+                            <a class="bds_kaixin001">开心网</a>
+                            <span class="bds_more">更多</span>
+                            <a class="shareCount"></a>
+                        </div>
+                        <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+                        <script type="text/javascript" id="bdshell_js"></script>
+                        <script type="text/javascript">
+                            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+                        </script>
+                        <!-- Baidu Button END -->
+                    </div>
+					<div class="clear blank10"></div>
+                 </div>
+			</div>
+			<!--articlecontent end-->
+        </div>
+        <div class="right">
+            <!--right02 begin-->
+	        <div class="right02">
+		        <div class="title"><span>最新TOP10</span></div>
+		        <div class="right02box">
+		        <ul>
+                {list table=$table cid=$cid num=10 order=updatetime cache=36000}<!--排序方式可以更改，参数order=字段-->
+			    <li><span class="N{$key+1}"></span><a href="{url('form/show', array('modelid'=>$modelid, 'id'=>$t['id']))}">信息（根据自己设计的字段来决定）{$t['id']}</a></li>
+                <!--这里可以在a标签中写上自定义的url，需伪静态指向-->
+				{/list}
+			    </ul>
+		        </div>
+		    </div> 
+	        <!--right02 end-->
+		    <div class="blank10 clear"></div>
+	        <!--right02 begin-->
+	        <div class="right02">
+		       <div class="title"><span>热点TOP10</span></div>
+		       <div class="right02box">
+		        <ul>
+                {list table=$table cid=$cid num=10 order=listorder cache=36000}<!--排序方式可以更改，参数order=字段-->
+			    <li><span class="N{$key+1}"></span><a href="{url('form/show', array('modelid'=>$modelid, 'id'=>$t['id']))}">信息（根据自己设计的字段来决定）{$t['id']}</a></li>
+				<!--这里可以在a标签中写上自定义的url，需伪静态指向-->
+                {/list}
+			    </ul>
+		       </div>
+		    </div> 
+	        <!--right02 end-->
+       </div>
+    </div>
+    <div class="clear blank10"></div>
+{template footer}

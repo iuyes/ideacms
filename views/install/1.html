@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{CMS_NAME}网站管理系统 V{CMS_VERSION} 安装向导</title>
+<link href="statics/public/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="statics/install/install.css" rel="stylesheet" type="text/css" />
+<script src="statics/install/fouce.js" type="text/javascript" charset="utf-8" async defer></script>
+</head>
+<body>
+<div class="width">
+	<div class="m10">
+    	<div class="logo"><span>安装需知</span><img src="statics/install/install.png" /></div>
+        <div class="table">
+			<div class="nr">
+				<div class="nr-n">
+					<p><strong>一、开发者</strong></p>
+					<p>IdeaCMS主要由<a href="http://www.lygphp.com">连普创想</a>开发与维护。ideacms主要实现功能：<br><span class="label label-info">1，会员注册</span>+<span class="label label-info">2，自定义表单</span>+<span class="label label-info">3，微信公众平台接入</span>+<span class="label label-info">4，微信支付,支付宝支付</span></p>
+
+					<br />
+					<p><strong>二、程序简介</strong></p>
+					<p>     IdeaCMS企业版诞生于2014年，源程序由连普创想CMS团队开发，为打造一套以简单、实用、开源为目的的CMS建站系统，主要目标用户锁定在企业网站建设，在经历了多年的发展，目前的版本无论在功能，还是在易用性方面，都有了长足的发展和进步。</p>
+					<br />
+					<p><strong>三、用户群体</strong></p>
+					<p>首先需要说明的是：<span class="label label-danger">本系统IdeaCMS不适合数据量很大的用户</span>。     <br>IdeaCMS适合于产品展示型网站、公司企业官网、个人博客，默认无优化的情况下<span class="label label-success">数据库负载在十万左右</span>，已经完全满足普通企业和个人的需求。</p>
+					<br />
+					<p><strong>四、研发需求</strong></p>
+					<p>      网络上已经有很多免费的网站建设CMS系统，为什么连普还要自己开发建站系统？主要是由于每个团队开发的CMS系统面向不同的用户。IdeaCMS开发指导思想：<br/>
+					1,轻量化建站系统;<br>2,功能完善，容易扩展;<br>3,后台操作容易上手;<br>4,增强移动端适配;</p>
+					<br />
+					<p><strong>五、安全防护</strong></p>
+					<p>我们推荐开发者或公司在此基础上进行二次开发，IdeaCMS企业版开发组会持续保持对程序的维护，保证及时都漏洞的修复，广大用户可以完全的放心使用程序。</p>
+
+				</div>
+			</div>
+        </div>
+		<div class="bnt">
+			<form action="{url('install/')}" method="post" id="dform" name="agree">
+			<input type="hidden" name="step" value="2"/>
+			<input type="submit" class="n" name="agreeb" value="下一步安装"/>
+			</form>
+		</div>
+    </div>
+</div>
+
+</body>
+</html>

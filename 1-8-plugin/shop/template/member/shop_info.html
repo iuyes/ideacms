@@ -1,0 +1,111 @@
+{template member/header}
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<!--Wrapper-->
+<div id="wrapper">
+	<div class="top"></div>
+	<div class="center">
+	    <div class="center_left">
+	        <h3>购物管理</h3>
+			<div class="menu_left">
+			<ul>
+            {loop $navigation $n=>$t}
+                <li {if $n=='index'} class="on"{/if}><a href="{$t['url']}">{$t['name']}</a></li>
+            {/loop}
+			</ul>
+			</div>
+        </div>
+		<div class="center_right">
+            <div class="title_right1"></div>
+			<div class="content_info">
+              <table width="100%" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="100">订单编号：</th>
+                        <td><?php echo $data['order_sn']?></td>
+                    </tr>
+                    <tr>
+                        <th>商品信息：</th>
+                        <td>
+                        <table width="500" border="0">
+                          <tr>
+                            <td width="162">商品</td>
+                            <td width="48">数量</td>
+                            <td width="76">单价</td>
+                          </tr>
+                        <?php 
+                        $items = string2array($data['items']);
+                        foreach($items as $t) {
+                        ?>
+                          <tr>
+                            <td><a href="<?php echo url('content/show', array('id'=>$t['id']))?>" target="_blank"><?php echo $t['title']?></a></td>
+                            <td><?php echo $t['num']?></td>
+                            <td><?php echo $t['item_price']?></td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                        </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>收货信息：</th>
+                        <td>
+                        <table width="500" border="0">
+                          <tr>
+                            <td width="102">姓名：<?php echo $data['name']?></td>
+                            <td width="171">电话：<?php echo $data['tel']?></td>
+                            <td width="113">邮政编码：<?php echo $data['zip']?></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3">地址：<?php echo $data['address']?></td>
+                            </tr>
+                        </table>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th>配送方式：</th>
+                      <td><?php echo $data['shipping_name']?></td>
+                  </tr>
+                    <tr>
+                        <th>商品金额：</th>
+                        <td><font style="color:#F00;font-size:22px;font-family:Georgia,Arial;font-weight:700">{$data['price']}</font>元</td>
+                    </tr>
+                    <tr>
+                    <th>订单状态：</th> 
+                    <td>
+                    <?php
+                    if ($data['status'] == 0) {
+                        if ($pay) { echo '未付款'; } else { echo '无需付款,等待客服联系';}
+                    } elseif ($data['status'] == 1) {
+                        echo '等待配货';
+                    } elseif ($data['status'] == 2) {
+                        echo '正在配货';
+                    } elseif ($data['status'] == 3) {
+                        echo '已经发货，发货时间：' . date('Y-m-d H:i:s', $data['sendtime']) . '，运单编号：' . $data['shipping_id'];
+                    } elseif ($data['status'] == 4) {
+                        echo '交易关闭';
+                    } elseif ($data['status'] == 9) {
+                        echo '交易成功，收货时间：' . date('Y-m-d H:i:s', $data['confirmtime']);
+                    }
+                    ?>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+		    </div>
+        </div>
+	</div>
+    <div class="bottom"></div>
+</div>
+<!--Wrapper End-->
+<script language="javascript">
+function setC() {
+	if($("#selectc").attr('checked')==true) {
+		$(".selectc").attr("checked",true);
+	} else {
+		$(".selectc").attr("checked",false);
+	}
+}
+</script>
+{template member/footer}

@@ -1,0 +1,28 @@
+{template header}
+<body>
+<header>
+	<div class="left-box"><a class="goback" href="{SITE_PATH}"><label>首页</label></a></div>
+	<h1>会员注册</h1>
+</header>
+<div id="login" class="body account">
+    <form id="login-form" method="post" action="">
+	<input type="hidden" value="{$backurl}" name="data[back]">
+    	{if count($membermodel)>1}
+        <p><select name="data[modelid]"> {loop $membermodel $t}<option value="{$t['modelid']}" {if $memberconfig['modelid']==$t['modelid']}selected{/if}>{$t['modelname']}</option>{/loop} </select>
+        </p>
+        {/if}
+        <p><input id="username" class="common-text" type="text" placeholder="账号由英文字母或者数字组成" name="data[username]" value="" /></p>
+        <p><input id="password" class="common-text" type="password" placeholder="请输入您的密码" name="data[password]" /></p>
+        <p><input id="password" class="common-text" type="text" placeholder="请再次输入您的密码" name="data[password2]" /></p>
+        <p><input id="password" class="common-text" type="text" placeholder="请输入您的邮箱用于密码找回" name="data[email]" /></p>
+        {if $memberconfig['regcode']}
+        <p class="common-captcha" id="captcha">
+            <input placeholder="请输入验证码" type="text" class="common-text" name="code" autocomplete="off" >
+            <img src="{url("api/captcha/", array("width"=>120, "height"=>40))}" onclick="this.src='{url("api/captcha/", array("width"=>120, "height"=>40))}&'+Math.random();" >
+        </p>
+        {/if}
+        <p class="c-submit "><input type="submit" name="submit" value="注册会员" /></p>
+        <p class="sub-action"><a href="{url('member/login')}">登录</a></p>
+    </form>
+</div>
+{template footer}

@@ -1,0 +1,13 @@
+
+<div id="footer">
+  <p><a href="{SITE_URL}"><span>首页</span></a>
+    {loop $cats $t}
+    {if $t['parentid']==0 && $t['ismenu']}
+    <a href="{$t['url']}"><span>{$t['catname']}</span></a>
+    {/if}
+    {/loop}
+  </p>
+  <p>Powered by {CMS_NAME} v{CMS_VERSION} © 2012,Processed in {runtime()} second(s).</p>
+</div>
+</body>
+</html>

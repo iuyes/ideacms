@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript">var sitepath = "{SITE_PATH}{ENTRY_SCRIPT_NAME}";</script>
+<script type="text/javascript">
+function loadformtype(type) {
+    $("#content").html('loading...');
+	$.get("{url('admin/model/ajaxformtype/')}&type="+type, function(data) {
+		$("#content").html(data);
+	});
+	$('#hidetbody').show();
+	$('#select-ed').show();
+	if (type=='editor') {
+		$('#hidetbody').hide();
+	}
+	if (type=='merge') {
+		$('#hidetbody').hide();
+	}
+	if (type=='fields') {
+		$('#hidetbody').hide();
+	    $('#select-ed').hide();
+	}
+	if (type=='checkbox') {
+		$('#hidetbody').hide();
+	}
+	if (type=='files') {
+		$('#hidetbody').hide();
+	}
+	if (type=='date') {
+		$('#hidetbody').hide();
+	}
+}
+function ajaxname() {
+	var field = $('#field').val();
+	if (field == '') {
+	    $.post(sitepath+'?c=api&a=pinyin&id='+Math.random(), { name:$('#name').val() }, function(data){ $('#field').val(data); });
+	}
+}
+function setlength() {
+	var type = new Array(); 
+	type['BIGINT']='10';
+	type['INT']='10';
+	type['TINYINT']='3';
+	type['SMALLINT']='5';
+	type['MEDIUMINT']='8';
+	type['DECIMAL']='10,2';
+	type['CHAR']='50';
+	type['VARCHAR']='255';
+	type['TEXT']='255';
+	var name = $('#type').val();
+	if (name) {
+	    v = type[name];
+		$('#length').val(v);
+	}
+}
+</script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/model/index', array('typeid'=>$typeid))}"><em>{lang('a-aut-14')}</em></a><span>|</span>
+		<a href="{url('admin/model/fields/', array('typeid'=>$typeid, 'modelid'=>$modelid))}"><em>{lang('a-aut-18')}</em></a><span>|</span>
+		<a href="{url('admin/model/addfield/', array('typeid'=>$typeid, 'modelid'=>$modelid))}" class="on"><em>{lang('a-add')}</em></a><span>|</span>
+		<a href="{url('admin/model/cache', array('typeid'=>$typeid))}"><em>{lang('a-cache')}</em></a>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post">
+		<input name="modelid" type="hidden" value="{$modelid}" />
+		<input name="fieldid" type="hidden" value="{$data['fieldid']}" />
+		<table width="100%" class="table_form">
+		<tr>
+			<th width="200">{lang('a-mod-35')}： </th>
+			<td>{$model_data['modelname']}</td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-30')}： </th>
+			<td><input class="input-text" type="text" name="name" value="{$data['name']}" size="30" id="name" onBlur="ajaxname()" required /><div class="onShow">{lang('a-mod-38')}</div></td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-39')}： </th>
+			<td><input class="input-text" type="text" id="field" name="field" value="{$data['field']}" size="30" {if $data[fieldid]}disabled{/if} required /><div class="onShow">{lang('a-mod-40')}</div>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-31')}： </th>
+			<td><select name="formtype" id="formtype" onChange="loadformtype(this.value)" {if $data['fieldid']}disabled{/if} required>
+			<option value=""> -- </option>
+			{loop $formtype $k=>$t}
+			  <option value="{$k}" {if $k==$data['formtype']}selected{/if} {if !in_array($k, array('checkbox', 'radio', 'select', 'textarea', 'password', 'input'))} class="merge_delete"{/if}>{$t}</option>
+			{/loop}
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mod-41')}： </th>
+			<td><div id="content">
+			<?php 
+			if ($data['fieldid']) { 
+				$func = "form_" . $data['formtype'];
+				$setting = var_export(string2array($data['setting']), true);
+				if (function_exists($func)) {
+					eval("echo " . $func . "(" . $setting . ");");
+				}
+			} ?>
+			</div></td>
+		</tr>
+		{if !in_array($data['formtype'], array('editor', 'merge', 'checkbox', 'files', 'date', 'fields'))}
+		<tbody id="hidetbody">
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-32')}： </th>
+			<td>
+			{if $data['type']}
+				{php echo $data['type'];}
+			{else}
+			<select name="type" onChange="setlength()" id="type">
+				<option value="">-</option>
+				<option value="BIGINT">{lang('a-mod-43')}(BIGINT)</option>
+				<option value="INT">{lang('a-mod-43')}(INT)</option>
+				<option value="TINYINT">{lang('a-mod-44')}(TINYINT)</option>
+				<option value="SMALLINT">{lang('a-mod-45')}(SMALLINT)</option>
+				<option value="MEDIUMINT">{lang('a-mod-46')}(MEDIUMINT)</option>
+				<option value="">-</option>
+				<option value="DECIMAL">{lang('a-mod-47')}(DECIMAL)</option>
+				<option value="">-</option>
+				<option value="CHAR">{lang('a-mod-48')}(CHAR)</option>
+				<option value="VARCHAR">{lang('a-mod-49')}(VARCHAR)</option>
+				<option value="TEXT">{lang('a-mod-50')}(TEXT)</option>
+			</select>
+			<div class="onShow">{lang('a-mod-42')}</div>
+			{/if}
+			</td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-51')}： </th>
+			<td>{if $data['fieldid']} {$data['length']} {else}<input class="input-text" type="text" id="length" name="length" value="{$data['length']}" size="30" />
+			<div class="onShow">{lang('a-mod-52')}</div>{/if}</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mod-33')}： </th>
+			<td>
+			{if $data['indexkey']=='INDEX'}
+			{lang('a-mod-53')}
+			{else if $data['indexkey']=='UNIQUE'}
+			{lang('a-mod-54')}
+			{else}
+				{if $data['fieldid']}
+				{lang('a-mod-55')}
+				{else}
+				<select name="indexkey">
+				<option value="">---</option>
+				<option value="UNIQUE">{lang('a-mod-54')}</option>
+				<option value="INDEX">{lang('a-mod-53')}</option>
+				</select>
+				<div class="onShow">{lang('a-mod-56')}</div>
+				{/if}
+			{/if}
+			</td>
+		</tr>
+		</tbody>
+		{/if}
+		<tr>
+			<th>{lang('a-mod-57')}： </th>
+			<td><input class="input-text" type="text" name="tips" value="{$data['tips']}" size="30" /><div class="onShow">{lang('a-mod-58')}</div></td>
+		</tr>
+		<tr>
+			<th>{lang('a-mod-59')}：</th>
+			<td>
+			<input type="radio" {if !isset($data['isshow']) || $data['isshow']==1}checked{/if} value="1" name="isshow" /> {lang('a-mod-60')}&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" {if isset($data['isshow']) && $data['isshow']==0}checked{/if} value="0" name="isshow" /> {lang('a-mod-61')}
+			<div class="onShow">{lang('a-mod-62')}</div>
+			</td>
+		</tr>
+		<tbody id="select-ed" style="{if isset($data['formtype']) && $data['formtype']=='fields'}display:none{/if}" />
+		<tr>
+			<th>{lang('a-mod-63')}：</th>
+			<td>
+			<input {if $data['formtype']=='merge'}disabled{/if} type="radio" {if !isset($data['not_null']) || empty($data['not_null'])}checked{/if} value="0" name="not_null" onclick="$('#pattern_data').hide();" /> {lang('a-mod-64')}&nbsp;&nbsp;&nbsp;&nbsp;
+			<input {if $data['formtype']=='merge'}disabled{/if} type="radio" {if isset($data['not_null']) && $data['not_null']}checked{/if} value="1" name="not_null" onclick="$('#pattern_data').show();" /> {lang('a-mod-65')}
+			</td>
+		</tr>
+		</tbody>
+		<tbody id="pattern_data" style="{if !isset($data['not_null']) || empty($data['not_null'])}display:none{/if}">
+		<tr>
+			<th>{lang('a-mod-66')}： </th>
+			<td><input class="input-text" type="text" name="pattern" id="pattern" value="{$data['pattern']}" size="40" /><select onChange="javascript:$('#pattern').val(this.value)" name="pattern_select">
+			<option value="">{lang('a-mod-67')}</option>
+			<option value="^[0-9.-]+$">{lang('a-mod-68')}</option>
+			<option value="^[0-9-]+$">{lang('a-mod-69')}</option>
+			<option value="^[A-Za-z]+$">{lang('a-mod-70')}</option>
+			<option value="^[0-9A-Za-z]+$">{lang('a-mod-71')}</option>
+			<option value="^[\w\-\.]+@[\w\-\.]+(\.\w+)+$">E-mail</option>
+			<option value="^[0-9]{5,20}$">QQ</option>
+			<option value="^http:\/\/">{lang('a-mod-72')}</option>
+			<option value="^(1)[0-9]{10}$">{lang('a-mod-73')}</option>
+			<option value="^[0-9-]{6,13}$">{lang('a-mod-74')}</option>
+			<option value="^[0-9]{6}$">{lang('a-mod-75')}</option>
+			</select><div class="onShow">{lang('a-mod-76')}</div>
+			</td>
+		</tr>
+		<tr>
+			<th>{lang('a-mod-77')}： </th>
+			<td><input class="input-text" type="text" name="errortips" value="{$data['errortips']}" size="30" /><div class="onShow">{lang('a-mod-78')}</div></td>
+		</tr>
+		</tbody>
+		<tr>
+			<th>&nbsp;</th>
+			<td><input class="button" type="submit" name="submit" value="{lang('a-submit')}" onClick="$('#load').show()" />
+			<span id="load" style="display:none"><img src="{ADMIN_THEME}images/loading.gif"></span></td>
+		</tr>
+		</table>
+		</form>
+	</div>
+</div>
+</body>
+</html>

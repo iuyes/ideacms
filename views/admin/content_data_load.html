@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav" style="padding-top:10px">
+    <div class="table-list">
+        <div class="bk10"></div>
+	<form action="" method="post">
+		{lang('a-con-26')}：<input type="text" class="input-text" size="25" name="title">
+		<select name='catid'>
+		<option value='0'> --- </option>
+		{$category}
+		</select>
+		<input type="submit" class="button" value="{lang('a-search')}" name="submit">
+	</form>
+	<div class="bk10"></div>
+		<table width="100%">
+		<thead>
+		<tr>
+			<th width="30" align="center">{lang('a-select')}</th>
+			<th align="left">{lang('a-con-26')}</th>
+			<th width="80" align="left">{lang('a-con-29')}</th>
+			<th width="130" align="left">{lang('a-con-31')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<input name="select" id="select" type="hidden" value=",">
+		{loop $list $t}
+		<input name="title_{$t['id']}" id="title_{$t['id']}" type="hidden" value="{$t['title']}">
+		<tr height="25">
+			<td align="center"><input name="select_" id="select_{$t['id']}" type="checkbox" value="{$t['id']}" onClick="setv(this)"></td>
+			<td align="left"><div style="overflow:hidden; height:22px; width:290px;">{$t['title']}</div></td>
+			<td align="left">{$cats[$t['catid']]['catname']}</td>
+			<td align="left">{date(TIME_FORMAT, $t['updatetime'])}</td>
+		</tr>
+		{/loop}    
+		</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+function setv(obj) {
+	var id  = $(obj).val();
+	var ids = $("#select").val();
+	var now = id + ',';
+	if ($(obj).attr("checked")) {
+		ids += now;
+	} else {
+		ids = ids.replace(","+now, ",");
+	}
+	$("#select").val(ids);
+}
+</script>
+</body>
+</html>

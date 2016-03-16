@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<script type="text/javascript" src="{ADMIN_THEME}js/dialog.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x" style="padding-top:8px">
+	    <a href="{url('admin/index/log/')}" class="on"><em>{lang('a-ind-43')}</em></a>
+	</div>
+	<div class="bk10"></div>
+	<div class="explain-col">
+		<form action="" method="post">
+		{lang('a-user')}：<input type="text" class="input-text" size="20" name="kw">
+		&nbsp;&nbsp;
+		<input type="submit" class="button" value="{lang('a-search')}" name="submit">
+		</form>
+	</div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post">
+		<table width="100%">
+		<thead>
+		<tr>
+			<th width="70" align="left">{lang('a-user')}</th>
+			<th width="70" align="left">controller</th>
+			<th width="70" align="left">action</th>
+			<th width="230" align="left">{lang('a-option')}</th>
+			<th width="133" align="left">ip</th>
+			<th width="131" align="left">{lang('a-time')}</th>
+			<th align="left">{lang('a-address')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		{loop $list $t}
+		<tr height="25">
+			<td align="left"><a href="{url('admin/index/log', array('username'=>$t['username']))}">{$t['username']}</a></td>
+			<td align="left">{$t['controller']}</td>
+			<td align="left">{$t['action']}</td>
+			<td align="left">{$t['options']}</td>
+			<td align="left"><a href="http://www.baidu.com/baidu?wd={$t['ip']}" target=_blank>{$t['ip']}</a></td>
+			<td align="left">{date(TIME_FORMAT, $t['optiontime'])}</td>
+			<td align="left">{$t['param']}</td>
+		</tr>
+		{/loop}
+		<tr height="25">
+			<td colspan="8" align="left"><input type="button" class="button" value="{lang('a-ind-44')}" name="submit_order" onClick="window.location.href='{url('admin/index/clearlog/')}'">
+			<div class="onShow">{lang('a-ind-45')}</div></td>
+		</tr>
+		</table>
+		{$pagelist}
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{template header}
+<body id="index">
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".childs").click(function(){
+		var c = $(this).attr("c");
+		if (c == 0) {
+			$(this).addClass("show-cate");
+			$(this).attr("c","1");
+		} else {
+			$(this).removeClass("show-cate");
+			$(this).attr("c","0");
+		}
+	});
+});
+</script>
+<header>
+	<div class="left-box"><a class="goback" href="{SITE_PATH}"><label>首页</label></a></div>
+	<h1>{$catname}</h1>
+ </header>
+<article id="category">
+{loop $cats $c}
+{if $c['parentid']==$catid}
+    <section class="category-box">
+		<div class="category-btn link">
+            <h1><a href="{url('content/list', array('catid'=>$c['catid']))}">{$c['catname']}<span class="count">({$c['items']})</span></a></h1>
+        	<label><span class="bg"></span></label>
+    	</div>
+	</section>
+{/if}
+{/loop}
+</article>
+{template footer}

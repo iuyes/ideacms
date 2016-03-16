@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{ADMIN_THEME}images/reset.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/system.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/dialog.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/main.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/switchbox.css" rel="stylesheet" type="text/css" />
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{ADMIN_THEME}js/jquery.min.js"></script>
+<title>admin</title>
+</head>
+<body style="font-weight: normal;">
+<div class="subnav">
+	<div class="content-menu ib-a blue line-x">
+		<a href="{url('admin/model/index', array('typeid'=>$typeid))}"><em>{lang('a-aut-14')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'model-add')}<a href="{url('admin/model/add', array('typeid'=>$typeid))}"><em>{lang('a-add')}</em></a><span>|</span>{/if}
+		<a href="{url('admin/model/import', array('typeid'=>$typeid))}" class="on"><em>{lang('a-import')}</em></a><span>|</span>
+		{if admin_auth($userinfo['roleid'], 'model-cache')}<a href="{url('admin/model/cache', array('typeid'=>$typeid))}"><em>{lang('a-cache')}</em></a>{/if}
+    </div>
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="" method="post" enctype="multipart/form-data">
+		<table width="100%" class="table_form">
+		<tr>
+			<th width="200">{lang('a-mod-18')}： </th>
+			<td>{$modeltype[$typeid]}</td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-35')}： </th>
+			<td><input class="input-text" type="text" name="modelname" size="30"/></td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-mod-19')}： </th>
+			<td><input class="input-text" type="text" name="tablename" size="30" /><div class="onShow">{lang('a-mod-20')}</div></td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font> {lang('a-import')}： </th>
+			<td><input name="import" class="input-text" type="file"/><div class="onShow">{lang('a-mod-79')}</div></td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td><input class="button" type="submit" name="submit" value="{lang('a-submit')}" /></td>
+		</tr>
+		</table>
+		</form>
+	</div>
+</div>
+</body>
+</html>
