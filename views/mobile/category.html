@@ -1,0 +1,40 @@
+{template header}
+<body id="index">
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".childs").click(function(){
+		$(this).toggleClass("show-cate");
+	});
+});
+</script>
+<header>
+	<div class="left-box"><a class="goback" href="{SITE_PATH}"><label>首页</label></a></div>
+	<h1>栏目</h1>
+ </header>
+<article id="category">
+{loop $cats $c}
+{if $c['parentid']==0}
+    <section class="category-box {if $c['child']}childs{/if}">
+		<div class="category-btn link">
+        	{if $c['child']}
+            <h1>{$c['catname']}<span class="count">({$c['items']})</span></h1>
+        	<label class="arrow"><span class="bg"></span></label>
+            {else}
+            <h1><a href="{url('content/list', array('catid'=>$c['catid']))}">{$c['catname']}<span class="count">({$c['items']})</span></a></h1>
+        	<label><span class="bg"></span></label>
+            {/if}
+    	</div>
+        {if $c['child']}
+        <ul>
+        {loop $cats $t}
+        {if $t['parentid']==$c['catid']}
+            <li><a href="{url('content/list', array('catid'=>$t['catid']))}">{$t['catname']}({$t['items']})</a></li>
+        {/if}
+        {/loop}
+        </ul>
+        {/if}
+	</section>
+{/if}
+{/loop}
+</article>
+{template footer}

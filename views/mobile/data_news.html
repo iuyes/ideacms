@@ -1,0 +1,13 @@
+{list catid=$catid order=updatetime page=$page pagesize=5}
+<section class="news">
+<a href="{url('content/show', array('id'=>$t['id']))}">
+    <detail>
+        <ul>
+            <li class="brand">{$t['title']}</li>
+            <li class="title indent">{strcut($t['description'],86)}</li>
+            <li class="price"><strong>{date('Y-m-d H:i:s', $t['updatetime'])}</strong><span>阅读{$t['hits']}</span></li>
+        </ul>
+    </detail>
+</a>
+</section>
+{/list}

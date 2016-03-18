@@ -1,0 +1,54 @@
+{php $meta_title = '查看购物车';$itemdata=$data;}
+{template header}
+<link href="{ADMIN_THEME}images/table_form.css" rel="stylesheet" type="text/css" />
+    <div class="navigation">
+    您当前位置：<a  href="{SITE_PATH}">首页</a> >> 购物车
+    </div>
+    <div class="blank10 clear"></div>
+    <!--begin-->
+    <div class="piclist">
+        <div class="title"><span>购物车</span></div>
+        <div class="item-list">
+            <form action="" method="post">
+            <table width="100%" class="table-list" cellspacing="0" cellpadding="0" border="0">
+            <thead>
+            <tr>
+              <th width="21%">商品图片</th>
+              <th width="32%" align="left">商品名称</th>
+              <th width="12%" align="left">商品价格</th>
+              <th width="10%" align="left">购买数量</th>
+              <th width="15%" align="left">小计</th>
+              <th width="10%" align="left">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {loop $itemdata $cartid=>$t}
+            <tr>
+              <td align="center"><img src="{thumb($t['thumb'])}" width="80" height="80"></td>
+              <td align="left">&nbsp;<a href="{url('content/show/', array('id'=>$t['id']))}" target="_blank">{$t['title']}</a></td>
+              <td align="left">￥{$t['item_price']}元</td>
+              <td align="left">
+              <input name="cartid[{$cartid}]" class="input-text" type="text" style="width:50px;" value="{$t['num']}" />
+              </td>
+              <td align="left">￥{php echo $t['item_price']*$t['num']}元</td>
+              <td align="left">
+              <a href="javascript:if (confirm('您确实要把该商品移出购物车吗？')) location.href='{url('shop/cart/del', array('cartid'=>$cartid))}'; ">删除</a>
+              </td>
+            </tr>
+            {/loop}
+            <tr>
+              <td colspan="2" align="left">购物金额小计 ￥{$total_price}元</td>
+              <td colspan="4" align="right">
+              <input type="submit" value="更新购物车" name="submit" class="button">
+              <input type="button" onclick="location.href='{url('shop/cart/clear')}'" value="清空购物车" class="button">
+              <input type="button" onclick="location.href='{url('shop/member/buy', array('from'=>'cart'))}'" value="结算账目" class="button">
+              </td>
+            </tr>
+            </tbody>
+            </table>
+            </form> 
+        </div>
+    </div>
+    <!--end-->
+    <div class="clear blank10"></div>
+{template footer}

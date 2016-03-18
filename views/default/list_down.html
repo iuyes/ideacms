@@ -1,0 +1,54 @@
+{template header}
+    <div class="navigation">
+    您当前位置：<a  href="{SITE_PATH}">首页</a> >> {catpos($catid, ' &gt;&gt;&nbsp;&nbsp;')}<!--栏目面包屑导航，参考函数教程-->
+    </div>
+    <div class="blank10 clear"></div>
+    <!--下载主体begin-->
+    <div class="downlist">
+       <div class="left">
+            <div class="left01">
+                <div class="title">{$catname}</div>
+                <div class="leftbox">
+                    {list catid=$catid page=$page order=updatetime more=1}
+                        <div class="software">
+                           <span class="image"><a href="{$t['url']}"><img src="{thumb($t['thumb'])}" /></a></span>
+                           <h4 class="name"><a href="{$t['url']}" class="url">{$t['title']}</a> <span class="date">日期：{date("Y-m-d", $t['updatetime'])}</span></h4>
+                           <p class="info"><em>{$t['language']}</em> |  {php $os=string2array($t['os']);echo implode(',',$os)} | 大小:{$t['softsize']} | 人气:{$t['hits']}</p>
+                           <p class="dec">{$t['description']}</p>
+                        </div>
+                    {/list}
+                    <div class="listpage">{$pagelist}</div>
+                </div>
+            </div>
+       </div>
+       <div class="right">
+            <!--right02 begin-->
+            <div class="right01">
+                <div class="title"><span>最新TOP10</span></div>
+                <div class="right01box">
+                <ul>
+                {list catid=$catid num=10 order=updatetime cache=36000}
+                <li><span class="N{$key+1}"></span><a href="{$t['url']}">{$t['title']}</a></li>
+                {/list}
+                </ul>
+                </div>
+            </div> 
+            <!--right02 end-->
+            <div class="blank10 clear"></div>
+            <!--right02 begin-->
+            <div class="right01">
+               <div class="title"><span>热点TOP10</span></div>
+               <div class="right01box">
+                <ul>
+                {list catid=$catid num=10 order=hits cache=36000}
+                <li><span class="N{$key+1}"></span><a href="{$t['url']}">{$t['title']}</a></li>
+                {/list}
+                </ul>
+               </div>
+            </div> 
+            <!--right02 end-->
+       </div>
+    </div>
+    <!--下载主体end-->
+    <div class="clear blank10"></div>
+{template footer}

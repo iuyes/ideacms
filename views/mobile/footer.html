@@ -1,0 +1,32 @@
+<footer {if $s=='member'}style="margin-top:10px;"{/if}>
+{if $s!='member'}
+	{if $memberinfo}
+    <section>
+    	<p class="user">
+        	<strong><a href="{url('member')}">{$memberinfo['username']}{if $memberinfo['nickname']}({$memberinfo['nickname']}){/if}</a></strong>
+            <a href="{url('member/login/out')}" id="logout"><span class="fa fa-logout"><i></i></span>退出</a>
+        </p>
+    </section>
+    {else}
+	<section>
+		<p class="account">
+        	<a class="nav-button login" href="{url('member/login')}">登录</a>
+            <a class="nav-button signup" href="{url('member/register')}">注册</a>
+        </p>
+	</section>
+    {/if}
+{/if}
+    <nav>
+    	<ul>
+            <li><a href="{SITE_PATH}">首页</a></li>
+            <li><a href="{url('api/category')}">栏目</a></li>
+            <li><a href="{url('content/search')}">搜索</a></li>
+    	</ul>
+	</nav>
+	<div class="copyright"><span class="copyright">{$SITE_NAME}触屏版</span><p></p></div>
+</footer>
+<!--<div class="x-sheet" id="fc_load">
+	<div class="x-sheet-box"><img src="{SITE_THEME}images/load.gif" class="x-img-loading"><span class="x-sheet-text">数据加载中...</span></div>
+</div>-->
+</body>
+</html>

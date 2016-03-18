@@ -1,0 +1,26 @@
+{template header}
+<body id="account"> 
+<header class=" ">
+    <div class="left-box"><a class="goback" href="javascript:history.back()"><label>返回</label></a></div>
+    <h1>会员中心</h1>
+</header>
+<div class="body magic-card">
+<div class="common-list">
+    <ul>
+        <li><label><strong>{$memberinfo['username']}{if $memberinfo['nickname']}({$memberinfo['nickname']}){/if}</strong></label><p><a href="{url('member/login/out')}">退出</a></p></li>
+        <li><label>会员模型</label><p>{$membermodel[$memberinfo['modelid']]['modelname']}</p></li>
+        <li><label>会员组</label><p>{$membergroup[$memberinfo['groupid']]['name']}</p></li>
+        <li><label>会员积分</label><p>{$memberinfo['credits']}</p></li>
+        {if $membergroup[$memberinfo['groupid']]['filesize']}
+        <li><label>附件总空间</label><p>{$membergroup[$memberinfo['groupid']]['filesize']} MB</p></li>
+        <li><label>附件已用空间</label><p>{formatFileSize(count_member_size($memberinfo['id']))}</p></li>
+		{/if}
+        {loop $model $t}
+        <li class="link-block"><a href="{url('member/content/', array('modelid'=>$t['modelid']))}"><label>{$t['modelname']}管理</label></a></li>
+        {/loop}
+        {loop $form $t}
+        <li class="link-block"><a href="{url('member/content/form', array('modelid'=>$t['modelid']))}"><label>{$t['modelname']}管理</label></a></li>
+        {/loop}
+    </ul>
+</div>
+{template footer}

@@ -1,0 +1,41 @@
+{template header}
+<body id="orders">
+<header class=" ">
+    <div class="left-box"><a class="goback" href="javascript:history.back()"><label>返回</label></a></div>
+    <h1>{$form['modelname']}管理</h1>
+</header>
+{if $showme}
+<menu>
+    <ul>
+     <li {if empty($type)}class="current"{/if}><a href="{url('member/content/form/',array('type'=>0,'modelid'=>$modelid))}">我提交的</a></li>
+     <li {if $type}class="current"{/if}><a href="{url('member/content/form/',array('type'=>1,'modelid'=>$modelid))}">与我相关</a></li>
+    </ul>
+</menu>
+{/if}
+<div class="body">
+    <div id="orders-list">
+    	{loop $listdata $t}
+        <div class="order-box news">
+            <a href="javascript:;">
+                <h3>{$t[$showfields[0]]}</h3>
+                <ul>
+                <li>{date('Y-m-d H:i:s', $t['updatetime'])} {if $t['status']==0}<font color="#FF0000">[待审]</font>{else if $t['status']==2}<font color="#0000FF">[拒绝]</font>{/if}</li>
+                </ul>
+            </a>
+        </div>
+        {/loop}
+        <?php
+        if (preg_match("/<a href=\"([^\"|^<]+)\">下一页<\/a>/Ui",$pagelist, $m)) {
+            $next_url = '<a href="' . $m[1] . '">下一页</a>';
+        } else {
+            $next_url = "";
+        }
+        ?>
+        {if $next_url}
+        <div id="deals-page" class="">
+        <div id="nav-more"><span class="nav-button">{$next_url}</span></div>
+    	</div>
+        {/if}
+    </div>
+</div>
+{template footer}
