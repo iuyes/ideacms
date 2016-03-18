@@ -1,6 +1,6 @@
 {template header}
 <body id="index">
-<script type="text/javascript" src="{WEB_THEME}js/show.js"></script>
+<script type="text/javascript" src="{MOBILE_THEME}js/show.js"></script>
 <header>
 	<div class="left-box"><a class="goback" href="javascript:history.back()"><label>返回</label></a></div>
 	<h1>{$cat['catname']}</h1>
@@ -32,7 +32,7 @@
         <section class="deal-box">
             <h1 class="tag current">下载地址</h1>
             <div class="tab-box">
-            {loop $downdata['file'] $k=>$file} 
+            {loop $downdata['file'] $k=>$file}
             <li><a href="{getfile($file)}">{$downdata['alt'][$k]}</a></li>
             {/loop}
             </div>
