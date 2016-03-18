@@ -405,12 +405,12 @@ function kindeditor_editor($name, $content = '', $field = '') {
 	$str		= '';
 	$page		= isset($setting['pagebreak']) || (!isset($setting['system']) && $name == 'content') ? ", '|', 'stitle', 'pagebreak'" : '';
 	$source		= strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false || strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false ? '' : "'source', '|',";
-	if (!defined('FINECMS_EDITOR_LD')) {
+	if (!defined('IDEACMS_EDITOR_LD')) {
 	    $str.= '
 		<script type="text/javascript" src="' . EXT_PATH . 'kindeditor/kindeditor.js"></script>
         <script type="text/javascript" src="' . LANG_PATH . 'kindeditor.js"></script>
 		';
-		define('FINECMS_EDITOR_LD', 1);//防止重复加载JS
+		define('IDEACMS_EDITOR_LD', 1);//防止重复加载JS
 	}
 	if ($type) { //完整模式
         $str.= "
@@ -465,13 +465,13 @@ function ueditor_editor($name, $content = '', $field = '') {
 	$page		= isset($setting['pagebreak']) || (!isset($setting['system']) && $name == 'content') ? ",'snapscreen','pagebreak'" : '';
 	$source		= strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false || strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false ? '' : "'source', '|',";
 	$appkey		= file_exists(EXTENSION_DIR . 'ueditor/appkey.txt') ? fn_geturl(EXTENSION_DIR . 'ueditor/appkey.txt') : '';
-	if (!defined('FINECMS_EDITOR_LD')) { //加载相关js
+	if (!defined('IDEACMS_EDITOR_LD')) { //加载相关js
 	    $str.= '
 		<script type="text/javascript">var ueditor_url="' . EXT_PATH . 'ueditor/";</script>
 		<script type="text/javascript" charset="utf-8" src="' . EXT_PATH . 'ueditor/editor_config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="' . EXT_PATH . 'ueditor/editor_all.js"></script>
 		';
-		define('FINECMS_EDITOR_LD', 1);//防止重复加载JS
+		define('IDEACMS_EDITOR_LD', 1);//防止重复加载JS
 	}
 	if ($type == 1) { //完整模式
         $str.= "
@@ -668,9 +668,9 @@ function content_files($name, $content = '', $field = '') {
     $content	= $content[0];
     $set	= base64_encode($setting['type']) . '|' . (int)$setting['size'];
 	$str	= '';
-	if (!defined('FINECMS_FILES_LD')) {
+	if (!defined('IDEACMS_FILES_LD')) {
 	    $str.= '<script type="text/javascript" src="' . ADMIN_THEME . 'js/jquery-ui.min.js"></script>';
-		define('FINECMS_FILES_LD', 1);//防止重复加载JS
+		define('IDEACMS_FILES_LD', 1);//防止重复加载JS
 	}
     $str	.= '<input type="hidden" value="' . $name . '" name="listfiles[]">
 		<fieldset class="blue pad-10">
@@ -704,7 +704,7 @@ function content_date($name, $content = '', $field = '') {
 	$type  = isset($setting['type']) ? $setting['type'] : '%Y-%m-%d %H:%M:%S';
 	$width = isset($setting['width']) ? $setting['width'] : 150;
 	$str   = '';
-	if (!defined('FINECMS_DATE_LD')) {
+	if (!defined('IDEACMS_DATE_LD')) {
 	    $str .= '
 		<link href="' . EXT_PATH . 'calendar/jscal2.css" type="text/css" rel="stylesheet">
 		<link href="' . EXT_PATH . 'calendar/border-radius.css" type="text/css" rel="stylesheet">
@@ -712,7 +712,7 @@ function content_date($name, $content = '', $field = '') {
 		<script type="text/javascript" src="' . EXT_PATH . 'calendar/calendar.js"></script>
 		<script type="text/javascript" src="' . LANG_PATH . 'calendar.js"></script>
 		<script type="text/javascript" src="' . ADMIN_THEME . 'js/jquery-ui.min.js"></script>';
-		define('FINECMS_DATE_LD', 1);//防止重复加载JS
+		define('IDEACMS_DATE_LD', 1);//防止重复加载JS
 	}
 	return $str . '
 	<input type="hidden" value="' . $c . '" name="data[' . $name . ']" id="fc_' . $name . '" />

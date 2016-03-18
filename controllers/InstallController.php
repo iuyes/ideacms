@@ -298,12 +298,12 @@ class InstallController extends Controller {
 	
 	//执行sql语句
 	private function installsql($sql) {
-		$sql = str_replace(array(PHP_EOL, chr(13), chr(10)), 'SQL_FINECMS_EOL', $sql);
+		$sql = str_replace(array(PHP_EOL, chr(13), chr(10)), 'SQL_IDEACMS_EOL', $sql);
 		$ret = array();
 		$num = 0;
-		$data = explode(';SQL_FINECMS_EOL', trim($sql));
+		$data = explode(';SQL_IDEACMS_EOL', trim($sql));
 		foreach($data as $query){
-			$queries = explode('SQL_FINECMS_EOL', trim($query)); 
+			$queries = explode('SQL_IDEACMS_EOL', trim($query)); 
 			foreach($queries as $query) {
 				$ret[$num] .= $query[0] == '#' || $query[0].$query[1] == '--' ? '' : $query; 
 			} $num++; 

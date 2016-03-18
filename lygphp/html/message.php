@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo lang('a-msg-0')?> - Finecms v<?php echo CMS_VERSION?></title>
+<title><?php echo lang('a-msg-0')?> - IdeaCMS v<?php echo CMS_VERSION?></title>
 <style type="text/css">
 <!--
 body{margin:0px; text-align:center; padding:0px; background-color:#F8F8F8; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:20px; color:#000}

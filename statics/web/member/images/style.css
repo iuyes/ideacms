@@ -1,113 +1,77 @@
 @charset "utf-8";
+a{
+	color:#666;
+}
+.clean{
+	clear:both;
+}
 #headerAll {
 	min-width:910px;
 	height:128px;
 	margin-bottom:1px;
+	background-color:#fff;
 }
 #header {
 	margin:0 auto;
-	width:904px;
 	height:128px;
-	padding-right:6px;
-	position:relative;
-	z-index:10;
 }
 #header #top {
 	height:87px;
 	overflow:hidden;
+	text-align: left;
+position: relative;
+z-index: 9999;
+height: 28px;
+line-height: 28px;
+border-bottom: 1px solid #ececec;
+background-color: #f8f8f8;
+color: #666;
+font-family: "微软雅黑";
+margin: 0 auto;
 }
 #header #top a.logo {
 	width:470px;
 	height:85px;
-	position:absolute;
+	float:left;
 	left:0;
 	top:0;
 }
-#header #top .right_info {
-	float:right;
-	padding:10px 0 0 0;
-	color:#333;
-	text-align:right;
-}
-#header #top .right_info li {
+.left_info {
+	height:29px;
+	margin:0 auto;
 	float:left;
-	line-height:19px;
-	*line-height:22px;
-	_line-height:19px;
-	display:block;
-	padding:0 0 0 9px;
-	position:relative;
 }
-#header #top .right_info li.cent {
-	height:19px;
-	line-height:19px;
-	margin-left:0;
-	padding:0 3px 0 8px;
-	text-align:center;
-	background-color:#a7cce8;
-	background-repeat:no-repeat;
-	background-position:-550px -161px;
+.right_info{
+	height:29px;
+	margin:0 auto;
+	float:right;
 }
-#header #top .right_info li.cent .l {
-	color:#f65645;
+.left_info ul , .right_info ul {
+	padding:0px;
+	margin:0px;
+	float:left;
+
 }
-#header #top .right_info li.cent .l a,.l a:hover {
-	color:#f65645;
-	text-decoration:none;
+.left_info ul li , .right_info ul li {
+	display: inline;
+float: left;
+margin-right:15px;
 }
-#header #top .right_info li.cent .m {
-	color:#fd9526;
+.left_info ul li a , .right_info ul li a{
+width: 60px;
+height: 22px;
+line-height: 22px;
+
+text-align: center;
+margin-top: 3px;
 }
-#header #top .right_info li.cent .m a,.m a:hover {
-	color:#fb8405;
-	text-decoration:none;
+.header_center{
+	width:990px;
+	margin:0 auto;
 }
-#header #top .right_info li.cent .h {
-	color:#50901d;
-}
-#header #top .right_info li.cent .h a,.h a {
-	color:#50901d;
-	text-decoration:none;
-}
-#header #top .right_info li a {
-	color:#333;
-}
-#header #top .right_info li b {
-	width:8px;
-	height:4px;
-	margin-left:6px;
-	position:absolute;
-	top:8px;
-	z-index:1;
-	background-repeat:no-repeat;
-	background-position:-903px -135px;
-}
+
 .faq li {
     background: url("dot.png") no-repeat scroll 0 7px transparent;
-}
-#header #menu {
-	float:left;
-	width:750px;
-	height:41px;
-	color:#fff;
-	overflow:hidden;
-}
-#header #menu li {
-	float:left;
-	display:inline;
-}
-#header #menu li a {
-	float:left;
-	width:100px;
-	height:40px;
-	display:block;
-	font-size:14px;
-	text-align:center;
-	color:#fff;
-	text-decoration:none;
-}
-#header #menu li span {
-	font-weight:bold;
 }
 
 
@@ -223,39 +187,40 @@
 	overflow:hidden;
 }
 #loginbar {
-	min-width:910px;
-	height:395px;
-	background:#e9f1f4;
+	min-width:990px;
 	overflow:hidden;
 }
 #login {
 	margin:0 auto;
-	width:915px;
-	height:382px;
+	width:990px;
 	padding:13px 0 0 0;
 	overflow:hidden;
 }
 .login {
-	float:right;
+
 	width:365px;
 	height:365px;
-	padding:0px 0 0 24px;
-	background-image: url("shadow_bg.png");
-	background-repeat:no-repeat;
-	background-position:0 0;
+	margin:20px auto;
+	border:1px solid #dae0e5;
+  border-radius:5px;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  clear:both;
 }
 .login h3 {
-	font-size:14px;
+	margin-top:20px;
+	font-size:18px;
+	width:100%;
+	text-align:center;
 }
 .login ul {
 	padding:22px 0 0 0;
 }
 .login li {
-	clear:both;
+	float:left;
+	line-height:25px;
 	width:350px;
-	display:block;
-	overflow:hidden;
-	position:relative;
+	margin-bottom:10px;
 }
 .login li.col,.login li.col2 {
 	width:300px;
@@ -491,23 +456,24 @@
 }
 .center {
 	margin:0 auto;
-	width:900px;
-	padding:0 5px 50px 5px;
+	width:990px;
+	padding:10px 0;
 	min-height:450px;
 	_height:auto;
 	overflow:hidden;
 }
 .center1 {
-	margin:0 auto;
-	width:894px;
-	padding:0 8px 50px 0;
-	border-left:4px solid #eceff1;
-	border-right:4px solid #eceff1;
+	width:990px;
 	background:#fff;
 	min-height:450px;
 	_height:auto;
 	overflow:hidden;
-	position:relative;
+
+	margin: 20px auto;
+	border: 1px solid #dae0e5;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .center_left {
 	float:left;
@@ -574,6 +540,7 @@
 .center_left .menu_left .on {
 	background-position:-255px -135px;
 	background-repeat:no-repeat;
+	background-color:#09c;
 }
 .center_left .cl_comment {
 	margin-left:20px;
@@ -584,7 +551,8 @@
 }
 .center_right {
 	float:left;
-	width:749px;
+	width:810px;
+	margin-left:20px;
 	padding-right:0;
 	min-height:400px;
 	_height:400px;
@@ -773,18 +741,16 @@
 }
 
 .content_info {
-	padding:0 20px 0 20px;
 	font-size:14px;
 	line-height:20px;
 	overflow:hidden;
 }
 
 .token_process {
-	float:left;
-	width:710px;
-	padding:8px 0 20px 35px;
+	width:410px;
+	padding:5px;
 	line-height:20px;
-	position:relative;
+	margin:10px auto;
 }
 
 .token_process h1 {
@@ -792,15 +758,16 @@
 }
 
 .token_process ul {
-	padding:20px 0 0 0;
+	width:100%;
+	overflow:hidden;
+	margin:20px auto;
+	padding:0px;
+	border:2px solid #fff;
 }
 .token_process ul.ulp {
 	padding-top:20px;
 }
-.token_process ul {
-	border:2px solid #fff;
-	padding-left: 50px;
-}
+
 .token_process ul.hover:hover {
 	border:2px solid #7babcf;
 	-webkit-border-radius:4px;
@@ -820,21 +787,24 @@
 }
 .token_process li {
 	clear:both;
-	width:693px;
-	padding:0 0 17px 0;
-	*padding:0 0 14px 0;
-	display:block;
+	float:left;
+	padding-bottom:5px;
+	margin-bottom:20px;
 	overflow:hidden;
 }
 
 .token_process li .tips_info,.tips_info_orange,.tips_info_suc {
-	position:absolute;
+	/* position:absolute; */
+	display:block;
 	margin:6px 0 0 5px;
 	line-height:19px;
 	*line-height:22px;
 	_line-height:20px;
-	padding-left:20px;
+	padding-left:60px;
 	color:#f9590d;
+}
+.token_process .btn {
+	margin-left:60px;
 }
 .limit_login {
 	clear:both;
@@ -851,7 +821,7 @@
 }
 .p_mobile ul {
 	clear:both;
-	width:670px;
+	width:755px;
 	height:31px;
 	display:block;
 	margin-bottom:20px;
@@ -1368,11 +1338,11 @@ a:hover {
 #footer {
 	margin:0 auto;
 	clear:both;
-	width:910px;
 	margin-top:10px;
 	padding:15px 0;
 	display:block;
 	overflow:hidden;
+	background:#f7f7f7;
 }
 #footer p {
 	margin:0 auto;
@@ -1394,7 +1364,7 @@ a:hover {
 	color:#bd0a01;
 	text-decoration:underline;
 }
-.title,.title3,.title_r {
+.title,.title3,.h3 {
 	clear:both;
 	_display:inline-block;
 	padding:0 0 6px 0;
@@ -1439,11 +1409,13 @@ a:hover {
 	font-size:14px;
 	color:#333;
 }
-.title_r {
-	margin:10px 3px 10px 8px;
+.h3 {
+	margin:15px auto;
+	color:#09c;
 	border-bottom:1px dashed #ddd;
 	font-size:14px;
 	text-indent:2px;
+	text-align:center;
 }
 .title_right,.title_right1,.title_right2,.title_right3 {
 	clear:both;
@@ -1850,25 +1822,7 @@ a.close:hover {
 }
 
 
-#headerAll {
-	background:url(header_bg.jpg) left top repeat-x;
-}
-#header {
-	background:url(header.jpg) left top no-repeat;
-}
-#wrapper {
-	background:#fff url(wrapper_bg.jpg) left top repeat-x;
-}
-#login {
-	background:#e9f1f4 url(login_banner.jpg) -80px top no-repeat;
-}
 
-.index_bg {
-	background:url(index_center.jpg) left top repeat-y;
-}
-.center {
-	background:url(accounts_center.jpg) left top repeat-y;
-}
 
 .datatable thead td {
     border-bottom: 3px solid #EDEDED;
@@ -1947,8 +1901,8 @@ a.close:hover {
 #login ul li span {
 	float:left;
 	text-align:left;
-	padding-top:7px;
 	color:#333;
+	font-size:16px;
 }
 #login ul li u {
 	text-decoration:none;
@@ -1994,19 +1948,20 @@ a.close:hover {
 #login label {
 	padding:0 0 0 8px;
 	color:#535353;
-	position:absolute;
-	margin-top:10px;
-	line-height:8px;
-	*line-height:15px;
 }
+
 #login .low_login {
 	margin-top:0;
 }
 #login .login_button {
 	margin:0 auto;
-	height:20px;
-	padding:12px 0 0 62px;
-	float:none;
+	text-align:center;
+}
+#login .login_button .btn{
+	float:left;
+	margin-left:145px;
+	margin-top:30px;
+	display:block;
 }
 #login .lineright {
 	line-height:20px;

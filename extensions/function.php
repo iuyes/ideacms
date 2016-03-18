@@ -1246,8 +1246,8 @@ function linkageform($linkageid = 0, $defaultvalue = 0, $id = 'linkage', $level 
 	$datas = $data[$linkageid];
 	$infos = $datas['data'];
     $string = '';
-	if(!defined('FINECMS_LINKAGE_INIT_LD')) {
-		define('FINECMS_LINKAGE_INIT_LD', 1);
+	if(!defined('IDEACMS_LINKAGE_INIT_LD')) {
+		define('IDEACMS_LINKAGE_INIT_LD', 1);
 		$string.= '<script type="text/javascript" src="' . ADMIN_THEME . 'js/jquery.ld.js"></script>';
 	}
 	$default_txt = '';

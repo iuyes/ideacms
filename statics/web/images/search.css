@@ -4,6 +4,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 }
 input,body {
 	background-color:#fff;
+	outline:none;
 }
 table {
 	border-collapse:collapse;
@@ -45,6 +46,9 @@ sub {
 legend {
 	color:#000;
 }
+a:visited{
+	color:#09c;
+}
 input,button,textarea,select,optgroup,option {
 	font-family:inherit;
 	font-size:inherit;
@@ -54,6 +58,8 @@ input,button,textarea,select,optgroup,option {
 input,button,textarea,select {
 	*font-size:100%;
 }
+
+
 body {
 	font:13px/1.231 Arial,sans-serif;
 	*font-size:small;
@@ -78,7 +84,8 @@ em {
 	color:#C60A00;
 }
 a:link {
-	color:#2200c1;
+	color:#09c;
+	text-decoration:none;
 }
 .green {
 	color:#007B4C;
@@ -109,10 +116,10 @@ a.gray {
 }
 
 #ctn {
-	max-width:1170px;
-	min-width:920px;
-	margin:20px 0 0;
-	_width:1170px;
+
+	width:1100px;
+  margin:5px auto;
+  margin-top:30px;
 }
 #ctn #res {
 	float:left;
@@ -185,6 +192,7 @@ a.gray {
 }
 #results li p {
 	line-height:20px;
+	color:#444;
 }
 .result-error {
 	font-size:14px;
@@ -208,10 +216,17 @@ a.gray {
 	position:relative;
 }
 .rnw .vsrh {
-	}.rnw .tl {
-	}.rnw h3 {
+	}
+	.rnw .tl {
+		margin-bottom:10px;
+	}
+	.rnw h3 {
 	font-size:1.23em;
 	display:inline;
+
+}
+.rnw h3 a {
+	font-weight:bolder;
 }
 .rnw .tl em {
 	font-size:12px;
@@ -229,11 +244,14 @@ a.gray {
 	font-weight:bold;
 }
 .rnw .snapshot {
-	}.rnw .preview {
-	}.rnw .tle a,.rnw .snapshot,.rnw .bluelinktext,.rnw .preview {
-	color:#808080;
+	}
+	.rnw .preview {
+	}
+	.rnw .tle a,.rnw .snapshot,.rnw .bluelinktext,.rnw .preview {
+	color:#1485C0;
 	text-decoration:underline;
 	cursor:pointer;
+	font-weight:bolder;
 }
 .forum-desc,.rnw .t1 em,.srm a {
 	color:#808080;
@@ -250,22 +268,25 @@ p.srm {
 	margin-right:0.5em;
 }
 
+
 .c-topbar {
-	position:relative;
 	height:27px;
 	line-height:27px;
-	color:#333;
+	color:#666;
 	font-size:12px;
 	min-width:990px;
 	z-index:10;
+	background:#f7f7f7;
+	margin:0px auto;
 }
 .c-subtopbar {
 	width:960px;
 	margin:0 auto;
 }
 .c-topbar a {
-	color:#333 !important;
+	color:#666;
 	text-decoration:none;
+	margin-left: 15px;
 }
 .c-snav {
 	float:left;
@@ -295,11 +316,12 @@ p.srm {
 }
 
 .c-header {
-	position:relative;
+
 	clear:both;
 	height:64px;
-	min-width:990px;
-	z-index:9;
+	width:1100px;
+	margin:10px auto;
+
 }
 .c-header-ext {
 	width:960px;
@@ -316,16 +338,10 @@ p.srm {
 	width:402px;
 }
 .c-logo {
-	position:absolute;
 	overflow:hidden;
-	width:147px;
-	height:37px;
-	top:12px;
-	left:19px;
+	float:left;
 }
-.s-inpt-w,.s-btn-w {
-	background:url(http://shared.ydstatic.com/r/2.0/p/pic.gif) no-repeat;
-}
+
 .c-fm-w {
 	position:relative;
 	display:inline-block;
@@ -336,20 +352,18 @@ p.srm {
 	left:190px;
 }
 .s-inpt-w {
-	display:inline-block;
-	width:520px;
 	height:37px;
-	background-position:0 -67px;
-	vertical-align:top;
 }
 .s-inpt {
-	border:none;
-	background:transparent;
-	width:510px;
-	font:16px arial;
-	height:25px;
-	padding:7px 5px 3px;
-	padding:9px 5px 2px\9;
+	color: #999;
+font-size: 16px;
+width: 80%;
+display: block;
+float: left;
+height: 18px;
+padding: 8px 10px;
+border-right: 0;
+border-color: #1485C0;
 }
 .s-btn-w {
 	cursor:pointer;
@@ -357,21 +371,18 @@ p.srm {
 	height:37px;
 	width:88px;
 }
-.s-btn-w:hover {
-	background-position:-176px 0;
-}
-.s-btn-w:active {
-	background-position:-88px 0;
-}
+
+
 .s-btn {
-	cursor:pointer;
-	height:34px;
-	width:88px;
-	font-size:14px;
-	font-weight:bold;
-	text-align:center;
-	border:none;
-	background:none;
+	line-height: 24px;
+background: #1485C0;
+color: #fff;
+border: none;
+height: 38px;
+width: 80px;
+border-radius: 0 3px 3px 0;
+font-size: 16px;
+cursor:pointer;
 }
 .c-fm-ext {
 	font-size:12px;
@@ -463,7 +474,7 @@ p.srm {
 	padding:0 0 0 50px;
 }
 .c-lnv li a:hover {
-	background-color:#f6f6f6;
+	background-color:#f1f1f1;
 	text-decoration:none;
 }
 .c-leftnav li a {
@@ -637,11 +648,11 @@ img {
     padding-right: 10px;
 }
 .c-bsearch span {
-    background-color: #FBF779;
+    background-color: #1485C0;
     border-color: #C6DDF1;
     border-style: solid;
     border-width: 1px;
-    color: #FF7400;
+    color: #FFf;
     display: block;
     float: left;
     font-size: 12px;
@@ -650,6 +661,7 @@ img {
     margin: 5px 2px;
     padding-left: 10px;
     padding-right: 10px;
+
 }
 .sg-wrap ul li {
     cursor: default;

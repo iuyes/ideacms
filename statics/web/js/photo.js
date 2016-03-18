@@ -8,7 +8,7 @@ function getOffset(e)
   }
   var pageCoord = getPageCoord(target);
   var eventCoord =
-  {  
+  {
     x: window.pageXOffset + e.clientX,
     y: window.pageYOffset + e.clientY
   };
@@ -53,10 +53,10 @@ function upNext1(bigimg){
     var e=window.event || e,
         posX=(e.offsetX==undefined) ? getOffset(e).offsetX : e.offsetX ;
   if(posX<bigimg.width/2){
-			bigimg.style.cursor	= 'url('+siteurl+'images/arr_left.cur),auto';
+			bigimg.style.cursor	= 'url('+'statics/web/images/arr_left.cur),auto';
 			imgurl				= currPage-1;
 		}else{
-			bigimg.style.cursor	= 'url('+siteurl+'images/arr_right.cur),auto';
+			bigimg.style.cursor	= 'url('+'statics/web/images/arr_right.cur),auto';
 			imgurl				= currPage+1;
 		}
 	}
@@ -75,13 +75,13 @@ function addCookie(objName,objValue,objHours){//添加cookie
    }
    document.cookie = str;
   }
-  
+
   function getCookie(objName){//获取指定名称的cookie的值
    var arrStr = document.cookie.split("; ");
    for(var i = 0;i < arrStr.length;i ++){
     var temp = arrStr[i].split("=");
     if(temp[0] == objName) return unescape(temp[1]);
-   } 
+   }
   }
 
 var interval = 5000;
@@ -128,15 +128,15 @@ var l;
 $(document).ready(function () {
 	l=$('#scrool_wrap li').length;
 	iss=iss-1;
-	
+
 	$("#left").bind("click",ole);
 	$("#right").bind("click",ori);
 	var total = $('#scrool_wrap li').length;
-	$("#zys").html(total); 
-     
-	
+	$("#zys").html(total);
+
+
 	$('#scrool_wrap li').eq(iss).find('img').eq(0).addClass('curimg');
-	
+
 	if(iss>0&&iss<initnum){
 		var tiss=iss;
 		var temscr=-scrollWrapW*(tiss);
@@ -153,7 +153,7 @@ $(document).ready(function () {
 			iss=tiss;
 		}
 	}
-	
+
 });
 
 function ole(){
@@ -166,7 +166,7 @@ function ole(){
 		$("#scrool_wrap").animate({left:temscr},1000);
 		iss++;
 	}
-	
+
 }
  function ori(){
  	if(iss>0){
@@ -193,6 +193,6 @@ function showImg(n){
 	  $(".imageintro").html(introArr[n-1]);
 }
 //改变图片大小
-function resizepic(thispic) { 
-    if(thispic.width>750) thispic.width=750; 
+function resizepic(thispic) {
+    if(thispic.width>750) thispic.width=750;
 }

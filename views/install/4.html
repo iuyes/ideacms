@@ -42,7 +42,7 @@ function $(ID) {return document.getElementById(ID);}
 				<li><input name="db_name" type="text" id="db_name" value="" onblur="$('ttb_test').value=0;test();void(0);" class="on" onblur="this.className='on'" onfocus="this.className='in'"/><span>数据库名称，如不了解请联系你的空间商</li>
 				<li><input name="tb_pre" type="text" id="tb_pre" value="idea_" class="on" onblur="this.className='on'" onfocus="this.className='in'"/><span><input type="button" value="测试数据库连接" onclick="$('ttb_test').value=1;test();void(0);" class="n"/></span><span id="tip" style="color:blue;display:none;">安装正在进行，请稍候...</span></li>
 				<li><input name="username" type="text" id="username" value="admin" class="on" onblur="this.className='on'" onfocus="this.className='in'"/><span>只能使用小写字母(a-z)、数字(0-9)</span></li>
-				<li><input name="password" type="text" id="password" value="admin" class="on" onblur="this.className='on'" onfocus="this.className='in'"/></li>
+				<li><input name="password" type="text" id="password" value="admin" class="on" onblur="this.className='on'" onfocus="this.className='in'"/><span class="red"><input name="import" type="checkbox" id="checkbox" value="1" checked align="bottom"/>安装演示数据(首次使用推荐安装)</span></li>
 			</div>
 		</div>
 		<div class="bnt">

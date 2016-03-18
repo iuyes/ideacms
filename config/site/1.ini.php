@@ -14,7 +14,7 @@ return array(
 	'SITE_TITLE'              => 'ideacms',  //网站首页SEO标题
 	'SITE_KEYWORDS'           => 'ideacms',  //网站SEO关键字
 	'SITE_DESCRIPTION'        => 'ideacms',  //网站SEO描述信息
-	'SITE_BOTTOM_INFO'        => '&lt;p&gt;ideacms&lt;/p&gt;',  //网站底部信息
+	'SITE_BOTTOM_INFO'        => '&lt;p&gt;这是网站底部自定义信息&lt;/p&gt;',  //网站底部信息
 	'SITE_WATERMARK'          => '0',  //水印功能
 	'SITE_WATERMARK_ALPHA'    => '',  //图片水印透明度
 	'SITE_WATERMARK_TEXT'     => '',  //文字水印
@@ -27,7 +27,7 @@ return array(
 	'SITE_TIME_FORMAT'        => 'Y-m-d',  //网站时间显示格式，参数与PHP的date函数一致，默认Y-m-d H:i:s
 	'SITE_MOBILE'             => false,  //移动设备访问网站开关，打开之后需要设计移动端模板（默认mobile或者mobile_站点id）
 	'SITE_MURL'               => '',  //域名格式为：m.lygphp.com，不要加http://
-	'SITE_ICP'                => 'ICP备案序号',  //ICP备案序号
-	'SITE_JS'                 => '',  //第三方统计代码
+	'SITE_ICP'                => '苏ICP备13048867号-3',  //ICP备案序号
+	'SITE_JS'                 => '这里是统计代码',  //第三方统计代码
 
 );
