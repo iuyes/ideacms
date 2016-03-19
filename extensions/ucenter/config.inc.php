@@ -21,7 +21,7 @@ $dbuser    = 'root';
 $dbpw      = '';
 $dbname    = 'ideacms';
 $pconnect  = 0;
-$tablepre  = 'fn_';
+$tablepre  = 'ia_';
 $dbcharset = 'utf8';
 /* 同步登录Cookie */
 $cookiedomain = '';
@@ -33,7 +33,7 @@ $dbuser    = 'root';
 $dbpw      = 'root';
 $dbname    = 'cms';
 $pconnect  = 0;
-$tablepre  = 'fn_';
+$tablepre  = 'ia_';
 $dbcharset = 'utf8';
 /* 同步登录Cookie */
 $cookiedomain = '';

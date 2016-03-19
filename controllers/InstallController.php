@@ -108,7 +108,7 @@ class InstallController extends Controller {
 					'gd_pass' => $gd_pass,
 					'pass'  => $pass,
 					'percent' => '20%',
-					'urlopen' => fn_check_url(),
+					'urlopen' => ia_check_url(),
 					'is_json' => $is_json,
 					'json_data' => $json_data,
 				));

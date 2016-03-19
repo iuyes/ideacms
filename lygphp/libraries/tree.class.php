@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class tree extends Fn_base {
+class tree extends Ia_base {
 	
 	/**
 	 * 分类的父ID的键名(key)

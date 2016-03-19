@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class session extends Fn_base {
+class session extends Ia_base {
 		
 	/**
 	 * 构造函数

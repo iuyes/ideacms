@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class captcha extends Fn_base {
+class captcha extends Ia_base {
 	
     //验证码的宽度
 	public $width=100;

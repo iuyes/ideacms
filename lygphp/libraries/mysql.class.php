@@ -5,7 +5,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class mysql extends Fn_base {
+class mysql extends Ia_base {
 	
 	public $db_link;
 	public static $instance;

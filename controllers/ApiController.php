@@ -28,7 +28,7 @@ class ApiController extends Common {
      * 下载文件
      */
     public function downAction() {
-        $data = fn_authcode(base64_decode($this->get('file')), 'DECODE');
+        $data = ia_authcode(base64_decode($this->get('file')), 'DECODE');
         $file = isset($data['ideacms']) && $data['ideacms'] ? $data['ideacms'] : '';
         if (empty($file)) {
             $this->msg(lang('a-mod-213'));
@@ -61,7 +61,7 @@ class ApiController extends Common {
      * 缩略图
      */
     public function thumbAction() {
-        $data = fn_authcode(base64_decode($this->get('img')), 'DECODE');
+        $data = ia_authcode(base64_decode($this->get('img')), 'DECODE');
         $file = isset($data['ideacms']) && $data['ideacms'] && is_file($data['ideacms']) ? $data['ideacms'] : EXTENSION_PATH . '/null.jpg';
         $width = (int)$this->get('width');
         $height	= (int)$this->get('height');
@@ -112,7 +112,7 @@ class ApiController extends Common {
     public function dataAction() {
         $file = $this->get('file') ? $this->get('file') : 'html';
         $data = base64_decode($this->get('data'));
-        $data = fn_authcode($data, 'DECODE');
+        $data = ia_authcode($data, 'DECODE');
         ob_start();
         if (count($data) == 1 && isset($data['idea_html_to_data'])) {
             $this->view->assign('data', $data['idea_html_to_data']);

@@ -558,7 +558,7 @@ if ( ! function_exists('html_escape'))
 
 
 
-class Fn_base {
+class Ia_base {
 
 }
 /*

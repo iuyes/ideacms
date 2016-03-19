@@ -8,7 +8,7 @@ if (!defined('IN_IDEACMS')) {
 	exit();
 }
 
-class client extends Fn_base {
+class client extends Ia_base {
 
 	/**
 	 * 获取客户端系统语言

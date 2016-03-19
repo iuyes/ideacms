@@ -8,7 +8,7 @@ if (!defined('IN_IDEACMS')) {
 	exit();
 }
 
-class auth extends Fn_base {
+class auth extends Ia_base {
 	
 	public static function check($groupid, $action, $namespace="defalut") {
         $action = strtolower($action);

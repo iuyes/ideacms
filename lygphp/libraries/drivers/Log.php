@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class Log extends Fn_base {
+class Log extends Ia_base {
 	
 	/**
 	 * 写入日志

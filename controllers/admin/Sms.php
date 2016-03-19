@@ -72,7 +72,7 @@ class Sms extends Admin {
             exit(ijson(0, '手机号码太多，不能超过40个'));
         }
 
-		$result = fn_sendsms($mobile, $data['content']);
+		$result = ia_sendsms($mobile, $data['content']);
 		if ($result === FALSE) {
 			 exit(ijson(0, '验证发送失败'));
 		} else {

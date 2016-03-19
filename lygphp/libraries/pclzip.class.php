@@ -169,7 +169,7 @@
   //   extract() : Extract the content of the archive
   //   properties() : List the properties of the archive
   // --------------------------------------------------------------------------------
-  class PclZip extends Fn_base
+  class PclZip extends Ia_base
   {
     // ----- Filename of the zip file
     var $zipname = '';

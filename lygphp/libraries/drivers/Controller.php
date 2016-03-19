@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-abstract class Controller extends Fn_base {
+abstract class Controller extends Ia_base {
     
 	public $view;
 	public static $_options = array();

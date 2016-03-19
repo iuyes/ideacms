@@ -7,7 +7,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class pinyin extends Fn_base {
+class pinyin extends Ia_base {
 	
 	/**
 	 * 汉字ASCII码库

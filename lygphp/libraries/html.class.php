@@ -7,7 +7,7 @@ if (!defined('IN_IDEACMS')) {
 	exit();
 }
 
-class html extends Fn_base {
+class html extends Ia_base {
 	
 	/**
 	 * 将特殊字符转化为HTML代码

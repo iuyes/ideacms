@@ -72,11 +72,11 @@ class ContentModel extends Model {
 		}
 		//描述截取
 	    if (empty($data['description']) && isset($data['content'])) {
-		    $len = isset($data['fn_add_introduce']) && $data['fn_add_introduce'] && $data['fn_introcude_length'] ? $data['fn_introcude_length'] : 200;
+		    $len = isset($data['ia_add_introduce']) && $data['ia_add_introduce'] && $data['ia_introcude_length'] ? $data['ia_introcude_length'] : 200;
 		    $data['description'] = str_replace(PHP_EOL, '', strcut(clearhtml($data['content']), $len));
 		}
 		//下载远程图片
-		if (isset($data['content']) && isset($data['fn_down_image']) && $data['fn_down_image']) {
+		if (isset($data['content']) && isset($data['ia_down_image']) && $data['ia_down_image']) {
 			$content = str_replace(array('\\', '"'), array('', '\''), htmlspecialchars_decode($data['content']));
 		    if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $content, $imgs)) {
 				$userid = !$data['sysadd'] && $data['userid'] ? $data['userid'] : (!$_data['sysadd'] && $_data['userid'] ? $_data['userid'] : 0);
@@ -95,7 +95,7 @@ class ContentModel extends Model {
 			}
 		}
 		//提取缩略图
-		if (empty($data['thumb']) && isset($data['content']) && isset($data['fn_auto_thumb']) && $data['fn_auto_thumb']) {
+		if (empty($data['thumb']) && isset($data['content']) && isset($data['ia_auto_thumb']) && $data['ia_auto_thumb']) {
 			if (isset($image)) {
 				$data['thumb'] = $image;
 			} else {
@@ -308,7 +308,7 @@ class ContentModel extends Model {
 			//下载图片
 			$fileext = strtolower(trim(substr(strrchr($img, '.'), 1, 10))); //扩展名
 			$name	 = $path . md5($img . time()) . '.' . $fileext;
-			$content = fn_geturl($img);
+			$content = ia_geturl($img);
 			if (empty($content)) continue;
 			if (file_put_contents($name, $content)) {
 				if ($config['SITE_WATERMARK']) {

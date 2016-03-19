@@ -6,7 +6,7 @@
  
 if (!defined('IN_IDEACMS')) exit();
 
-class loader extends Fn_base {
+class loader extends Ia_base {
  	
  	/**
  	 * http下载文件

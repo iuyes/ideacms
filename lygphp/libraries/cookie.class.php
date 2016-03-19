@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class cookie extends Fn_base {
+class cookie extends Ia_base {
 	
 	/**
 	 * 判断cookie变量是否存在

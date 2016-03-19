@@ -448,7 +448,7 @@ function kindeditor_editor($name, $content = '', $field = '') {
 	}
     $str .= '<textarea id="fc_' . $id . '" name="data[' . $name . ']" style="width:' . $w . '%;height:' . $h . 'px;visibility:hidden;">' . $content . '</textarea>';
 	if (!isset($setting['system']) && $name == 'content') { //是否显示编辑器底部截取内容,缩略图,远程下载等提示信息
-		$str .= '<div style="padding-top:8px;"><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]"> ' . lang('a-mod-115') . '<input type="text" size="3" value="200" name="data[fn_introcude_length]" class="input-text">' . lang('a-mod-116') . '<input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]"> ' . lang('a-mod-117') . ' <input type="checkbox" checked="" value="1" name="data[fn_down_image]"> ' . lang('a-mod-136') . '</div>';
+		$str .= '<div style="padding-top:8px;"><input type="checkbox" checked="" value="1" name="data[ia_add_introduce]"> ' . lang('a-mod-115') . '<input type="text" size="3" value="200" name="data[ia_introcude_length]" class="input-text">' . lang('a-mod-116') . '<input type="checkbox" checked="" value="1" name="data[ia_auto_thumb]"> ' . lang('a-mod-117') . ' <input type="checkbox" checked="" value="1" name="data[ia_down_image]"> ' . lang('a-mod-136') . '</div>';
 	}
     return $str;
 }
@@ -464,7 +464,7 @@ function ueditor_editor($name, $content = '', $field = '') {
 	$str		= '';
 	$page		= isset($setting['pagebreak']) || (!isset($setting['system']) && $name == 'content') ? ",'snapscreen','pagebreak'" : '';
 	$source		= strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false || strpos($_SERVER['QUERY_STRING'], 's=' . ADMIN_NAMESPACE) === false ? '' : "'source', '|',";
-	$appkey		= file_exists(EXTENSION_DIR . 'ueditor/appkey.txt') ? fn_geturl(EXTENSION_DIR . 'ueditor/appkey.txt') : '';
+	$appkey		= file_exists(EXTENSION_DIR . 'ueditor/appkey.txt') ? ia_geturl(EXTENSION_DIR . 'ueditor/appkey.txt') : '';
 	if (!defined('IDEACMS_EDITOR_LD')) { //加载相关js
 	    $str.= '
 		<script type="text/javascript">var ueditor_url="' . EXT_PATH . 'ueditor/";</script>
@@ -586,7 +586,7 @@ function ueditor_editor($name, $content = '', $field = '') {
 		";
 	}
 	if (!isset($setting['system']) && $name == 'content') { //是否显示编辑器底部截取内容,缩略图,远程下载等提示信息
-	    $str .= '<div style="padding-top:8px;"><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]"> ' . lang('a-mod-115') . '<input type="text" size="3" value="200" name="data[fn_introcude_length]" class="input-text">' . lang('a-mod-116') . '<input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]"> ' . lang('a-mod-117') . ' <input type="checkbox" checked="" value="1" name="data[fn_down_image]"> ' . lang('a-mod-136') . '</div>';
+	    $str .= '<div style="padding-top:8px;"><input type="checkbox" checked="" value="1" name="data[ia_add_introduce]"> ' . lang('a-mod-115') . '<input type="text" size="3" value="200" name="data[ia_introcude_length]" class="input-text">' . lang('a-mod-116') . '<input type="checkbox" checked="" value="1" name="data[ia_auto_thumb]"> ' . lang('a-mod-117') . ' <input type="checkbox" checked="" value="1" name="data[ia_down_image]"> ' . lang('a-mod-136') . '</div>';
 	}
     return $str;
 }

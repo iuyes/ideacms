@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class check extends Fn_base {
+class check extends Ia_base {
 
 	/**
 	 * 正则表达式验证email格式

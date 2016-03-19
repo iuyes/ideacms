@@ -1,16 +1,16 @@
 <?php
 
 class PluginController extends Admin {
-    
+
     private $dir;
     private $plugin;
-    
+
     public function __construct() {
 		parent::__construct();
 		$this->dir = PLUGIN_DIR;
 		$this->plugin = $this->model('plugin');
 	}
-	
+
 	/**
 	 * 本地应用
 	 */
@@ -35,7 +35,7 @@ class PluginController extends Admin {
 	    $this->view->assign('list', $list);
 	    $this->view->display('admin/plugin_list');
 	}
-	
+
 	/**
 	 * 应用配置
 	 */
@@ -61,7 +61,7 @@ class PluginController extends Admin {
 	    ));
 	    $this->view->display('admin/plugin_set');
 	}
-	
+
 	/**
 	 * 安装应用
 	 */
@@ -71,7 +71,7 @@ class PluginController extends Admin {
 	    if (!file_exists($file)) $this->adminMsg(lang('a-plu-4'));
 	    $config = require $file;
 	    if ($config['typeid'] == 1) {
-	        //包含控制器的应用    
+	        //包含控制器的应用
 	        $install = $this->dir . $dir . DIRECTORY_SEPARATOR . 'install.php';
 	        if (!file_exists($install)) $this->adminMsg(lang('a-plu-5'));
 	        $data = require $install;
@@ -93,7 +93,7 @@ class PluginController extends Admin {
 	    $this->plugin->insert($config);
 	    $this->adminMsg($this->getCacheCode('plugin') . lang('a-plu-6'), url('admin/plugin/index'), 3, 0, 1);
 	}
-	
+
 	/**
 	 * 卸载应用
 	 */
@@ -129,7 +129,7 @@ class PluginController extends Admin {
 	    $this->plugin->delete('pluginid=' . $pluginid);
 	    $this->adminMsg($this->getCacheCode('plugin') . lang('a-plu-11'), url('admin/plugin/index'), 1, 0, 1);
 	}
-	
+
 	/**
 	 * 硬盘删除应用
 	 */
@@ -172,7 +172,7 @@ class PluginController extends Admin {
 		    $this->adminMsg(lang('a-plu-15'), url('admin/plugin/index'));
 		}
 	}
-	
+
     /**
 	 * 禁用/启用
 	 */
@@ -184,7 +184,7 @@ class PluginController extends Admin {
 	    $this->plugin->update(array('disable' => $disable), 'pluginid=' . $pluginid);
 	    $this->adminMsg($this->getCacheCode('plugin') . lang('success'), url('admin/plugin/index/'), 3, 1, 1);
 	}
-	
+
 	/**
 	 * 应用缓存
 	 */
@@ -198,7 +198,7 @@ class PluginController extends Admin {
 	    $this->cache->set('plugin', $row);
 	    $show or $this->adminMsg(lang('a-update'), '', 3, 1, 1);
 	}
-	
+
     /**
 	 * 加载模板调用代码
 	 */
@@ -211,7 +211,8 @@ class PluginController extends Admin {
 	    $msg .= "</textarea>";
 	    echo $msg;
 	}
-	
+
+
 	/**
 	 * 测试应用是否包含在模板中
 	 */
@@ -227,8 +228,171 @@ class PluginController extends Admin {
 		if (strpos($file2, $code1) !== false || strpos($file2, $code2) !== false)  exit('<font color=green>√</font>');
 		exit('<font color=red>' . lang('a-plu-17') . '</font>');
 	}
-	
-	
+
+
+	/**
+	 * 测试应用更新情况
+	 */
+	public function ajaxupdateAction() {
+        return;
+	    $id   = (int)$this->post('id');
+	    $data = $this->plugin->find($id);
+		if (empty($data))   exit('<font color=red>' . lang('a-plu-16') . '</font>');
+		if (ia_check_url()) exit('<font color=red>' . lang('a-plu-18') . '</font>');
+		if (empty($data['markid'])) exit('<font color=red>' . lang('a-plu-19') . '</font>');
+		$version = ia_geturl('http://www.lygphp.com/index.php?c=my&a=version&markid=' . $data['markid']);
+		if (empty($version))  exit('<font color=red>' . lang('a-plu-20') . '</font>');
+		$result  = $this->check_version($version, $data['version']);
+		if ($result == 1) {
+		    exit('<font color=red>' . lang('a-plu-21') . 'v' . $version . '</font>');
+		} else {
+		    exit('<font color=green>√</font>');
+		}
+	}
+
+
+	/**
+	 * 在线应用中心
+	 */
+	public function onlineAction() {
+	    $name = urlencode($this->site['SITE_NAME']);
+		$site = urlencode(SITE_URL);
+		$list = file_list::get_file_list($this->dir); //扫描应用目录
+	    $data = array();
+		if ($list) {
+			foreach ($list as $id => $dir) {
+				if (!in_array($dir, array('.', '..', '.svn')) && is_dir($this->dir . $dir)) {
+					$file = $this->dir . $dir . DIRECTORY_SEPARATOR . 'config.php';
+					if (file_exists($file)) {
+						$setting = require $file;
+						$markid  = (int)$setting['key'];
+                        if ($markid) {
+                            $data[$markid] = $setting['version'];
+                        }
+					}
+				}
+			}
+		}
+		$data = base64_encode(json_encode($data));
+		$this->view->assign('url', 'http://www.lygphp.com/index.php?c=v1&m=app&admin=' . ADMIN_NAMESPACE . '&site=' . $site . '&name=' . $name . '&data=' . $data . '&version=' . CMS_VERSION);
+	    $this->view->display('admin/plugin_online');
+	}
+
+	/**
+	 * 下载应用
+	 */
+	public function downAction() {
+	    if (!@is_writable(PLUGIN_DIR)) $this->adminMsg(lang('a-plu-22', array('1' => $this->site['PLUGIN_DIR'])));
+	    $down = urldecode($this->get('url'));
+		$dir  = $this->get('dir');
+        $mark  = $this->get('mark');
+        $install  = $this->get('install');
+		if (empty($down) || empty($dir)) {
+            $this->adminMsg(lang('a-plu-23'));
+        }
+		if ($result = ia_check_url()) {
+		    $this->adminMsg($result . '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.lygphp.com/index.php?mod=viewthread&tid=100&extra=" target="_blank" style="font-size:14px">' . lang('a-plu-24') . '</a>');exit;
+		}
+		if (empty($install) && is_dir(PLUGIN_DIR . $dir)) {
+            $this->adminMsg(lang('a-plu-25', array('1' => $dir)));
+        }
+		if ($install) {
+		    //升级信息检测
+			$data = $this->plugin->getOne('dir=?', $dir);
+			if (empty($data)){
+                $this->adminMsg(lang('a-plu-26', array('1' => $dir)));
+            }
+			if ($data['markid'] != $mark){
+                $this->adminMsg(lang('a-plu-27', array('1' => $dir)));
+            }
+		}
+		$path = APP_ROOT . 'cache' . DIRECTORY_SEPARATOR . 'down' . DIRECTORY_SEPARATOR;
+		if (!is_dir($path)) {
+		    //创建下载文件临时目录
+		    mkdir($path, 0777);
+		}
+		//保存到本地地址
+		$zip_path     = $path . $dir . '.zip';
+		//测试目录
+		$testzip_path = $path . $dir;
+		//下载压缩包
+		@file_put_contents($zip_path, ia_geturl($down));
+		if (filesize($zip_path) == 0) $this->adminMsg(lang('a-plu-28'));
+		//解压缩
+		$zip  = $this->instance('pclzip');
+		$zip->PclFile($zip_path);
+		if ($zip->extract(PCLZIP_OPT_PATH, $testzip_path, PCLZIP_OPT_REPLACE_NEWER) == 0) {
+			@unlink($zip_path);
+			$this->delDir($testzip_path);
+			$this->adminMsg('Error : ' . $zip->errorInfo(true));
+		} else {
+		    if (!file_exists($testzip_path . DIRECTORY_SEPARATOR . 'config.php')) {
+			    @unlink($zip_path);
+				$this->delDir($testzip_path);
+			    $this->adminMsg(lang('a-plu-29'));
+			}
+			//配置文件验证
+			if (filesize($testzip_path . DIRECTORY_SEPARATOR . 'config.php') == 0) {
+				@unlink($zip_path);
+				$this->delDir($testzip_path);
+				$this->adminMsg(lang('a-plu-30'));
+			}
+			//md5文件校验
+			$md5_file = $testzip_path . 'md5.php';
+			if (file_exists($md5_file)) {
+				if (filesize($md5_file) == 0) {
+					@unlink($zip_path);
+					$this->delDir($testzip_path);
+					$this->adminMsg(lang('a-plu-31'));
+				}
+				$md5s = require $md5_file;
+				if (is_array($md5s)) {
+					foreach ($md5s as $md5 => $file) {
+						if (file_exists($testzip_path . $file)) {
+							if (strtolower(md5(file_get_contents($testzip_path . $file))) != $md5) {
+						        @unlink($zip_path);
+							    $this->delDir($testzip_path);
+								$this->adminMsg(lang('a-plu-31'));
+							}
+						}
+					}
+				} else {
+					@unlink($zip_path);
+					$this->delDir($testzip_path);
+					$this->adminMsg(lang('a-plu-31'));
+				}
+			}
+			$this->delDir($testzip_path);
+		}
+		//解压升级包
+		if($zip->extract(PCLZIP_OPT_PATH, PLUGIN_DIR . $dir, PCLZIP_OPT_REPLACE_NEWER) == 0) {
+			@unlink($zip_path);
+			$this->adminMsg('Error : ' . $zip->errorInfo(true) . '<br>' . lang('a-plu-32'));
+		}
+		if (empty($install)) {
+		    @unlink($zip_path);
+			if (is_dir(PLUGIN_DIR . $dir) && is_file(PLUGIN_DIR . $dir . DIRECTORY_SEPARATOR . 'config.php')) {
+			    $this->adminMsg(lang('a-plu-33'), url('admin/plugin/'), 3, 1, 1);
+			} else {
+			    $this->adminMsg(lang('a-plu-34'));
+			}
+		}
+		//升级应用
+		if (!@is_writable($this->dir . $dir . DIRECTORY_SEPARATOR . 'config.php')) {
+            $this->adminMsg(lang('a-plu-35'));
+        }
+		$config = require $this->dir . $dir . DIRECTORY_SEPARATOR . 'config.php';
+		$update = array(
+		    'author'      => $config['author'],
+			'version'     => $config['version'],
+			'description' => $config['description']
+		);
+		$this->plugin->update($update, 'pluginid=' . $data['pluginid']);
+		$this->adminMsg(lang('a-plu-36'), url('admin/plugin/'), 3, 1, 1);
+	}
+
+
+
 	/*
 	 * 版本号比较
 	 */

@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class file_list extends Fn_base {
+class file_list extends Ia_base {
 	
 	/**
 	 * 构造函数

@@ -7,14 +7,14 @@ if (!defined('IN_IDEACMS')) exit();
  */
 function html_to_data($data, $file) {
 	$data = is_array($data) ? $data : array('idea_html_to_data' => $data);
-	$data = str_replace('=', '', base64_encode(fn_authcode($data, 'ENCODE')));	//加密数据
+	$data = str_replace('=', '', base64_encode(ia_authcode($data, 'ENCODE')));	//加密数据
 	return '<script type="text/javascript" src="' . url('api/data', array('data' => $data, 'file' => $file)) . '"></script>';
 }
 
 /**
  * authcode函数(用于数组)
  */
-function fn_authcode($data, $operation = 'DECODE', $key = '', $expiry = 0) {
+function ia_authcode($data, $operation = 'DECODE', $key = '', $expiry = 0) {
 	$ckey_length = 4;
 	$string	= $operation == 'DECODE' ? $data : array2string($data);
 	$key	= md5($key ? $key : SITE_MEMBER_COOKIE);
@@ -209,7 +209,7 @@ function getImage($url) {
  * 下载文件函数
  */
 function downfile($url) {
-	return url('api/down', array('file' => str_replace('=', '', base64_encode(fn_authcode(array('ideacms' => $url), 'ENCODE')))));
+	return url('api/down', array('file' => str_replace('=', '', base64_encode(ia_authcode(array('ideacms' => $url), 'ENCODE')))));
 }
 
 /**
@@ -266,14 +266,14 @@ function thumb($img, $width = null, $height = null) {
  * 强制动态模式调用图片
  */
 function _thumb($img, $width = null, $height = null) {
-	return url('api/thumb', array('img' => str_replace('=', '', base64_encode(fn_authcode(array('ideacms' => $img), 'ENCODE'))), 'width' => $width, 'height' => $height));
+	return url('api/thumb', array('img' => str_replace('=', '', base64_encode(ia_authcode(array('ideacms' => $img), 'ENCODE'))), 'width' => $width, 'height' => $height));
 }
  
 /**
  * 提取关键字
  */
 function getKw($data) {
-    $data = fn_geturl('http://keyword.discuz.com/related_kw.html?ics=utf-8&ocs=utf-8&title=' . rawurlencode($data) . '&content=' . rawurlencode($data));
+    $data = ia_geturl('http://keyword.discuz.com/related_kw.html?ics=utf-8&ocs=utf-8&title=' . rawurlencode($data) . '&content=' . rawurlencode($data));
 	if ($data) {
         $kws = array();
 	    $parser = xml_parser_create();
@@ -1354,7 +1354,7 @@ function baiduMap($modelid, $name, $value, $width = 600, $height = 400) {
 /**
  * 判断能否调用/下载远程数据
  */
-function fn_check_url() {
+function ia_check_url() {
     if (ini_get('allow_url_fopen')) return null;
 	if (function_exists('curl_init') && function_exists('curl_exec')) return null;
 	return lang('app-13');
@@ -1363,7 +1363,7 @@ function fn_check_url() {
 /**
  * 调用远程数据
  */
-function fn_geturl($url) {
+function ia_geturl($url) {
     if (substr($url, 0, 7) != 'http://') return file_get_contents($url);
     if (ini_get('allow_url_fopen')) {
 	    return @file_get_contents($url);
@@ -1575,7 +1575,7 @@ function iarray2string($data) {
 
 
 // 发送短信
-function fn_sendsms($mobile, $content) {
+function ia_sendsms($mobile, $content) {
 
     if (!$mobile || !$content) {
         return FALSE;

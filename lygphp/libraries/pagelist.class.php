@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class pagelist extends Fn_base {
+class pagelist extends Ia_base {
     
     /**
 	 * 样式配置文件.	

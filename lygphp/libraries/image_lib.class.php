@@ -8,7 +8,7 @@ if (!defined('IN_IDEACMS')) {
 	exit();
 }
 
-class image_lib extends Fn_base {
+class image_lib extends Ia_base {
 
 	/**
 	 * 原图片路径,该图片在验证码时指背景图片,在水印图片时指水印图片.

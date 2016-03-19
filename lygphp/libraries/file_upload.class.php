@@ -5,7 +5,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class file_upload extends Fn_base {
+class file_upload extends Ia_base {
     
     /**
      * 文件大小

@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit(); 
 
-class mail extends Fn_base {
+class mail extends Ia_base {
     
     /**
 	 * 样式配置文件.	

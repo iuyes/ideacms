@@ -2,7 +2,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-abstract class Fn_base {
+abstract class Ia_base {
 	
 	/**
 	 * 自动变量设置

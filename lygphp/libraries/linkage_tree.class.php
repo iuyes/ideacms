@@ -6,7 +6,7 @@
 
 if (!defined('IN_IDEACMS')) exit();
 
-class linkage_tree extends Fn_base {
+class linkage_tree extends Ia_base {
 	/**
 	* 生成树型结构所需要的2维数组
 	* @var array
