@@ -268,7 +268,7 @@ function thumb($img, $width = null, $height = null) {
 function _thumb($img, $width = null, $height = null) {
 	return url('api/thumb', array('img' => str_replace('=', '', base64_encode(ia_authcode(array('ideacms' => $img), 'ENCODE'))), 'width' => $width, 'height' => $height));
 }
- 
+
 /**
  * 提取关键字
  */
@@ -387,7 +387,7 @@ function catposids($catid, $catids = '', $category) {
         return false;
     }
     $row = $category[$catid];
-    $catids = $catid . ','; 
+    $catids = $catid . ',';
     if ($row['parentid']) {
         $catids.= catposids($row['parentid'], $catids, $category);
     }
@@ -405,7 +405,7 @@ function _catposids($catid, $catids = '', $category) {
         return false;
     }
     $row = $category[$catid];
-    $catids = $catid . ','; 
+    $catids = $catid . ',';
     if ($row['child'] && $row['arrchildid']) {
 		$id = explode(',', $row['arrchildid']);
 		foreach ($id as $t) {
@@ -678,7 +678,7 @@ function baidunews($data, $update) {
 		$baidunews.= "<category>" . htmlspecialchars(strip_tags($cats[$item['catid']]['catname'])) . "</category>\n";
 		$baidunews.= "<pubDate>" .  date('Y-m-d', $item['updatetime']) . "</pubDate>\n";
 		$baidunews.= "</item>\n";
-    } 
+    }
     $baidunews .= "</document>\n";
 	unset($data);
     file_put_contents(APP_ROOT . $filename, $baidunews, LOCK_EX);
@@ -893,6 +893,13 @@ function tagfont($tag, $code, $url) {
 	return "<a href=\"$url\" target=\"_blank\">$tag</a>$code";
 }
 
+
+// 格式获取文件名
+function ia_get_file_name($file) {
+  return str_replace(array('/', '\\', '..'), '', safe_replace($file));
+}
+
+
 /**
  * 文字块调用
  * @param  $id
@@ -975,8 +982,8 @@ function get_member_info($uid, $more = 0) {
 
 /**
  * 编码转换函数
- * @param  $str 
- * @param  $from 
+ * @param  $str
+ * @param  $from
  * @param  $to
  * @return string
  */
@@ -1002,7 +1009,7 @@ function utf8_to_gbk($utfstr) {
 	$filename	= EXTENSION_DIR . 'encoding' . DIRECTORY_SEPARATOR . 'gb-unicode.table';
 	$UC2GBTABLE = array();
 	$fp	= fopen($filename, 'rb');
-	while($l = fgets($fp, 15)) {        
+	while($l = fgets($fp, 15)) {
 		$UC2GBTABLE[hexdec(substr($l, 7, 6))] = hexdec(substr($l, 0, 6));
 	}
 	fclose($fp);
@@ -1011,10 +1018,10 @@ function utf8_to_gbk($utfstr) {
 	for($i=0; $i<$ulen; $i++) {
 		$c  = $utfstr[$i];
 		$cb = decbin(ord($utfstr[$i]));
-		if(strlen($cb)==8) { 
+		if(strlen($cb)==8) {
 			$csize = strpos(decbin(ord($cb)), '0');
 			for($j = 0; $j < $csize; $j++) {
-				$i++; 
+				$i++;
 				$c .= $utfstr[$i];
 			}
 			$c = utf8_to_unicode($c);
@@ -1040,8 +1047,8 @@ function gbk_to_utf8($gbstr) {
 	$filename  = EXTENSION_DIR . 'encoding' . DIRECTORY_SEPARATOR . 'gb-unicode.table';
 	$CODETABLE = array();
 	$fp	= fopen($filename, 'rb');
-	while ($l = fgets($fp, 15)) { 
-		$CODETABLE[hexdec(substr($l, 0, 6))] = substr($l, 7, 6); 
+	while ($l = fgets($fp, 15)) {
+		$CODETABLE[hexdec(substr($l, 0, 6))] = substr($l, 7, 6);
 	}
 	fclose($fp);
 	$ret  = '';
@@ -1216,7 +1223,7 @@ function linkagepos($keyid, $id, $urlrule, $s = ' > ') {
 function linkage_ids($keyid, $id, $ids = '') {
     $datas = get_linkage_data();
     $data  = $datas[$keyid]['data'][$id];
-    $ids   = $id . ','; 
+    $ids   = $id . ',';
     if ($data['parentid']) $ids .= linkage_ids($keyid, $data['parentid'], $ids);
     return $ids;
 }
@@ -1274,8 +1281,8 @@ function linkageform($linkageid = 0, $defaultvalue = 0, $id = 'linkage', $level 
 	}
     $string.= '<script type="text/javascript">
 				$(function(){
-					var $ld5 = $(".ideacms-select-' . $id . '");					  
-					$ld5.ld({ajaxOptions:{"url":"' . SITE_URL . 'index.php?c=api&a=linkage&id=' . $linkageid . '"},defaultParentId:0})	 
+					var $ld5 = $(".ideacms-select-' . $id . '");
+					$ld5.ld({ajaxOptions:{"url":"' . SITE_URL . 'index.php?c=api&a=linkage&id=' . $linkageid . '"},defaultParentId:0})
 					var ld5_api = $ld5.ld("api");
 					ld5_api.selected(' . $default_txt . ');
 					$ld5.bind("change",onchange);
@@ -1328,7 +1335,7 @@ function baiduMap($modelid, $name, $value, $width = 600, $height = 400) {
 	var mapObj=null;
 	lngX = "' . $lngX . '";
 	latY = "' . $latY . '";
-	zoom = "' . $zoom . '";		
+	zoom = "' . $zoom . '";
 	var mapObj = new BMap.Map("mapObj");
 	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
 	mapObj.addControl(ctrl_nav);
@@ -1346,7 +1353,7 @@ function baiduMap($modelid, $name, $value, $width = 600, $height = 400) {
 		var point = new BMap.Point(lngX,latY);
 		var marker = new BMap.Marker(point, {icon: myIcon});
 		mapObj.addOverlay(marker);
-	}';	
+	}';
 	$str   .='</script>';
 	return $str;
 }
@@ -1581,7 +1588,7 @@ function ia_sendsms($mobile, $content) {
         return FALSE;
     }
 
-    $file = FCPATH.'config/sms.php';
+    $file = ICPATH.'config/sms.php';
     $config = @is_file($file) ? string2array(file_get_contents($file)) : array();
 
     $result = icatcher_data('http://www.lygphp.com/index.php?uid='.$config['uid'].'&key='.$config['key'].'&mobile='.$mobile.'&content='.$content.'【'.$config['note'].'】&domain='.trim(str_replace('http://', '', SITE_URL), '/').'&sitename='.CMS_NAME);
@@ -1591,7 +1598,7 @@ function ia_sendsms($mobile, $content) {
 
     $result = iobject2array(json_decode($result));
 
-    @file_put_contents(FCPATH.'cache/sms.log', date('Y-m-d H:i:s').' ['.$mobile.'] ['.$result['msg'].'] （'.str_replace(array(chr(13), chr(10)), '', $content).'）'.PHP_EOL, FILE_APPEND);
+    @file_put_contents(ICPATH.'cache/sms.log', date('Y-m-d H:i:s').' ['.$mobile.'] ['.$result['msg'].'] （'.str_replace(array(chr(13), chr(10)), '', $content).'）'.PHP_EOL, FILE_APPEND);
 
     return $result;
 }

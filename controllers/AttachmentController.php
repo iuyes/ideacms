@@ -244,8 +244,8 @@ class AttachmentController extends Common {
 	    $upload->set($_FILES[$fields])->set_limit_size(1024*1024*$size)->set_limit_type($type);
         //设置路径和名称
         $ext = $upload->fileext();
-		if (stripos($ext, 'php') !== FALSE) {
-			return array('result' => '文件格式被系统禁止');
+		if (stripos($ext, 'php') !== FALSE || stripos($ext, 'asp') !== FALSE || stripos($ext, 'aspx') !== FALSE) {
+			return array('result' => '非法文件');
 		}
         if (in_array($ext, array('jpg','jpeg','bmp','png','gif'))) {
             $dir = 'image';

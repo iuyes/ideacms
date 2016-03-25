@@ -17,7 +17,8 @@ class ApiController extends Common {
      */
     public function jsAction() {
         ob_start();
-        $this->view->display($this->get('file'));
+        $name = ia_get_file_name($this->get('file'));
+        $this->view->display($name);
         $html = ob_get_contents();
         ob_clean();
         $html = addslashes(str_replace(array("\r", "\n", "\t", chr(13)), array('', '', '', ''), $html));
